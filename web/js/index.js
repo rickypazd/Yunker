@@ -7,14 +7,21 @@
 
 var url = "admin/adminController";
 $(document).ready(function(){
- //   $.post(url,{evento:"get_dist_carrera",id:"91"},function(resp){
- //       alert(resp);
- //   });
+    //aki
+    //
+    //
+    //
+    //post({
+    //cojntenido del post;
+    //alert();
+    //});
+    //calc_dist();
 });
 
 function calc_dist(){
     var id = $("#id_car").val();
         $.post(url,{evento:"get_dist_carrera",id:id},function(resp){
-        alert(resp);
+                 alert(resp);
+                 $("#img").attr("src","img/loc/img.jpg");
          });
-}
+     }

@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 function get_roles() {
     $.post(url, {evento: "get_roles"}, function (resp) {
-        var json = JSON.parse(resp);
+        var json =$.parseJSON(resp);
         var html = "";
         $.each(json, function (i, obj) {
             html += "<li class='li_roles' onclick='ver_permisos(" + obj.ID + ",this);'>" + obj.NOMBRE + "</li>";

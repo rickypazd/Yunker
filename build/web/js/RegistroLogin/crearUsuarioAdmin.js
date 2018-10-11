@@ -82,7 +82,7 @@ function ok_crear() {
             pass: passmd5
         }, function (resp) {
             if(resp=="false"){
-                alert("Ocurrio un herror al registrar Usuario");
+                alert("Ocurrio un error al registrar Usuario");
             }else{
                  alert("Usuario registrado con exito");
             }
