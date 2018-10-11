@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>SIETE: Ver Perfil</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"/>
+        <link href="css/RRHH/rrhh.css" rel="stylesheet" type="text/css"/>
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
+        <script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/verifySession.js" type="text/javascript"></script>
+        <script src="js/RegistroLogin/Login.js" type="text/javascript"></script>
+        <script src="js/Vehiculo/VehiculoPerf.js" type="text/javascript"></script>
+        <script src="js/load.js" type="text/javascript"></script>
+
+
+    </head>
+    <body>
+        <h1>Perfil de Vehiculo</h1>
+        <a href="index.html" class="btn btn-outline-danger">Volver</a>
+        <div class="container">  
+            <ul class="list-unstyled list-group">
+                <li class="list-group-item">
+                    <span>ACCIONES: </span>
+                    <a href="editarVehiculo.html" id="editar_vehiculo" class="btn btn-outline-primary" data-permiso="Editar_Vehiculo">Editar Vehiculo</a>
+                    <a href="#" id="ver_fotos" class="btn btn-outline-primary" data-permiso="Ver_Fotos_Vehiculo">Fotos</a>
+                </li>
+                
+            </ul>
+            <div class="d-flex justify-content-center" style="margin-top: 30px;">
+                <div class="col-4 ">
+                    <img src="img/auto-sin-foto.png" class="img-fluid rounded" id="foto_perfil" alt=""/>
+                </div>
+            </div>
+            <div style="margin-top: 30px;"> 
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td><h4>PLACA:</h4></td>
+                                <td><h4 id="v_placa">N/A</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>MARCA:</h4></td>
+                                <td><h4 id="v_marca">N/A</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>TIPO:</h4></td>
+                                <td><h4 id="v_modelo">N/A</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>MODELO:</h4></td>
+                                <td><h4 id="v_ano">N/A</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>COLOR:</h4></td>
+                                <td><h4 id="v_color">N/A</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>NUMERO DE PUERTAS:</h4></td>
+                                <td><h4 id="v_puertas">N/A</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>NUMERO DE CHASIS:</h4></td>
+                                <td><h4 id="v_chasis">N/A</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>MOTOR:</h4></td>
+                                <td><h4 id="v_motor">N/A</h4></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>	
+            </div>
+
+        </div>
+    </body>
+</html>

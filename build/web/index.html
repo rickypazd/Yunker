@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Servisis</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
+        <script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/verifySession.js" type="text/javascript"></script>
+          <script src="js/index.js" type="text/javascript"></script>
+      
+          <script src="js/verifySession.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#" style="width: 100%;">
+                <div class="row">
+                    <div class="col-10 ">
+                     <Button type="button" class="btn btn-outline-danger " onclick="cerrarSesion();">Cerrar Sesión</button>
+                </div>
+                <div class="col-2">
+                    <img src="img/logoservisis.png" width="100%" class="align-content-end" alt="img"/>
+                </div>
+                </div>
+                
+               
+              
+            </a>
+        </nav>
+        <div class="container" >
+            <div class="col-3 ">
+                
+            </div>
+
+            <ul class="list-unstyled list-group">
+                <li class="list-group-item">
+                    <span>Configuracion Global: </span>
+                    <a href="rolesypermisos.html" class="btn btn-outline-primary" data-permiso="Editar_Roles_permisos">Roles Y permisos</a>
+                   
+                </li>
+                <li class="list-group-item">
+                    <span>RRHH: </span>
+                    <a href="crearUsuarioAdmin.html" class="btn btn-outline-secondary" data-permiso="Usuario_Administrador_Crear">Crear Administrador</a>
+                </li>
+               
+            </ul>
+
+        </div>
+
+            
+    </body>
+</html>
