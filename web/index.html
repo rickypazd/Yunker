@@ -15,22 +15,15 @@ and open the template in the editor.
         <link href="plugin/templateAdmin/css/main.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>
-        <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="plugin/templateAdmin/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="js/verifySession.js" type="text/javascript"></script>
-        <script src="plugin/templateAdmin/js/main.js" type="text/javascript"></script>
-        <script src="plugin/templateAdmin/js/popper.min.js" type="text/javascript"></script>
-        <script src="plugin/templateAdmin/js/pace.min.js" type="text/javascript"></script>
-        <script src="plugin/templateAdmin/js/chart.js" type="text/javascript"></script>
-        <script src="js/index.js" type="text/javascript"></script>
-        <script src="js/load.js" type="text/javascript"></script>
+
 
     </head>
     <body class="app sidebar-mini rtl">
-        <header class="app-header"><a class="app-header__logo" href="index.html">Vali</a>
-            <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+        <header class="app-header">
+            <a class="app-header__logo" href="#">Servisis</a>
+            <!-- Sidebar toggle button-->
+            <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
             <!-- Navbar Right Menu-->
             <ul class="app-nav">
                 <li class="app-search">
@@ -90,52 +83,41 @@ and open the template in the editor.
         </header>
 
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-        <aside class="app-sidebar">
+        <nav class="app-sidebar">
             <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
                 <div>
-                    <p class="app-sidebar__user-name">John Doe</p>
-                    <p class="app-sidebar__user-designation">Frontend Developer</p>
+                    <p class="app-sidebar__user-name">Nombre</p>
+                    <p class="app-sidebar__user-designation">Cargo</p>
                 </div>
             </div>
-            <ul class="app-menu">
-                <li><a class="app-menu__item active" href="index.html"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">UI Elements</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="app-menu">                
+                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Producto</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i> Bootstrap Elements</a></li>
-                        <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Font Icons</a></li>
-                        <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Cards</a></li>
-                        <li><a class="treeview-item" href="widgets.html"><i class="icon fa fa-circle-o"></i> Widgets</a></li>
+                        <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i>Inventario</a></li>
+                        <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Catalogo</a></li>
+                        <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Almacen</a></li>                      
+                    </ul>
+                </li>               
+                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Ventas</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> Historial</a></li>
+                        <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> Reportes</a></li>                                                
                     </ul>
                 </li>
-                <li><a class="app-menu__item" href="charts.html"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Charts</span></a></li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Forms</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Compras</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> Form Components</a></li>
-                        <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> Custom Components</a></li>
-                        <li><a class="treeview-item" href="form-samples.html"><i class="icon fa fa-circle-o"></i> Form Samples</a></li>
-                        <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> Form Notifications</a></li>
+                        <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Historial</a></li>
+                        <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Proveedor</a></li>
                     </ul>
                 </li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Tables</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">RRHH</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Basic Tables</a></li>
-                        <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Data Tables</a></li>
-                    </ul>
-                </li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Pages</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="blank-page.html"><i class="icon fa fa-circle-o"></i> Blank Page</a></li>
-                        <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Login Page</a></li>
-                        <li><a class="treeview-item" href="page-lockscreen.html"><i class="icon fa fa-circle-o"></i> Lockscreen Page</a></li>
-                        <li><a class="treeview-item" href="page-user.html"><i class="icon fa fa-circle-o"></i> User Page</a></li>
-                        <li><a class="treeview-item" href="page-invoice.html"><i class="icon fa fa-circle-o"></i> Invoice Page</a></li>
-                        <li><a class="treeview-item" href="page-calendar.html"><i class="icon fa fa-circle-o"></i> Calendar Page</a></li>
-                        <li><a class="treeview-item" href="page-mailbox.html"><i class="icon fa fa-circle-o"></i> Mailbox</a></li>
-                        <li><a class="treeview-item" href="page-error.html"><i class="icon fa fa-circle-o"></i> Error Page</a></li>
-                    </ul>
+                        <li><a class="treeview-item" href="blank-page.html"><i class="icon fa fa-circle-o"></i> CLiente</a></li>
+                        <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Personal</a></li>
+                        <li><a class="treeview-item" href="page-lockscreen.html"><i class="icon fa fa-circle-o"></i> Repostes</a></li>   
                 </li>
             </ul>
-        </aside>
+        </nav>
 
         <main class="app-content">           
             <nav class="navbar navbar-light bg-light">
@@ -169,22 +151,31 @@ and open the template in the editor.
             </nav>
         </main>
 
+        <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="plugin/templateAdmin/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>   
+        <script src="plugin/templateAdmin/js/popper.min.js" type="text/javascript"></script>
+        <script src="plugin/templateAdmin/js/pace.min.js" type="text/javascript"></script>
+        <script src="plugin/templateAdmin/js/chart.js" type="text/javascript"></script>
+        <script src="js/index.js" type="text/javascript"></script>
+        <script src="js/load.js" type="text/javascript"></script>
+        <script src="plugin/templateAdmin/js/main.js" type="text/javascript"></script>
         <script type="text/javascript">
-            if (document.location.hostname == 'pratikborsadiya.in') {
-                (function (i, s, o, g, r, a, m) {
-                    i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
-                    a = s.createElement(o),
-                            m = s.getElementsByTagName(o)[0];
-                    a.async = 1;
-                    a.src = g;
-                    m.parentNode.insertBefore(a, m)
-                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-                ga('create', 'UA-72504830-1', 'auto');
-                ga('send', 'pageview');
-            }
+                                    if (document.location.hostname == 'pratikborsadiya.in') {
+                                        (function (i, s, o, g, r, a, m) {
+                                            i['GoogleAnalyticsObject'] = r;
+                                            i[r] = i[r] || function () {
+                                                (i[r].q = i[r].q || []).push(arguments)
+                                            }, i[r].l = 1 * new Date();
+                                            a = s.createElement(o),
+                                                    m = s.getElementsByTagName(o)[0];
+                                            a.async = 1;
+                                            a.src = g;
+                                            m.parentNode.insertBefore(a, m)
+                                        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                                        ga('create', 'UA-72504830-1', 'auto');
+                                        ga('send', 'pageview');
+                                    }
         </script>
     </body>
 </html>
