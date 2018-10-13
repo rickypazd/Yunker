@@ -107,16 +107,19 @@ and open the template in the editor.
                         <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Proveedor</a></li>
                     </ul>
                 </li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">RRHH</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                <li class="treeview">
+                    <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">RRHH</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
                         <li><a class="treeview-item" href="blank-page.html"><i class="icon fa fa-circle-o"></i> CLiente</a></li>
                         <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Personal</a></li>
                         <li><a class="treeview-item" href="page-lockscreen.html"><i class="icon fa fa-circle-o"></i> Repostes</a></li>   
+
+                    </ul>
                 </li>
-            </ul>
         </nav>
 
         <main class="app-content">           
+<<<<<<< HEAD
             <div class="row">
 
                 <div class="container" >
@@ -129,6 +132,14 @@ and open the template in the editor.
                                     <p class="card-text btn_modulo_p_icon" ><i class=" fa fa-address-book fa-3x btn_modulo_icon"> </i></p>
                                 </div>
                                 <div class="card-footer btn_modulo_footer">Roles y permisos.</div>                                       
+=======
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="#" style="width: 100%;">
+                    <div class="row">
+                       
+                            <div class="col-10 ">
+                                <Button type="button" class="btn btn-outline-danger " onclick="cerrarSesion();">Cerrar Sesión</button>
+>>>>>>> 375a8b95b842361522fd04bf1d706defd1ba85a7
                             </div>
                             <div class="card bg-light col-md-3 col-lg-3 btn_modulo" data-permiso="Usuario_Administrador_Crear" onclick="ver_pagina('crearUsuarioAdmin.html');">
                                 <div class="card-body" >                                            
@@ -136,6 +147,7 @@ and open the template in the editor.
                                 </div>
                                 <div class="card-footer btn_modulo_footer">Crear usuario.</div>                                       
                             </div>
+<<<<<<< HEAD
 
                             <div class="card bg-light col-md-3 col-lg-3 btn_modulo" data-permiso="Usuario_Administrador_Crear" onclick="ver_pagina('articulo.html');">
                                 <div class="card-body" >                                            
@@ -156,6 +168,26 @@ and open the template in the editor.
                                 <div class="card-footer btn_modulo_footer" >Ventas</div>                                       
                             </div>
 
+=======
+                        
+                        <div class="container" >
+                            <div class="col-3 ">
+                            </div>
+                            <ul class="list-unstyled list-group">
+                                <li class="list-group-item">
+                                    <span>Configuracion Global: </span>
+                                    <a href="rolesypermisos.html" class="btn btn-outline-primary" data-permiso="Editar_Roles_permisos">Roles Y permisos</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <span>RRHH: </span>
+                                    <a href="crearUsuarioAdmin.html" class="btn btn-outline-secondary" data-permiso="Usuario_Administrador_Crear">Crear Administrador</a>
+                                </li>
+                                <div>
+                                    
+                                    
+                                </div>
+                            </ul>
+>>>>>>> 375a8b95b842361522fd04bf1d706defd1ba85a7
                         </div>
                     </div>
                 </div>
