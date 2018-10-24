@@ -83,3 +83,13 @@ html, body {
     top: 50%;
     margin: 0 auto;
 }
+
+//------Style compra -------
+.contenedor {
+    padding-top: 15px !important;
+}
+
+.div-from {
+    margin-bottom: 0.5rem !important;
+    background:  #007bff;
+}
