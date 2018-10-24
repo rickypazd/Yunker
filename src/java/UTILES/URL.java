@@ -37,6 +37,7 @@ public class URL {
     //LINUX PRUEVA
     
     public static final String ruta_archibo_docu="/home/Yunker/ArchibosYunker";     
+    public static final String TokenAcceso="servi12sis3";
     public static final String db_name="Yunker";
     public static final String db_usr="postgres";
     public static final String db_pass="Poloclub78";

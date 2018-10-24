@@ -32,7 +32,7 @@ function ok_login() {
     }
     var passmd5 = md5(pass);
     mostrar_progress();
-    $.post(url, {evento: "login", usuario: usuario, pass: passmd5}, function (resp) {
+    $.post(url, {TokenAcceso:"servi12sis3",evento: "login", usuario: usuario, pass: passmd5}, function (resp) {
         cerrar_progress();
         if (resp != null) {
             var obj = $.parseJSON(resp);
