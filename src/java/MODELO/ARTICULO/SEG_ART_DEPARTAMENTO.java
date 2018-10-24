@@ -21,7 +21,7 @@ public class SEG_ART_DEPARTAMENTO {
     private String NOMBRE;
     private int ESTADO;
     private Conexion con = null;
-    private String TBL = "seg_articulo_departamento";
+    private String TBL = "seg_art_departamento";
 
     public SEG_ART_DEPARTAMENTO(Conexion con) {
         this.con = con;
@@ -35,7 +35,7 @@ public class SEG_ART_DEPARTAMENTO {
 
     public int Insertar() throws SQLException {
         String consulta = "INSERT INTO public." + TBL + "(\n"
-                + "	id_art_categoria,nombre,estado)\n"
+                + "	id_art_departamento,nombre,estado)\n"
                 + "	VALUES (?, ?, ?);";
         PreparedStatement ps = con.statamet(consulta);
 

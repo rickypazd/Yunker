@@ -357,7 +357,7 @@ public class adminController extends HttpServlet {
             seg_modificaciones.setID_USR(id_usr);
             seg_modificaciones.setTBL_NOMBRE("art_departamento");
             seg_modificaciones.setTBL_ID(id);
-            seg_modificaciones.setMENSAJE("Se inserto la un nueva marca de articulo.");
+            seg_modificaciones.setMENSAJE("Se inserto la un nuevo departamento de articulo.");
             //TODO: insertar ip
             seg_modificaciones.setIP("192.168.0.0");
             seg_modificaciones.setTIPO(1);

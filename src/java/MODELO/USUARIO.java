@@ -184,6 +184,7 @@ public class USUARIO {
         if (rs.next()) {
             obj = parseJson(rs);
               obj.put("nombrerol", rs.getString("nombrerol") != null ? rs.getString("nombrerol") : "");
+               obj.put("exito", "si");
         } else {
             obj.put("exito", "no");
         }

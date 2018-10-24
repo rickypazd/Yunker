@@ -36,10 +36,9 @@ public class SEG_MODIFICACIONES {
 
     public int Insertar() throws SQLException {
         String consulta = "INSERT INTO public." + TBL + "(\n"
-                + "﻿	id_usr, tbl_nombre, tbl_id, mensaje, fecha, ip, tipo)\n"
-                + "	VALUES (?, ?, ?, ?, ?, ?, ?);";
+                + "id_usr, tbl_nombre, tbl_id, mensaje, fecha, ip, tipo)\n"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = con.statamet(consulta);
-
         ps.setInt(1, getID_USR());
         ps.setString(2, getTBL_NOMBRE());
         ps.setInt(3, getTBL_ID());
@@ -48,16 +47,16 @@ public class SEG_MODIFICACIONES {
         ps.setString(6, getIP());
         ps.setInt(7, getTIPO());
         ps.execute();
-        consulta = "select last_value from Seg_Modificaciones_id_seq";
-        ps = con.statamet(consulta);
-        ResultSet rs = ps.executeQuery();
-        int id = 0;
-        if (rs.next()) {
-            id = rs.getInt("last_value");
-        }
-        rs.close();
+//        consulta = "select last_value from seg_modificaciones_id_seq";
+//        ps = con.statamet(consulta);
+//        ResultSet rs = ps.executeQuery();
+//        int id = 0;
+//        if (rs.next()) {
+//            id = rs.getInt("last_value");
+//        }
+//        rs.close();
         ps.close();
-        return id;
+        return 0;
     }
 
     public JSONObject getByid(int id) throws SQLException, JSONException {
@@ -99,9 +98,13 @@ public class SEG_MODIFICACIONES {
     private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
         parseObj = new JSONObject();
         parseObj.put("id", rs.getInt("id"));
-        parseObj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-        parseObj.put("id_art_marca", rs.getInt("id_art_marca"));
-        parseObj.put("estado", rs.getInt("estado"));
+        parseObj.put("id_usr", rs.getInt("id_usr"));
+        parseObj.put("tbl_nombre", rs.getString("tbl_nombre") != null ? rs.getString("tbl_nombre") : "");
+        parseObj.put("tbl_id", rs.getInt("tbl_id"));
+        parseObj.put("mensaje", rs.getString("mensaje") != null ? rs.getString("mensaje") : "");
+        parseObj.put("fecha", rs.getString("fecha") != null ? rs.getString("fecha") : "");
+        parseObj.put("ip", rs.getString("ip") != null ? rs.getString("ip") : "");
+        parseObj.put("tipo", rs.getInt("tipo"));
         return parseObj;
     }
 
@@ -127,7 +130,7 @@ public class SEG_MODIFICACIONES {
                 return "Modifico";
             case 3:
                 return "Elimino";
-     
+
         }
         return "";
     }

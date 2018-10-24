@@ -31,7 +31,7 @@ function registrar_departamento() {
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_art_departamento", TokenAcceso : TokenAcceso , id_usr : usr_log ,
+        $.post(url, {evento: "registrar_art_departamento", TokenAcceso : TokenAcceso , id_usr : usr_log.id ,
             nombre: nombre}, function (respuesta) {
            cerrar_progress();
            if(respuesta!=null){
@@ -62,7 +62,7 @@ function registrar_categoria(){
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_categoria", TokenAcceso : TokenAcceso , id_usr : usr_log ,
+        $.post(url, {evento: "registrar_categoria", TokenAcceso : TokenAcceso , id_usr : usr_log.id ,
             nombre: nombre}, function (respuesta) {
            cerrar_progress();
            if(respuesta!=null){
@@ -93,7 +93,7 @@ function registrar_marca() {
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_marca", TokenAcceso : TokenAcceso , id_usr : usr_log ,
+        $.post(url, {evento: "registrar_marca", TokenAcceso : TokenAcceso , id_usr : usr_log.id ,
             nombre: nombre}, function (respuesta) {
            cerrar_progress();
            if(respuesta != null){
@@ -135,7 +135,7 @@ function registrar_articulo() {
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_articulo",  TokenAcceso : TokenAcceso , id_usr : usr_log ,
+        $.post(url, {evento: "registrar_articulo",  TokenAcceso : TokenAcceso , id_usr : usr_log.id ,
         clave : clave , nombre: nombre , descripcion: descripcion,
         departamento:departamento,categoria:categoria,marca:marca , unidad_compra : unidad_compra , 
         unidad_venta : unidad_venta , factor : factor , precio_compra_red :precio_compra_ref ,
