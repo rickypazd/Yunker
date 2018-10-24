@@ -41,6 +41,45 @@ html, body {
     margin-top: 3%;
 }
 .separador{
-        margin: 10px;
+    margin: 10px;
     border-bottom: 7px solid;
+}
+
+.btn_modulo:hover{
+    cursor:pointer;   
+}
+
+.btn_modulo{
+    width: 100%; 
+    padding: 0px;
+    margin: 10px !important;
+    background-color: #f8f9fa !important; 
+}
+
+.btn_modulo_p_icon{
+    width: 100% !important; 
+    text-align: center;         
+    
+}
+.btn_modulo_icon{
+    background-color: #f8f9fa !important; 
+    color: #007bff !important;
+}
+.btn_modulo_footer{
+    text-align: center;
+    background-color: #66ff5588;
+    width: 100%;
+}
+
+// Articulo Style
+.input_hover:hover{
+    cursor:pointer !important;   
+}
+
+#myModal .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 50%;
+    margin: 0 auto;
 }

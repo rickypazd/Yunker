@@ -43,3 +43,7 @@ function cerrarSesion() {
         window.location.href = "Login.html";
     }
 }
+
+function ver_pagina(pag){
+    window.location.href=pag;
+}
