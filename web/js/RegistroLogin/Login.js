@@ -9,8 +9,8 @@ var url = "admin/adminController";
 $(document).ready(function () {
 
 });
-$(document).keypress(function(e) {
-    if(e.which == 13) {
+$(document).keypress(function (e) {
+    if (e.which == 13) {
         ok_login();
     }
 });
@@ -34,17 +34,14 @@ function ok_login() {
     mostrar_progress();
     $.post(url, {evento: "login", usuario: usuario, pass: passmd5}, function (resp) {
         cerrar_progress();
-        if (resp == "falso") {
-            alert("Ocurrio un error inesperado al verificar el usuario");
-        } else {
-            var json = $.parseJSON(resp);
-            if (json.exito == "no") {
-                alert("no se encontro el usuario");
-            } else if (json.exito == "si") {
-                sessionStorage.setItem("usr_log", resp);
-                window.location.href = "index.html";
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+            if (obj.estado != "1") {
+                alert(obj.mensaje);
+            } else {
+                    sessionStorage.setItem("usr_log", obj.resp);
+                    window.location.href = "index.html";
             }
         }
-
     });
 }
