@@ -1,6 +1,6 @@
     package Conexion;
 
-import MODELO.URL;
+import UTILES.URL;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;

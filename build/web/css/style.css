@@ -70,7 +70,10 @@ html, body {
     background-color: #66ff5588;
     width: 100%;
 }
-
+.usr_foto_perfil{
+    margin: 0px !important;
+    padding: 0px !important;
+}
 // Articulo Style
 .input_hover:hover{
     cursor:pointer !important;   
@@ -84,6 +87,7 @@ html, body {
     margin: 0 auto;
 }
 
+<<<<<<< HEAD
 //------Style compra -------
 .contenedor {
     padding-top: 15px !important;
@@ -93,3 +97,5 @@ html, body {
     margin-bottom: 0.5rem !important;
     background:  #007bff;
 }
+=======
+>>>>>>> 3f4f06931b7964efbd5891973a4c34c02664ec71

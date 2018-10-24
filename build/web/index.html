@@ -81,10 +81,13 @@ and open the template in the editor.
         </header>
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
         <nav class="app-sidebar">
-            <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
-                <div>
-                    <p class="app-sidebar__user-name">Nombre</p>
-                    <p class="app-sidebar__user-designation">Cargo</p>
+            <div class="app-sidebar__user" style="display: block; text-align: center;">
+                <div class="col-12">
+                    <img class="app-sidebar__user-avatar usr_foto_perfil" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+                </div>
+                <div >
+                    <p class="app-sidebar__user-name usr_nombre">Nombre</p>
+                    <p class="app-sidebar__user-designation usr_nombre_rol">Cargo</p>
                 </div>
             </div>
             <ul class="app-menu">                
@@ -123,7 +126,7 @@ and open the template in the editor.
                 <div class="col-10 ">
                     <Button type="button" class="btn btn-outline-danger " onclick="cerrarSesion();">Cerrar Sesión</button>
                 </div>
-                <div class="card bg-light col-md-3 col-lg-3 btn_modulo" data-permiso="Editar_Roles_permisos" onclick="ver_pagina('rolesypermisos.html');">
+                <div class="card bg-light col-md-3 col-lg-3 btn_modulo" data-permiso="Editar roles y permisos." onclick="ver_pagina('rolesypermisos.html');">
                     <div class="card-body" >                                            
                         <p class="card-text btn_modulo_p_icon" ><i class=" fa fa-address-book fa-3x btn_modulo_icon"> </i></p>
                     </div>

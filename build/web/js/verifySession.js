@@ -13,6 +13,7 @@ $(document).ready(function () {
         var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
         var permisos = usr_log.permisos;
         var dataurl = $("body").data("permisourl");
+        if (permisos != null) {
         if (dataurl != null) {
             if (contiene(permisos, dataurl) === false) {
                 alert("Usted no cuenta con permisos para ingresar a esta pagina, favor de contactarse con el administrador");
@@ -20,14 +21,24 @@ $(document).ready(function () {
             }
 
         }
-        $.each(arr, function (i, obj) {
-            var permisodata = $(obj).data("permiso");
-            if (contiene(permisos, permisodata) === false) {
-                $(obj).remove();
-            }
-        });
+        
+            $.each(arr, function (i, obj) {
+                var permisodata = $(obj).data("permiso");
+                if (contiene(permisos, permisodata) === false) {
+                    $(obj).remove();
+                }
+            });
+        }
+
+        cargar_usr(usr_log);
     }
 });
+
+function cargar_usr(usr_log) {
+//    $(".usr_foto_perfil").attr("src", usr_log.foto_perfil);
+    $(".usr_nombre").html( usr_log.nombre);
+    $(".usr_nombre_rol").html( usr_log.nombrerol);
+}
 function contiene(arr, val) {
     var bol = false;
     $.each(arr, function (i, obj) {
@@ -44,6 +55,6 @@ function cerrarSesion() {
     }
 }
 
-function ver_pagina(pag){
-    window.location.href=pag;
+function ver_pagina(pag) {
+    window.location.href = pag;
 }

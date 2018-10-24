@@ -9,11 +9,11 @@ import Conexion.Conexion;
 import Firebasse.DataToSend;
 import Firebasse.Notificador;
 import MODELO.PERMISO;
-import MODELO.POSICION_VEHICULO;
+
 import MODELO.ROL;
 import MODELO.ROL_TO_PERMISO;
-import MODELO.URL;
-import MODELO.VEHICULO;
+import UTILES.URL;
+
 import java.io.*;
 
 import java.nio.file.*;
@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +57,6 @@ public class rolesController extends HttpServlet {
             throws ServletException, IOException {
         try {
             Conexion con = new Conexion(URL.db_usr, URL.db_pass); //conexion linux
-
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
             response.setContentType("text/plain");

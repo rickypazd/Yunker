@@ -20,11 +20,13 @@ public class USUARIO {
     private String NOMBRE;
     private String APELLIDO_PA;
     private String APELLIDO_MA;
+    private String CI;
     private String USUARIO;
     private String CONTRASENHA;
     private String SEXO;
     private String CORREO;
     private String TELEFONO;
+    private String DIRECCION;
     private String ID_FACE;
     private Date FECHA_NAC;
     private int ID_ROL;
@@ -63,6 +65,7 @@ public class USUARIO {
         ps.close();
         return id;
     }
+
     public int Insertar() throws SQLException {
         String consulta = "INSERT INTO public.usuario(\n"
                 + "nombre, apellido_pa, apellido_ma, usuario, contrasenha, id_rol, correo, sexo, telefono, fecha_nac)\n"
@@ -91,6 +94,7 @@ public class USUARIO {
         ps.close();
         return id;
     }
+
     public int Insertar_face() throws SQLException {
         String consulta = "INSERT INTO public.usuario(\n"
                 + "nombre, apellido_pa,id_rol, correo, sexo, telefono,id_face)\n"
@@ -126,6 +130,7 @@ public class USUARIO {
         ps.close();
         return row;
     }
+
     public int editar_usuario() throws SQLException {
         String consulta = "UPDATE public.usuario\n"
                 + "	SET nombre=?, apellido_pa=?, apellido_ma=?, telefono=?, correo=?\n"
@@ -140,6 +145,7 @@ public class USUARIO {
         ps.close();
         return row;
     }
+
     public int cambiar_pass() throws SQLException {
         String consulta = "UPDATE public.usuario\n"
                 + "	SET contrasenha=?\n"
@@ -156,16 +162,17 @@ public class USUARIO {
         PreparedStatement ps = con.statamet(consulta);
         ps.setString(1, usr);
         ResultSet rs = ps.executeQuery();
-      boolean exist=false;
+        boolean exist = false;
         if (rs.next()) {
-            exist=true;
-        } 
+            exist = true;
+        }
         ps.close();
         rs.close();
         return exist;
     }
+
     public JSONObject get_por_usr_y_pass(String usr, String pass) throws SQLException, JSONException {
-        String consulta = "select us.id, us.nombre,us.apellido_pa,us.apellido_ma,us.usuario,us.correo,us.sexo,us.fecha_nac,us.id_rol,us.creditos, ro.nombre as nombrerol \n"
+        String consulta = "select us.*, ro.nombre as nombrerol \n"
                 + "from usuario us, rol ro\n"
                 + "where us.usuario=? and us.contrasenha=? \n"
                 + "and us.id_rol=ro.id";
@@ -175,43 +182,8 @@ public class USUARIO {
         ResultSet rs = ps.executeQuery();
         JSONObject obj = new JSONObject();
         if (rs.next()) {
-            obj.put("id", rs.getInt("id"));
-            obj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-            obj.put("apellido_pa", rs.getString("apellido_pa") != null ? rs.getString("apellido_pa") : "");
-            obj.put("apellido_ma", rs.getString("apellido_ma") != null ? rs.getString("apellido_ma") : "");
-            obj.put("usuario", rs.getString("usuario"));
-            obj.put("id_rol", rs.getInt("id_rol"));
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("sexo", rs.getString("sexo") != null ? rs.getString("sexo") : "");
-            obj.put("fecha_nac", rs.getString("fecha_nac") != null ? rs.getString("fecha_nac") : "");
-            obj.put("nombrerol", rs.getString("nombrerol"));
-            obj.put("creditos", rs.getDouble("creditos"));
-            obj.put("exito", "si");
-
-        } else {
-            obj.put("exito", "no");
-        }
-        ps.close();
-        rs.close();
-        return obj;
-    }
-    public JSONObject get_usr_correo_x_id(int id) throws SQLException, JSONException {
-        String consulta = "select us.id, us.nombre,us.apellido_pa,us.apellido_ma,us.usuario,us.correo,us.sexo,us.fecha_nac,us.id_rol,us.creditos\n"
-                + "from usuario us\n"
-                + "where us.id=?";
-        PreparedStatement ps = con.statamet(consulta);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-        JSONObject obj = new JSONObject();
-        if (rs.next()) {
-            obj.put("id", rs.getInt("id"));
-            obj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-            obj.put("apellido_pa", rs.getString("apellido_pa") != null ? rs.getString("apellido_pa") : "");
-            obj.put("apellido_ma", rs.getString("apellido_ma") != null ? rs.getString("apellido_ma") : "");
-            obj.put("usuario", rs.getString("usuario"));
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("exito", "si");
-
+            obj = parseJson(rs);
+              obj.put("nombrerol", rs.getString("nombrerol") != null ? rs.getString("nombrerol") : "");
         } else {
             obj.put("exito", "no");
         }
@@ -220,155 +192,6 @@ public class USUARIO {
         return obj;
     }
 
-    public double get_creditos_id(int id) throws SQLException, JSONException {
-        String consulta = "select creditos from usuario where id="+id;
-        PreparedStatement ps = con.statamet(consulta);
-        ResultSet rs = ps.executeQuery();
-        JSONObject obj = new JSONObject();
-        double creditos=0;
-        if (rs.next()) {
-            creditos=rs.getDouble("creditos");
-        }
-        ps.close();
-        rs.close();
-        return creditos;
-    }
-
-    public JSONObject get_usuario_id_sp(int id) throws SQLException, JSONException {
-        String consulta = "select us.*, ro.nombre as nombrerol \n"
-                + "from usuario us, rol ro\n"
-                + "where us.id=? \n"
-                + "and us.id_rol=ro.id";
-        PreparedStatement ps = con.statamet(consulta);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-        JSONObject obj = new JSONObject();
-        if (rs.next()) {
-            obj.put("id", rs.getInt("id"));
-            obj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-            obj.put("apellido_pa", rs.getString("apellido_pa") != null ? rs.getString("apellido_pa") : "");
-            obj.put("apellido_ma", rs.getString("apellido_ma") != null ? rs.getString("apellido_ma") : "");
-            obj.put("usuario", rs.getString("usuario"));
-            obj.put("id_rol", rs.getInt("id_rol"));
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("telefono", rs.getString("telefono") != null ? rs.getString("telefono") : "");
-            obj.put("sexo", rs.getString("sexo") != null ? rs.getString("sexo") : "");
-            obj.put("fecha_nac", rs.getString("fecha_nac") != null ? rs.getString("fecha_nac") : "");
-            obj.put("nombrerol", rs.getString("nombrerol"));
-            obj.put("ci", rs.getString("ci"));
-            obj.put("foto_perfil", rs.getString("foto_perfil"));
-            obj.put("creditos", rs.getDouble("creditos"));
-            obj.put("ciudad", rs.getString("ciudad"));
-            obj.put("numero_licencia", rs.getString("numero_licencia"));
-            obj.put("categoria_licencia", rs.getString("categoria_licencia"));
-            obj.put("exito", "si");
-        } else {
-            obj.put("exito", "no");
-        }
-        ps.close();
-        rs.close();
-        return obj;
-    }
-
-    public JSONObject getConductor_por_usr_y_pass(String usr, String pass) throws SQLException, JSONException {
-        String consulta = "select us.*, ro.nombre as nombrerol \n"
-                + "from usuario us, rol ro\n"
-                + "where us.usuario=? and us.contrasenha=? \n"
-                + "and ro.id=2 and us.id_rol=ro.id";
-        PreparedStatement ps = con.statamet(consulta);
-        ps.setString(1, usr);
-        ps.setString(2, pass);
-        ResultSet rs = ps.executeQuery();
-        JSONObject obj = new JSONObject();
-        if (rs.next()) {
-            obj.put("id", rs.getInt("id"));
-            obj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-            obj.put("apellido_pa", rs.getString("apellido_pa") != null ? rs.getString("apellido_pa") : "");
-            obj.put("apellido_ma", rs.getString("apellido_ma") != null ? rs.getString("apellido_ma") : "");
-            obj.put("usuario", rs.getString("usuario"));
-            obj.put("id_rol", rs.getInt("id_rol"));
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("sexo", rs.getString("sexo") != null ? rs.getString("sexo") : "");
-            obj.put("fecha_nac", rs.getString("fecha_nac") != null ? rs.getString("fecha_nac") : "");
-            obj.put("nombrerol", rs.getString("nombrerol"));
-            obj.put("creditos", rs.getDouble("creditos"));
-            obj.put("telefono", rs.getString("telefono") != null ? rs.getString("telefono") : "");
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("exito", "si");
-        } else {
-            obj.put("exito", "no");
-        }
-        ps.close();
-        rs.close();
-        return obj;
-    }
-
-    public JSONObject getCliente_por_usr_y_pass(String usr, String pass) throws SQLException, JSONException {
-        String consulta = "select us.*, ro.nombre as nombrerol \n"
-                + "from usuario us, rol ro\n"
-                + "where us.usuario=? and us.contrasenha=? \n"
-                + "and ro.id=4 and us.id_rol=ro.id";
-        PreparedStatement ps = con.statamet(consulta);
-        ps.setString(1, usr);
-        ps.setString(2, pass);
-        ResultSet rs = ps.executeQuery();
-        JSONObject obj = new JSONObject();
-        if (rs.next()) {
-            obj.put("id", rs.getInt("id"));
-            obj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-            obj.put("apellido_pa", rs.getString("apellido_pa") != null ? rs.getString("apellido_pa") : "");
-            obj.put("apellido_ma", rs.getString("apellido_ma") != null ? rs.getString("apellido_ma") : "");
-            obj.put("usuario", rs.getString("usuario"));
-            obj.put("id_rol", rs.getInt("id_rol"));
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("sexo", rs.getString("sexo") != null ? rs.getString("sexo") : "");
-            obj.put("fecha_nac", rs.getString("fecha_nac") != null ? rs.getString("fecha_nac") : "");
-            obj.put("telefono", rs.getString("telefono") != null ? rs.getString("telefono") : "");
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("nombrerol", rs.getString("nombrerol"));
-            obj.put("creditos", rs.getDouble("creditos"));
-            obj.put("exito", "si");
-        } else {
-            obj.put("id", 32);
-            obj.put("nombre", "nicolino");
-            obj.put("apellido_pa", "loche");
-            obj.put("exito", "no");
-        }
-        ps.close();
-        rs.close();
-        return obj;
-    }
-    public JSONObject getClienteFace(String id) throws SQLException, JSONException {
-        String consulta = "select us.*, ro.nombre as nombrerol \n"
-                + "from usuario us, rol ro\n"
-                + "where us.id_face=?\n"
-                + "and ro.id=4 and us.id_rol=ro.id";
-        PreparedStatement ps = con.statamet(consulta);
-        ps.setString(1, id);
-        ResultSet rs = ps.executeQuery();
-        JSONObject obj = new JSONObject();
-        if (rs.next()) {
-            obj.put("id", rs.getInt("id"));
-            obj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-            obj.put("apellido_pa", rs.getString("apellido_pa") != null ? rs.getString("apellido_pa") : "");
-            obj.put("apellido_ma", rs.getString("apellido_ma") != null ? rs.getString("apellido_ma") : "");
-            obj.put("usuario", rs.getString("usuario"));
-            obj.put("id_rol", rs.getInt("id_rol"));
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("sexo", rs.getString("sexo") != null ? rs.getString("sexo") : "");
-            obj.put("fecha_nac", rs.getString("fecha_nac") != null ? rs.getString("fecha_nac") : "");
-            obj.put("telefono", rs.getString("telefono") != null ? rs.getString("telefono") : "");
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("nombrerol", rs.getString("nombrerol"));
-            obj.put("creditos", rs.getDouble("creditos"));
-            obj.put("exito", "si");
-        } else {
-            obj.put("exito", "no");
-        }
-        ps.close();
-        rs.close();
-        return obj;
-    }
     public JSONObject getCliente_por_id(int id) throws SQLException, JSONException {
         String consulta = "select us.* "
                 + "from usuario us\n"
@@ -378,25 +201,33 @@ public class USUARIO {
         ResultSet rs = ps.executeQuery();
         JSONObject obj = new JSONObject();
         if (rs.next()) {
-            obj.put("id", rs.getInt("id"));
-            obj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-            obj.put("apellido_pa", rs.getString("apellido_pa") != null ? rs.getString("apellido_pa") : "");
-            obj.put("apellido_ma", rs.getString("apellido_ma") != null ? rs.getString("apellido_ma") : "");
-            obj.put("usuario", rs.getString("usuario"));
-            obj.put("id_rol", rs.getInt("id_rol"));
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("sexo", rs.getString("sexo") != null ? rs.getString("sexo") : "");
-            obj.put("fecha_nac", rs.getString("fecha_nac") != null ? rs.getString("fecha_nac") : "");
-            obj.put("telefono", rs.getString("telefono") != null ? rs.getString("telefono") : "");
-            obj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
-            obj.put("creditos", rs.getDouble("creditos"));
-            obj.put("exito", "si");
+            obj = parseJson(rs);
         } else {
             obj.put("exito", "no");
         }
         ps.close();
         rs.close();
         return obj;
+    }
+    private JSONObject parseObj;
+
+    private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
+        parseObj = new JSONObject();
+        parseObj.put("apellido_pa", rs.getString("apellido_pa") != null ? rs.getString("apellido_pa") : "");
+        parseObj.put("apellido_ma", rs.getString("apellido_ma") != null ? rs.getString("apellido_ma") : "");
+        parseObj.put("direccion", rs.getString("direccion") != null ? rs.getString("direccion") : "");
+        parseObj.put("id", rs.getInt("id"));
+        parseObj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
+        parseObj.put("usuario", rs.getString("usuario"));
+        parseObj.put("id_rol", rs.getInt("id_rol"));
+        parseObj.put("correo", rs.getString("correo") != null ? rs.getString("correo") : "");
+        parseObj.put("sexo", rs.getString("sexo") != null ? rs.getString("sexo") : "");
+        parseObj.put("fecha_nac", rs.getString("fecha_nac") != null ? rs.getString("fecha_nac") : "");
+        parseObj.put("ci", rs.getString("ci"));
+        parseObj.put("telefono", rs.getString("telefono") != null ? rs.getString("telefono") : "");
+        parseObj.put("foto_perfil", rs.getString("foto_perfil"));
+        parseObj.put("exito", "si");
+        return parseObj;
     }
 
     public int getID() {
@@ -440,7 +271,7 @@ public class USUARIO {
     }
 
     public String getCONTRASENHA() {
-        return CONTRASENHA;
+        return CONTRASENHA != null ? CONTRASENHA : "";
     }
 
     public void setCONTRASENHA(String CONTRASENHA) {
@@ -509,6 +340,22 @@ public class USUARIO {
 
     public void setID_FACE(String ID_FACE) {
         this.ID_FACE = ID_FACE;
+    }
+
+    public String getCI() {
+        return CI;
+    }
+
+    public void setCI(String CI) {
+        this.CI = CI;
+    }
+
+    public String getDIRECCION() {
+        return DIRECCION;
+    }
+
+    public void setDIRECCION(String DIRECCION) {
+        this.DIRECCION = DIRECCION;
     }
 
 }
