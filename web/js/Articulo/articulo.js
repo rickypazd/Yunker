@@ -17,21 +17,12 @@ $(document).ready(function () {
 //});
 //calc_dist();
 //nnuevo comentario
-  $('#tbl_articulos').dynatable({
-                    features: {
-                        paginate: false,
-                        recordCount: false
-                    }
-                    // We have one column, but it contains multiple types of info.
-                    // So let's define a custom reader for that column to grab
-                    // all the extra info and store it in our normalized records.
-                });
+
     cargar_articulos();
     cargar_departamentos();
     cargar_categoria();
     cargar_marca();
     cargar_unidad_medida();
-
 });
 function cargar_articulos() {
 
@@ -47,23 +38,23 @@ function cargar_articulos() {
                 alert(obj.mensaje);
                 alert(obj.error);
             } else {
-                var arr = $.parseJSON(obj.resp);
-                $.each(arr, function (i, obj) {
-                    html += "<tr>";
-                    html += "        <td>" + obj.clave + "</td>";
-                    html += "        <td>" + obj.nombre + "</td>";
-                    html += "        <td>" + obj.descripcion + "</td>";
-                    html += "        <td>" + obj.precio_compra_ref + "</td>";
-                    html += "        <td>" + obj.precio_venta_ref + "</td>";
-                    html += "        <td>" + obj.margen_de_utilidad + "</td>";
-                    html += "        <td>" + obj.id_unidad_medida + "</td>";
-                    html += "        <td>" + obj.factor + "</td>";
-                    html += "        <td>" + obj.id_categoria + "</td>";
-                    html += "        <td>" + obj.id_marca + "</td>";
-                    html += "        <td>" + obj.id_departamento + "</td>";
-                    html += "</tr>";
-                });
-                $("#body_tbl_articulos").html(html);
+                var arr = JSON.parse(obj.resp);
+                        $.each(arr, function (i, obj) {
+                        html += "<tr>";
+                                html += "        <td>" + obj.clave + "</td>";
+                                html += "        <td>" + obj.nombre + "</td>";
+                                html += "        <td>" + obj.descripcion + "</td>";
+                                html += "        <td>" + obj.precio_compra_ref + "</td>";
+                                html += "        <td>" + obj.precio_venta_ref + "</td>";
+                                html += "        <td>" + obj.margen_de_utilidad + "</td>";
+                                html += "        <td>" + obj.id_unidad_medida + "</td>";
+                                html += "        <td>" + obj.factor + "</td>";
+                                html += "        <td>" + obj.id_categoria + "</td>";
+                                html += "        <td>" + obj.id_marca + "</td>";
+                                html += "        <td>" + obj.id_departamento + "</td>";
+                                html += "</tr>";
+                        });
+                        $("#body_tbl_articulos").html(html);
                 $('#tbl_articulos').dynatable({
                     features: {
                         paginate: false,
@@ -175,10 +166,10 @@ function registrar_departamento() {
             if (respuesta != null) {
                 var obj = $.parseJSON(respuesta);
                 if (obj.estado != 1) {
-                    //error
+//error
                     alert(obj.mensaje);
                 } else {
-                    //exito
+//exito
                     $("#dep_nombre").val("");
                     var resp = $.parseJSON(obj.resp);
                     var html = "<li class='list-group-item'  onclick=\"seleccionar_departamento(" + obj.id + ",'" + obj.nombre + "');\">" + resp.nombre + "</li>";

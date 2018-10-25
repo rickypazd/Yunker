@@ -282,7 +282,7 @@ public class adminController extends HttpServlet {
             int factor = Integer.parseInt(request.getParameter("factor"));
             double precio_compra_red = Double.parseDouble(request.getParameter("precio_compra_red"));
             double precio_venta_ref = Double.parseDouble(request.getParameter("precio_venta_ref"));
-            double margen = Double.parseDouble(request.getParameter("margen"));
+                double margen = Double.parseDouble(request.getParameter("margen"));
             ARTICULO articulo = new ARTICULO(con);
             articulo.setCLAVE(clave);
             articulo.setNOMBRE(nombre);
