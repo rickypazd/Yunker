@@ -62,8 +62,9 @@ public class ARTICULO {
         ps.close();
         return id;
     }
-    public JSONObject getArticulo(int id) throws SQLException, JSONException {
-        String consulta = "select articulo.* "
+
+    public JSONObject getById(int id) throws SQLException, JSONException {
+        String consulta = "select * "
                 + "from articulo ar\n"
                 + "where ar.id=?";
         PreparedStatement ps = con.statamet(consulta);
@@ -80,22 +81,22 @@ public class ARTICULO {
         return obj;
     }
 
-    public JSONArray getArticulos() throws SQLException, JSONException {
-        String consulta = "select articulo.* "
-                + "from articulo ar";
+    public JSONArray getAll() throws SQLException, JSONException {
+        String consulta = "select * "
+                + "from articulo";
         PreparedStatement ps = con.statamet(consulta);
         ResultSet rs = ps.executeQuery();
         JSONArray arr = new JSONArray();
-         JSONObject obj;
-        while(rs.next()) {
-            obj= new JSONObject();
+        JSONObject obj;
+        while (rs.next()) {
+            obj = new JSONObject();
             obj = parseJson(rs);
+            arr.put(obj);
         }
         ps.close();
         rs.close();
         return arr;
     }
-
 
     private JSONObject parseObj;
 
@@ -108,12 +109,29 @@ public class ARTICULO {
         parseObj.put("precio_compra_ref", rs.getDouble("precio_compra_ref"));
         parseObj.put("precio_venta_ref", rs.getDouble("precio_venta_ref"));
         parseObj.put("margen_de_utilidad", rs.getDouble("margen_de_utilidad"));
-        parseObj.put("unidad_de_medida", rs.getInt("unidad_de_medida"));
+        parseObj.put("id_unidad_medida", rs.getInt("id_unidad_medida"));
         parseObj.put("factor", rs.getInt("factor"));
         parseObj.put("id_categoria", rs.getInt("id_categoria"));
         parseObj.put("id_marca", rs.getInt("id_marca"));
         parseObj.put("id_departamento", rs.getInt("id_departamento"));
         return parseObj;
+    }
+
+    public JSONObject getJson() throws JSONException, SQLException {
+        JSONObject obj = new JSONObject();
+        obj.put("id",  getID());
+        obj.put("clave",  getCLAVE());
+        obj.put("nombre", getNOMBRE() );
+        obj.put("descripcion", getDESCRIPCION() );
+        obj.put("precio_compra_ref", getPRECIO_COMPRA_REF());
+        obj.put("precio_venta_ref",  getPRECIO_VENTA_REF());
+        obj.put("margen_de_utilidad", getMARGEN_DE_UTILIDAD());
+        obj.put("id_unidad_medida", getID_UNIDAD_MEDIDA());
+        obj.put("factor",  getFACTOR());
+        obj.put("id_categoria",  getID_CATEGORIA());
+        obj.put("id_marca",  getID_MARCA());
+        obj.put("id_departamento", getID_DEPARTAMENTO());
+        return obj;
     }
 
     public int getID() {

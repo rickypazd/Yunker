@@ -12,18 +12,23 @@ and open the template in the editor.
         <link href="plugin/bootstrap-4.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="plugin/bootstrap-4.1.1/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>        
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">       
+        <link href="plugin/jspkg-archive/jquery.dynatable.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body class="app sidebar-mini rtl">
         <header class="navbar navbar-light bg-light">
             <div class="container-fluid">
+                 <div class="col-md-12">
+                     <h1 style="float: right">Articulos</h1>
+                </div>
                 <div class="col-md-12 ">    
-                    <a href="index.html" class="btn btn-outline-danger" >Cerrar</a>                    
-                    <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" style="width: 120px !important  ; color: white " type="button"><i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>agregar</button>                                                                  
+                    <a href="index.html" class="btn btn-outline-danger" >Cerrar</a>    </br>                
+                    <button class="btn btn-success " data-toggle="modal" data-target=".bd-example-modal-lg" style="width: 120px !important  ; color: white " type="button"><i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>agregar</button>                                                                  
                     <button class="btn btn-warning" style="width: 120px !important ; color: white " type="button"><i class="fa fa-edit fa-1x" aria-hidden="true" style="color: #495057; flex-align: auto"></i>editar</button>                                                                  
-                    <button class="btn btn-danger" style="width: 120px !important " type="button"><i class="fa fa-minus-circle fa-1x" aria-hidden="true" style="color:#495057" ></i>eliminar</button>                                                                  
+                    <button class="btn btn-danger " style="width: 120px !important " type="button"><i class="fa fa-minus-circle fa-1x" aria-hidden="true" style="color:#495057" ></i>eliminar</button>                                                                  
                     <button class="btn btn-primary" style="width: 120px !important " type="button"><i class="fa fa-retweet fa-1x" aria-hidden="true" style="color:#495057" ></i>actualizar</button>                                                                                     
                 </div>
+               
             </div>            
         </header>
         <div class="container-fluid">           
@@ -41,50 +46,35 @@ and open the template in the editor.
                         <div class="col-md-1">
                             <button class="btn btn-secondary" type="submit" >Buscar</button>
                         </div>
-                        <div class="col-md-8">
-                            <input class="form-control form-control-md form-control-borderless" type="search" placeholder="Buscar articulo" style="margin-left:0px">
+
                         </div>                                               
                     </div>                   
                 </div>                
             </div>
-        </div>
+ 
 
-        <div class="dropdown-divider"></div>
+      
 
-        <div class="card-body container-fluid">
+        <div class="">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr class="success">
-                            <th scope="col">Codigo</th>
-                            <th scope="col">descripcion</th>
-                            <th scope="col">Almacen</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col">Precio</th>
-                        </tr>
+
+                <table id="tbl_articulos" class="table table-bordered table-hover">
+                    <thead style="text-align: center; background-color: #495057;">
+
+                    <th>Clave</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Precio de compra Ref</th>
+                    <th>Precio de venta Ref</th>
+                    <th>Margen de utilidad</th>
+                    <th>Factor</th>
+                    <th>Unidad de </br> medida</th>
+                    <th>Categoria</th>
+                    <th>Marca</th>
+                    <th>Departamento</th>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>df</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Mark</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>Mark</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                    <tbody id="body_tbl_articulos">
+                       
                     </tbody>
                 </table>
             </div>        
@@ -192,8 +182,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-
-
         <div class="modal fade bd-departamento" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -232,7 +220,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-
         <div class="modal fade modal-add-departamento"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="background-color: whitesmoke" >
@@ -298,7 +285,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-
         <div class="modal fade modal-add-categoria" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="background-color: whitesmoke" >
@@ -326,7 +312,6 @@ and open the template in the editor.
         </div>
 
         <!--Model Marca-->
-
         <div class="modal fade bd-marca" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -365,7 +350,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-
         <div class="modal fade modal-add-marca" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="background-color: whitesmoke" >
@@ -431,7 +415,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-
         <div class="modal fade modal-add-unidad" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="background-color: whitesmoke" >
@@ -464,6 +447,7 @@ and open the template in the editor.
         <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script>                                  
         <script src="js/verifySession.js" type="text/javascript"></script>        
         <script src="js/load.js" type="text/javascript"></script>        
+        <script src="plugin/jspkg-archive/jquery.dynatable.js" type="text/javascript"></script>
         <script src="js/Articulo/articulo.js" type="text/javascript"></script>
         <script type="text/javascript">
                                     if (document.location.hostname == 'pratikborsadiya.in') {

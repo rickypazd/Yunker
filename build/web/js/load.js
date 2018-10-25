@@ -2,19 +2,11 @@ var myApp;
 myApp = myApp || (function () {
     var pleaseWaitDiv = $('\
         <div class="modal hide" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">\n\
-            <div class="modal-header">\n\
-                <h1>Esperando Respuesta, Por favor esperar.</h1>\n\
-            </div>\n\
-            <div class="modal-body">\n\
-                <div class="progress">\n\
-                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">\n\
-                        Loading...\n\
-                    </div>\n\
-                </div>\n\
-            </div>\n\
+             <div class="lds-hourglass"><h3>Cargando. Por favor espere...</h3>\n\
+<h5>Si ocurrio algun error. Favor de recargar la pagina.</h5></div>\n\
         </div>');
     return {
-        showPleaseWait: function() {
+        showPleaseWait: function () {
             pleaseWaitDiv.modal();
         },
         hidePleaseWait: function () {
@@ -23,9 +15,9 @@ myApp = myApp || (function () {
 
     };
 })();
-function mostrar_progress(){
+function mostrar_progress() {
     myApp.showPleaseWait();
 }
-function cerrar_progress(){
+function cerrar_progress() {
     myApp.hidePleaseWait();
 }
