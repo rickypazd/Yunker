@@ -146,7 +146,7 @@ function ok_crear() {
         }, function (resp) {
             cerrar_progress();
             if (resp == "falso" || resp.length <= 0) {
-                alert("Ocurrio un herror al Actualizar Usuario");
+                alert("Ocurrio un error al Actualizar Usuario");
             } else {
                 window.location.href = "verPerfil.html?id=" + id_usr;
 
