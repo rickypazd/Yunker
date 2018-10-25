@@ -21,6 +21,7 @@ $(document).ready(function () {
     cargar_departamentos();
     cargar_categoria();
     cargar_marca();
+    cargar_unidad_medida();
 
 });
 function buscar_departamento(input) {
@@ -64,6 +65,25 @@ function buscar_categoria(input) {
 function buscar_marca(input) {
     var text = $(input).val() + "";
     var arr = $("#lista_marca").find("li");
+    if (text == "") {
+        $(arr).css("display", "");
+    } else {
+        var te;
+        $.each(arr, function (i, obj) {
+            te = $(obj).html() + "";
+            te = te.toLocaleLowerCase() + "";
+            var res = te.search(text.toLowerCase());
+            if (res) {
+                $(obj).css("display", "none");
+            } else {
+                $(obj).css("display", "");
+            }
+        });
+    }
+}
+function buscar_unidad_medida(input) {
+    var text = $(input).val() + "";
+    var arr = $("#lista_unidad_medida").find("li");
     if (text == "") {
         $(arr).css("display", "");
     } else {
@@ -193,16 +213,16 @@ function registrar_marca() {
 }
 
 
-function seleccionar_unidad_medida() {
+function registrar_unidad_medida() {
     mostrar_progress();
     var exito = true;
-    var nombre = $("#mar_nombre").val() || null;
+    var nombre = $("#unidad_medida_nombre").val() || null;
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
-        $("#mar_nombre").css("background", "#ffffff");
+        $("#unidad_medida_nombre").css("background", "#ffffff");
     } else {
-        $("#mar_nombre").css("background", "#00ff00");
+        $("#unidad_medida_nombre").css("background", "#00ff00");
         exito = false;
     }
     if (exito) {
@@ -216,9 +236,9 @@ function seleccionar_unidad_medida() {
                     alert(obj.mensaje);
                 } else {
 //exito
-                    $("#mar_nombre").val("");
+                    $("#unidad_medida_nombre").val("");
                     var resp = $.parseJSON(obj.resp);
-                    var html = "<li class='list-group-item'  onclick=\"seleccionar_unidad_medida(" + obj.id + ",'" + obj.nombre + "');\">" + resp.nombre + "</li>";
+                    var html = "<li class='list-group-item' onclick=\"seleccionar_unidad_medida(" + resp.id + ",'" + resp.nombre + "');\">" + resp.nombre + "</li>";
                     $("#lista_unidad_medida").prepend(html);
                     var resp = obj.resp;
                     alert(resp);
@@ -241,8 +261,8 @@ function registrar_articulo() {
     var departamento = $("#art_departamento").val() || null;
     var categoria = $("#art_categoria").val() || null;
     var marca = $("#art_marca").val() || null;
-    var unidad_compra = $("#art_unidad_compra").val() || null;
-    var unidad_venta = $("#art_unidad_venta").val() || null;
+    var unidad_medida = $("#art_unidad_medida").val() || null;
+    
     var factor = $("#art_factor").val() || null;
     var precio_compra_ref = $("#art_precio_compra").val() || null;
     var precio_venta_ref = $("#art_precio_venta").val() || null;
@@ -285,19 +305,14 @@ function registrar_articulo() {
         $("#art_marca").css("background", "#df5b5b");
         exito = false;
     }
-    if (unidad_compra != null && unidad_compra.length > 0) {
-        alert(unidad_compra);
-        $("#art_unidad_compra").css("background", "#ffffff");
+    if (unidad_medida != null && unidad_medida.length > 0) {
+
+        $("#art_unidad_medida").css("background", "#ffffff");
     } else {
-        $("#art_unidad_compra").css("background", "#df5b5b");
+        $("#art_unidad_medida").css("background", "#df5b5b");
         exito = false;
     }
-    if (unidad_venta != null && unidad_venta.length > 0) {
-        $("#art_unidad_venta").css("background", "#ffffff");
-    } else {
-        $("#art_unidad_venta").css("background", "#df5b5b");
-        exito = false;
-    }
+
     if (factor != null && factor.length > 0) {
         $("#art_factor").css("background", "#ffffff");
     } else {
@@ -462,7 +477,7 @@ function seleccionar_marca(id, nombre) {
 }
 
 function seleccionar_unidad_medida(id, nombre) {
-    $("#art_unidad").val(nombre);
-    $("#art_unidad").data("id", id);
+    $("#art_unidad_medida").val(nombre);
+    $("#art_unidad_medida").data("id", id);
     $(".bd-unidad").modal('toggle');
 }
