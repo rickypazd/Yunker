@@ -44,7 +44,7 @@ public class ART_DEPARTAMENTO {
         return id;
     }
 
-    public JSONObject getArticulo(int id) throws SQLException, JSONException {
+    public JSONObject getById(int id) throws SQLException, JSONException {
         String consulta = "select ar.* "
                 + "from "+TBL+" ar\n"
                 + "where ar.id=?";
@@ -62,7 +62,7 @@ public class ART_DEPARTAMENTO {
         return obj;
     }
 
-    public JSONArray getArticulos() throws SQLException, JSONException {
+    public JSONArray gelAll() throws SQLException, JSONException {
         String consulta = "select ar.* "
                 + "from "+TBL+" ar";
         PreparedStatement ps = con.statamet(consulta);
@@ -72,6 +72,7 @@ public class ART_DEPARTAMENTO {
         while (rs.next()) {
             obj = new JSONObject();
             obj = parseJson(rs);
+            arr.put(obj);
         }
         ps.close();
         rs.close();

@@ -7,17 +7,17 @@
 
 var url = "admin/adminController";
 $(document).ready(function () {
-    //aki
-    //
-    //
-    //
-    //post({
-    //cojntenido del post;
-    //alert();
-    //});
-    //calc_dist();
+//aki
+//
+//
+//
+//post({
+//cojntenido del post;
+//alert();
+//});
+//calc_dist();
+    cargar_departamentos();
 });
-
 function registrar_departamento() {
     mostrar_progress();
     var exito = true;
@@ -31,25 +31,28 @@ function registrar_departamento() {
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_art_departamento", TokenAcceso : TokenAcceso , id_usr : usr_log ,
+        $.post(url, {evento: "registrar_art_departamento", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
             nombre: nombre}, function (respuesta) {
-           cerrar_progress();
-           if(respuesta!=null){
-               var obj= $.parseJSON(respuesta);
-               if(obj.estado!=1){
-                   //error
-                   alert(obj.mensaje);
-               }else{
-                   //exito
-                   var resp=obj.resp;
-                       alert(resp);
-               }
-           }
+            cerrar_progress();
+            if (respuesta != null) {
+                var obj = $.parseJSON(respuesta);
+                if (obj.estado != 1) {
+                    //error
+                    alert(obj.mensaje);
+                } else {
+                    //exito
+                    var resp = $.parseJSON(obj.resp);
+                    var html = "<li class='list-group-item'>" + resp.nombre + "</li>";
+                    $("#lista_departamentos").prepend(html);
+                    var resp = obj.resp;
+                    alert(resp);
+                }
+            }
         });
     }
 }
 
-function registrar_categoria(){
+function registrar_categoria() {
     mostrar_progress();
     var exito = true;
     var nombre = $("#dep_nombre").val() || null;
@@ -62,20 +65,20 @@ function registrar_categoria(){
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_categoria", TokenAcceso : TokenAcceso , id_usr : usr_log ,
+        $.post(url, {evento: "registrar_categoria", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
             nombre: nombre}, function (respuesta) {
-           cerrar_progress();
-           if(respuesta!=null){
-               var obj= $.parseJSON(respuesta);
-               if(obj.estado!=1){
-                   //error
-                   alert(obj.mensaje);
-               }else{
-                   //exito
-                   var resp=obj.resp;
-                       alert(resp);
-               }
-           }
+            cerrar_progress();
+            if (respuesta != null) {
+                var obj = $.parseJSON(respuesta);
+                if (obj.estado != 1) {
+//error
+                    alert(obj.mensaje);
+                } else {
+//exito
+                    var resp = obj.resp;
+                    alert(resp);
+                }
+            }
         });
     }
 }
@@ -85,7 +88,7 @@ function registrar_marca() {
     var exito = true;
     var nombre = $("#dep_nombre").val() || null;
     var TokenAcceso = "servi12sis3";
-    var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));    
+    var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
         $("#dep_nombre").css("background", "#ffffff");
     } else {
@@ -93,20 +96,20 @@ function registrar_marca() {
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_marca", TokenAcceso : TokenAcceso , id_usr : usr_log ,
+        $.post(url, {evento: "registrar_marca", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
             nombre: nombre}, function (respuesta) {
-           cerrar_progress();
-           if(respuesta != null){
-               var obj= $.parseJSON(respuesta);
-               if(obj.estado != 1){
-                   //error
-                   alert(obj.mensaje);
-               }else{
-                   //exito
-                   var resp=obj.resp;
-                       alert(resp);
-               }
-           }
+            cerrar_progress();
+            if (respuesta != null) {
+                var obj = $.parseJSON(respuesta);
+                if (obj.estado != 1) {
+//error
+                    alert(obj.mensaje);
+                } else {
+//exito
+                    var resp = obj.resp;
+                    alert(resp);
+                }
+            }
         });
     }
 }
@@ -125,9 +128,9 @@ function registrar_articulo() {
     var factor = $("#art_factor").val() || null;
     var precio_compra_ref = $("#art_precio_compra").val() || null;
     var precio_venta_ref = $("#art_precio_venta").val() || null;
-    var margen = $("#art_margen").val() || null;    
+    var margen = $("#art_margen").val() || null;
     var TokenAcceso = "servi12sis3";
-    var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));   
+    var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
         $("#dep_nombre").css("background", "#ffffff");
     } else {
@@ -135,24 +138,37 @@ function registrar_articulo() {
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_articulo",  TokenAcceso : TokenAcceso , id_usr : usr_log ,
-        clave : clave , nombre: nombre , descripcion: descripcion,
-        departamento:departamento,categoria:categoria,marca:marca , unidad_compra : unidad_compra , 
-        unidad_venta : unidad_venta , factor : factor , precio_compra_red :precio_compra_ref ,
-        precio_venta_ref : precio_venta_ref , margen : margen }, function (respuesta) {
-           cerrar_progress();
-           if(respuesta != null){
-               var obj= $.parseJSON(respuesta);
-               if(obj.estado != 1){
-                   //error
+        $.post(url, {evento: "registrar_articulo", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
+            clave: clave, nombre: nombre, descripcion: descripcion,
+            departamento: departamento, categoria: categoria, marca: marca, unidad_compra: unidad_compra,
+            unidad_venta: unidad_venta, factor: factor, precio_compra_red: precio_compra_ref,
+            precio_venta_ref: precio_venta_ref, margen: margen}, function (respuesta) {
+            cerrar_progress();
+            if (respuesta != null) {
+                var obj = $.parseJSON(respuesta);
+                if (obj.estado != 1) {
+//error
                     alert(obj.mensaje);
-               }else{
-                   //exito                    
-                    var resp=obj.resp;
+                } else {
+//exito                    
+                    var resp = obj.resp;
                     alert(resp);
-               }
-           }
+                }
+            }
         });
     }
 }
 
+function cargar_departamentos() {
+    var html = "";
+    mostrar_progress();
+    $.post(url, {TokenAcceso: "servi12sis3", evento: "get_art_departamentos"}, function (resp) {
+        cerrar_progress();
+        var arr = $.parseJSON(resp);
+        $.each(arr, function (i, obj) {
+            var res=$.parseJSON(resp);
+            html += "<li class='list-group-item'>" + res.nombre + "</li>";
+        });
+        $("#lista_departamentos").html(html);
+    });
+}

@@ -103,6 +103,9 @@ public class adminController extends HttpServlet {
                 case "registrar_art_departamento":
                     html = registrar_art_departamento(request, con);
                     break;
+                case "get_art_departamentos":
+                    html = get_art_departamentos(request, con);
+                    break;
 
                 case "descargar":
                     descargar(request, response, con);
@@ -292,7 +295,7 @@ public class adminController extends HttpServlet {
             seg_modificaciones.setIP("192.168.0.0");
             seg_modificaciones.setTIPO(1);
             seg_modificaciones.Insertar();
-            RESPUESTA resp = new RESPUESTA(0, "", "Categoria de articulo registrado con exito.", art_categoria.getJson().toString());
+            RESPUESTA resp = new RESPUESTA(1, "", "Categoria de articulo registrado con exito.", art_categoria.getJson().toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();
@@ -327,7 +330,7 @@ public class adminController extends HttpServlet {
             seg_modificaciones.setIP("192.168.0.0");
             seg_modificaciones.setTIPO(1);
             seg_modificaciones.Insertar();
-            RESPUESTA resp = new RESPUESTA(0, "", "Marca de articulo registrado con exito.", art_marca.getJson().toString());
+            RESPUESTA resp = new RESPUESTA(1, "", "Marca de articulo registrado con exito.", art_marca.getJson().toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();
@@ -357,12 +360,12 @@ public class adminController extends HttpServlet {
             seg_modificaciones.setID_USR(id_usr);
             seg_modificaciones.setTBL_NOMBRE("art_departamento");
             seg_modificaciones.setTBL_ID(id);
-            seg_modificaciones.setMENSAJE("Se inserto la un nueva marca de articulo.");
+            seg_modificaciones.setMENSAJE("Se inserto la un nuevo departamento de articulo.");
             //TODO: insertar ip
             seg_modificaciones.setIP("192.168.0.0");
             seg_modificaciones.setTIPO(1);
             seg_modificaciones.Insertar();
-            RESPUESTA resp = new RESPUESTA(0, "", "Departamento de articulo registrado con exito.", art_departamento.getJson().toString());
+            RESPUESTA resp = new RESPUESTA(1, "", "Departamento de articulo registrado con exito.", art_departamento.getJson().toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();
@@ -371,6 +374,24 @@ public class adminController extends HttpServlet {
             return resp.toString();
         } catch (JSONException ex) {
             con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+
+    private String get_art_departamentos(HttpServletRequest request, Conexion con) {
+        try {
+            ART_DEPARTAMENTO art_departamento = new ART_DEPARTAMENTO(con);
+              RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_departamento.gelAll().toString());
+              return resp.toString();
+        } catch (SQLException ex) {
+             con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener departamentos de articulos.", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+          con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
             return resp.toString();
