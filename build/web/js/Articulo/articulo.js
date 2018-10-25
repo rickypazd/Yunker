@@ -16,6 +16,7 @@ $(document).ready(function () {
 //alert();
 //});
 //calc_dist();
+//nnuevo comentario
 
     cargar_departamentos();
     cargar_categoria();
