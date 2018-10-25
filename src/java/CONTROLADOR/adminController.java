@@ -106,7 +106,12 @@ public class adminController extends HttpServlet {
                 case "get_art_departamentos":
                     html = get_art_departamentos(request, con);
                     break;
-
+                case "get_art_categoria":
+                    html = get_art_categoria(request, con);
+                    break;
+                case "get_art_marca":
+                    html = get_art_marca(request, con);
+                    break;
                 case "descargar":
                     descargar(request, response, con);
                     retornar = false;
@@ -115,13 +120,11 @@ public class adminController extends HttpServlet {
                     RESPUESTA resp = new RESPUESTA(0, "Servisis: No se encontro el parametro evento.", "Servicio no encontrado.", "{}");
                     html = resp.toString();
                     break;
-
             }
         } else {
             RESPUESTA resp = new RESPUESTA(0, "Servisis: Token de acceso erroneo.", "Token denegado", "{}");
             html = resp.toString();
         }
-
         con.commit();
         con.Close();
         if (retornar) {
@@ -389,6 +392,40 @@ public class adminController extends HttpServlet {
              con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener departamentos de articulos.", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+          con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+    private String get_art_categoria(HttpServletRequest request, Conexion con) {
+        try {
+            ART_CATEGORIA art_categoria = new ART_CATEGORIA(con);
+              RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_categoria.gelAll().toString());
+              return resp.toString();
+        } catch (SQLException ex) {
+             con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener categorias de articulos.", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+          con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+    private String get_art_marca(HttpServletRequest request, Conexion con) {
+        try {
+            ART_MARCA art_marca = new ART_MARCA(con);
+              RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_marca.gelAll().toString());
+              return resp.toString();
+        } catch (SQLException ex) {
+             con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener marcas de articulos.", "{}");
             return resp.toString();
         } catch (JSONException ex) {
           con.rollback();

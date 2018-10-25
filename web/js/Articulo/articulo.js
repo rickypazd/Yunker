@@ -16,8 +16,70 @@ $(document).ready(function () {
 //alert();
 //});
 //calc_dist();
+
     cargar_departamentos();
+    cargar_categoria();
+    cargar_marca();
+
 });
+function buscar_departamento(input) {
+    var text = $(input).val() + "";
+    var arr = $("#lista_departamentos").find("li");
+    if (text == "") {
+        $(arr).css("display", "");
+    } else {
+        var te;
+        $.each(arr, function (i, obj) {
+            te = $(obj).html() + "";
+            te = te.toLocaleLowerCase() + "";
+            var res = te.search(text.toLowerCase());
+            if (res) {
+                $(obj).css("display", "none");
+            } else {
+                $(obj).css("display", "");
+            }
+        });
+    }
+}
+function buscar_categoria(input) {
+    var text = $(input).val() + "";
+    var arr = $("#lista_categoria").find("li");
+    if (text == "") {
+        $(arr).css("display", "");
+    } else {
+        var te;
+        $.each(arr, function (i, obj) {
+            te = $(obj).html() + "";
+            te = te.toLocaleLowerCase() + "";
+            var res = te.search(text.toLowerCase());
+            if (res) {
+                $(obj).css("display", "none");
+            } else {
+                $(obj).css("display", "");
+            }
+        });
+    }
+}
+function buscar_marca(input) {
+    var text = $(input).val() + "";
+    var arr = $("#lista_marca").find("li");
+    if (text == "") {
+        $(arr).css("display", "");
+    } else {
+        var te;
+        $.each(arr, function (i, obj) {
+            te = $(obj).html() + "";
+            te = te.toLocaleLowerCase() + "";
+            var res = te.search(text.toLowerCase());
+            if (res) {
+                $(obj).css("display", "none");
+            } else {
+                $(obj).css("display", "");
+            }
+        });
+    }
+}
+
 function registrar_departamento() {
     mostrar_progress();
     var exito = true;
@@ -41,31 +103,34 @@ function registrar_departamento() {
                     alert(obj.mensaje);
                 } else {
                     //exito
+                    $("#dep_nombre").val("");
                     var resp = $.parseJSON(obj.resp);
-                    var html = "<li class='list-group-item'>" + resp.nombre + "</li>";
+                    var html = "<li class='list-group-item'  onclick=\"seleccionar_departamento(" + obj.id + ",'" + obj.nombre + "');\">" + resp.nombre + "</li>";
                     $("#lista_departamentos").prepend(html);
                     var resp = obj.resp;
                     alert(resp);
                 }
             }
         });
+    } else {
+        cerrar_progress();
     }
 }
 
 function registrar_categoria() {
     mostrar_progress();
     var exito = true;
-    var nombre = $("#dep_nombre").val() || null;
+    var nombre = $("#cat_nombre").val() || null;
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
-        $("#dep_nombre").css("background", "#ffffff");
+        $("#cat_nombre").css("background", "#ffffff");
     } else {
-        $("#dep_nombre").css("background", "#00ff00");
+        $("#cat_nombre").css("background", "#00ff00");
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_categoria", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
+        $.post(url, {evento: "registrar_art_categoria", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
             nombre: nombre}, function (respuesta) {
             cerrar_progress();
             if (respuesta != null) {
@@ -74,29 +139,35 @@ function registrar_categoria() {
 //error
                     alert(obj.mensaje);
                 } else {
-//exito
+//exito             
+                    $("#cat_nombre").val("");
+                    var resp = $.parseJSON(obj.resp);
+                    var html = "<li class='list-group-item'  onclick=\"seleccionar_categoria(" + obj.id + ",'" + obj.nombre + "');\">" + resp.nombre + "</li>";
+                    $("#lista_categoria").prepend(html);
                     var resp = obj.resp;
                     alert(resp);
                 }
             }
         });
+    } else {
+        cerrar_progress();
     }
 }
 
 function registrar_marca() {
     mostrar_progress();
     var exito = true;
-    var nombre = $("#dep_nombre").val() || null;
+    var nombre = $("#mar_nombre").val() || null;
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
-        $("#dep_nombre").css("background", "#ffffff");
+        $("#mar_nombre").css("background", "#ffffff");
     } else {
-        $("#dep_nombre").css("background", "#00ff00");
+        $("#mar_nombre").css("background", "#00ff00");
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_marca", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
+        $.post(url, {evento: "registrar_art_marca", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
             nombre: nombre}, function (respuesta) {
             cerrar_progress();
             if (respuesta != null) {
@@ -106,11 +177,17 @@ function registrar_marca() {
                     alert(obj.mensaje);
                 } else {
 //exito
+                    $("#mar_nombre").val("");
+                    var resp = $.parseJSON(obj.resp);
+                    var html = "<li class='list-group-item'  onclick=\"seleccionar_marca(" + obj.id + ",'" + obj.nombre + "');\">" + resp.nombre + "</li>";
+                    $("#lista_marca").prepend(html);
                     var resp = obj.resp;
                     alert(resp);
                 }
             }
         });
+    } else {
+        cerrar_progress();
     }
 }
 
@@ -131,18 +208,98 @@ function registrar_articulo() {
     var margen = $("#art_margen").val() || null;
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
-    if (nombre != null && nombre.length > 0) {
-        $("#dep_nombre").css("background", "#ffffff");
+    if (clave != null && clave.length > 0) {
+        $("#art_clave").css("background", "#ffffff");
     } else {
-        $("#dep_nombre").css("background", "#00ff00");
+        $("#art_clave").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (nombre != null && nombre.length > 0) {
+        $("#art_nombre").css("background", "#ffffff");
+    } else {
+        $("#art_nombre").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (descripcion != null && descripcion.length > 0) {
+        $("#art_descripcion").css("background", "#ffffff");
+    } else {
+        $("#art_descripcion").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (departamento != null && departamento.length > 0) {
+        $("#art_departamento").css("background", "#ffffff");
+    } else {
+        $("#art_departamento").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (categoria != null && categoria.length > 0) {
+        $("#art_categoria").css("background", "#ffffff");
+    } else {
+        $("#art_categoria").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (marca != null && marca.length > 0) {
+        $("#art_marca").css("background", "#ffffff");
+    } else {
+        $("#art_marca").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (unidad_compra != null && unidad_compra.length > 0) {
+        alert(unidad_compra);
+        $("#art_unidad_compra").css("background", "#ffffff");
+    } else {
+        $("#art_unidad_compra").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (unidad_venta != null && unidad_venta.length > 0) {
+        $("#art_unidad_venta").css("background", "#ffffff");
+    } else {
+        $("#art_unidad_venta").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (factor != null && factor.length > 0) {
+        $("#art_factor").css("background", "#ffffff");
+    } else {
+        $("#art_factor").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (precio_compra_ref != null && precio_compra_ref.length > 0) {
+        $("#art_precio_compra").css("background", "#ffffff");
+    } else {
+        $("#art_precio_compra").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (precio_venta_ref != null && precio_venta_ref.length > 0) {
+        $("#art_precio_venta").css("background-color", "#ffffff");
+    } else {
+        $("#art_precio_venta").css("background-color", "#df5b5b");
+        exito = false;
+    }
+    if (margen != null && margen.length > 0) {
+        $("#art_margen").css("background", "#ffffff");
+    } else {
+        $("#art_margen").css("background", "#df5b5b");
         exito = false;
     }
     if (exito) {
-        $.post(url, {evento: "registrar_articulo", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
-            clave: clave, nombre: nombre, descripcion: descripcion,
-            departamento: departamento, categoria: categoria, marca: marca, unidad_compra: unidad_compra,
-            unidad_venta: unidad_venta, factor: factor, precio_compra_red: precio_compra_ref,
-            precio_venta_ref: precio_venta_ref, margen: margen}, function (respuesta) {
+        $.post(url, 
+        {
+            evento: "registrar_articulo", 
+            TokenAcceso: TokenAcceso, 
+            id_usr: usr_log.id,
+            clave: clave, 
+            nombre: nombre, 
+            descripcion: descripcion,
+            departamento: departamento,
+            categoria: categoria, 
+            marca: marca, 
+            unidad_compra: unidad_compra,
+            unidad_venta: unidad_venta, 
+            factor: factor, 
+            precio_compra_red: precio_compra_ref,
+            precio_venta_ref: precio_venta_ref, 
+            margen: margen
+        }, function (respuesta) {
             cerrar_progress();
             if (respuesta != null) {
                 var obj = $.parseJSON(respuesta);
@@ -156,19 +313,87 @@ function registrar_articulo() {
                 }
             }
         });
+    }else{
+        cerrar_progress();
     }
 }
 
 function cargar_departamentos() {
     var html = "";
-    mostrar_progress();
+    //mostrar_progress();
     $.post(url, {TokenAcceso: "servi12sis3", evento: "get_art_departamentos"}, function (resp) {
-        cerrar_progress();
-        var arr = $.parseJSON(resp);
-        $.each(arr, function (i, obj) {
-            var res=$.parseJSON(resp);
-            html += "<li class='list-group-item'>" + res.nombre + "</li>";
-        });
-        $("#lista_departamentos").html(html);
+
+        //  cerrar_progress();
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+            if (obj.estado != "1") {
+                alert(obj.mensaje);
+            } else {
+                var arr = $.parseJSON(obj.resp);
+                $.each(arr, function (i, obj) {
+                    html += "<li class='list-group-item'  onclick=\"seleccionar_departamento(" + obj.id + ",'" + obj.nombre + "');\">" + obj.nombre + "</li>";
+                });
+                $("#lista_departamentos").html(html);
+            }
+        }
+
     });
+}
+function cargar_categoria() {
+    var html = "";
+    //mostrar_progress();
+    $.post(url, {TokenAcceso: "servi12sis3", evento: "get_art_categoria"}, function (resp) {
+
+        //cerrar_progress();
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+            if (obj.estado != "1") {
+                alert(obj.mensaje);
+            } else {
+                var arr = $.parseJSON(obj.resp);
+                $.each(arr, function (i, obj) {
+                    html += "<li class='list-group-item'  onclick=\"seleccionar_categoria(" + obj.id + ",'" + obj.nombre + "');\">" + obj.nombre + "</li>";
+                });
+                $("#lista_categoria").html(html);
+            }
+        }
+
+    });
+}
+function cargar_marca() {
+    var html = "";
+    // mostrar_progress();
+    $.post(url, {TokenAcceso: "servi12sis3", evento: "get_art_marca"}, function (resp) {
+
+        //cerrar_progress();
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+            if (obj.estado != "1") {
+                alert(obj.mensaje);
+            } else {
+                var arr = $.parseJSON(obj.resp);
+                $.each(arr, function (i, obj) {
+                    html += "<li class='list-group-item' onclick=\"seleccionar_marca(" + obj.id + ",'" + obj.nombre + "');\">" + obj.nombre + "</li>";
+                });
+                $("#lista_marca").html(html);
+            }
+        }
+
+    });
+}
+
+function seleccionar_departamento(id, nombre) {
+    $("#art_departamento").val(nombre);
+    $("#art_departamento").data("id", id);
+    $(".bd-departamento").modal('toggle');
+}
+function seleccionar_categoria(id, nombre) {
+    $("#art_categoria").val(nombre);
+    $("#art_categoria").data("id", id);
+    $(".bd-familia").modal('toggle');
+}
+function seleccionar_marca(id, nombre) {
+    $("#art_marca").val(nombre);
+    $("#art_marca").data("id", id);
+    $(".bd-marca").modal('toggle');
 }

@@ -74,6 +74,11 @@ html, body {
     margin: 0px !important;
     padding: 0px !important;
 }
+
+.lista_art li:hover{
+    background-color: #A1B3A4;
+    cursor: pointer;
+}
 // Articulo Style
 .input_hover:hover{
     cursor:pointer !important;   
