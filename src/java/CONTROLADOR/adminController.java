@@ -12,9 +12,11 @@ import MODELO.ARTICULO.ARTICULO;
 import MODELO.ARTICULO.ART_CATEGORIA;
 import MODELO.ARTICULO.ART_DEPARTAMENTO;
 import MODELO.ARTICULO.ART_MARCA;
+import MODELO.ARTICULO.ART_UNIDAD_MEDIDA;
 import MODELO.ARTICULO.SEG_ART_CATEGORIA;
 import MODELO.ARTICULO.SEG_ART_DEPARTAMENTO;
 import MODELO.ARTICULO.SEG_ART_MARCA;
+import MODELO.ARTICULO.SEG_ART_UNIDAD_MEDIDA;
 import MODELO.PERMISO;
 import MODELO.SEGURIDAD.SEG_MODIFICACIONES;
 import UTILES.URL;
@@ -103,6 +105,9 @@ public class adminController extends HttpServlet {
                 case "registrar_art_departamento":
                     html = registrar_art_departamento(request, con);
                     break;
+                case "registrar_art_unidad_medida":
+                    html = registrar_art_unidad_medida(request, con);
+                    break;
                 case "get_art_departamentos":
                     html = get_art_departamentos(request, con);
                     break;
@@ -111,6 +116,9 @@ public class adminController extends HttpServlet {
                     break;
                 case "get_art_marca":
                     html = get_art_marca(request, con);
+                    break;
+                case "get_art_unidad_medida":
+                    html = get_art_unidad_medida(request, con);
                     break;
                 case "descargar":
                     descargar(request, response, con);
@@ -286,10 +294,10 @@ public class adminController extends HttpServlet {
             art_categoria.setNOMBRE(nombre);
             int id = art_categoria.Insertar();
             art_categoria.setID(id);
-            SEG_ART_CATEGORIA seg_art_categoria= new SEG_ART_CATEGORIA(con, art_categoria);
+            SEG_ART_CATEGORIA seg_art_categoria = new SEG_ART_CATEGORIA(con, art_categoria);
             seg_art_categoria.setESTADO(1);
-            int id_seg_art_categoria=seg_art_categoria.Insertar();
-            SEG_MODIFICACIONES seg_modificaciones=new SEG_MODIFICACIONES(con);
+            int id_seg_art_categoria = seg_art_categoria.Insertar();
+            SEG_MODIFICACIONES seg_modificaciones = new SEG_MODIFICACIONES(con);
             seg_modificaciones.setID_USR(id_usr);
             seg_modificaciones.setTBL_NOMBRE("art_categoria");
             seg_modificaciones.setTBL_ID(id);
@@ -321,10 +329,10 @@ public class adminController extends HttpServlet {
             art_marca.setNOMBRE(nombre);
             int id = art_marca.Insertar();
             art_marca.setID(id);
-            SEG_ART_MARCA seg_art_marca= new SEG_ART_MARCA(con, art_marca);
+            SEG_ART_MARCA seg_art_marca = new SEG_ART_MARCA(con, art_marca);
             seg_art_marca.setESTADO(1);
-            int id_seg_art_categoria=seg_art_marca.Insertar();
-            SEG_MODIFICACIONES seg_modificaciones=new SEG_MODIFICACIONES(con);
+            int id_seg_art_categoria = seg_art_marca.Insertar();
+            SEG_MODIFICACIONES seg_modificaciones = new SEG_MODIFICACIONES(con);
             seg_modificaciones.setID_USR(id_usr);
             seg_modificaciones.setTBL_NOMBRE("art_marca");
             seg_modificaciones.setTBL_ID(id);
@@ -350,16 +358,16 @@ public class adminController extends HttpServlet {
 
     private String registrar_art_departamento(HttpServletRequest request, Conexion con) {
         try {
-            int id_usr=Integer.parseInt(request.getParameter("id_usr"));
+            int id_usr = Integer.parseInt(request.getParameter("id_usr"));
             String nombre = request.getParameter("nombre");
             ART_DEPARTAMENTO art_departamento = new ART_DEPARTAMENTO(con);
             art_departamento.setNOMBRE(nombre);
             int id = art_departamento.Insertar();
             art_departamento.setID(id);
-            SEG_ART_DEPARTAMENTO seg_art_departamento= new SEG_ART_DEPARTAMENTO(con, art_departamento);
+            SEG_ART_DEPARTAMENTO seg_art_departamento = new SEG_ART_DEPARTAMENTO(con, art_departamento);
             seg_art_departamento.setESTADO(1);
-            int id_seg_art_categoria=seg_art_departamento.Insertar();
-            SEG_MODIFICACIONES seg_modificaciones=new SEG_MODIFICACIONES(con);
+            int id_seg_art_categoria = seg_art_departamento.Insertar();
+            SEG_MODIFICACIONES seg_modificaciones = new SEG_MODIFICACIONES(con);
             seg_modificaciones.setID_USR(id_usr);
             seg_modificaciones.setTBL_NOMBRE("art_departamento");
             seg_modificaciones.setTBL_ID(id);
@@ -383,55 +391,111 @@ public class adminController extends HttpServlet {
         }
     }
 
+    private String registrar_art_unidad_medida(HttpServletRequest request, Conexion con) {
+        try {
+            int id_usr = Integer.parseInt(request.getParameter("id_usr"));
+            String nombre = request.getParameter("nombre");
+            ART_UNIDAD_MEDIDA art_unidad_medida = new ART_UNIDAD_MEDIDA(con);
+            art_unidad_medida.setNOMBRE(nombre);
+            int id = art_unidad_medida.Insertar();
+            art_unidad_medida.setID(id);
+            SEG_ART_UNIDAD_MEDIDA seg_art_unidad_medida = new SEG_ART_UNIDAD_MEDIDA(con, art_unidad_medida);
+            seg_art_unidad_medida.setESTADO(1);
+            int id_seg_art_unidad_medida = seg_art_unidad_medida.Insertar();
+            SEG_MODIFICACIONES seg_modificaciones = new SEG_MODIFICACIONES(con);
+            seg_modificaciones.setID_USR(id_usr);
+            seg_modificaciones.setTBL_NOMBRE("art_unidad_medida");
+            seg_modificaciones.setTBL_ID(id);
+            seg_modificaciones.setMENSAJE("Se inserto una nueva unidad de medida.");
+            //TODO: insertar ip
+            seg_modificaciones.setIP("192.168.0.0");
+            seg_modificaciones.setTIPO(1);
+            seg_modificaciones.Insertar();
+            RESPUESTA resp = new RESPUESTA(1, "", "Unidad de medida de articulo registrado con exito.", art_unidad_medida.getJson().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al registrar la unidad de medida de articulo.", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+
     private String get_art_departamentos(HttpServletRequest request, Conexion con) {
         try {
             ART_DEPARTAMENTO art_departamento = new ART_DEPARTAMENTO(con);
-              RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_departamento.gelAll().toString());
-              return resp.toString();
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_departamento.gelAll().toString());
+            return resp.toString();
         } catch (SQLException ex) {
-             con.rollback();
+            con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener departamentos de articulos.", "{}");
             return resp.toString();
         } catch (JSONException ex) {
-          con.rollback();
+            con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
             return resp.toString();
         }
     }
+
     private String get_art_categoria(HttpServletRequest request, Conexion con) {
         try {
             ART_CATEGORIA art_categoria = new ART_CATEGORIA(con);
-              RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_categoria.gelAll().toString());
-              return resp.toString();
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_categoria.gelAll().toString());
+            return resp.toString();
         } catch (SQLException ex) {
-             con.rollback();
+            con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener categorias de articulos.", "{}");
             return resp.toString();
         } catch (JSONException ex) {
-          con.rollback();
+            con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
             return resp.toString();
         }
     }
+
     private String get_art_marca(HttpServletRequest request, Conexion con) {
         try {
             ART_MARCA art_marca = new ART_MARCA(con);
-              RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_marca.gelAll().toString());
-              return resp.toString();
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_marca.gelAll().toString());
+            return resp.toString();
         } catch (SQLException ex) {
-             con.rollback();
+            con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener marcas de articulos.", "{}");
             return resp.toString();
         } catch (JSONException ex) {
-          con.rollback();
+            con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
             return resp.toString();
         }
     }
+
+    private String get_art_unidad_medida(HttpServletRequest request, Conexion con) {
+          try {
+            ART_UNIDAD_MEDIDA art_unidad_medida = new ART_UNIDAD_MEDIDA(con);
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_unidad_medida.gelAll().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener unidad de medidas de articulos.", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+
 }

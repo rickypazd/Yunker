@@ -23,8 +23,7 @@ public class ARTICULO {
     private double PRECIO_COMPRA_REF;
     private double PRECIO_VENTA_REF;
     private double MARGEN_DE_UTILIDAD;
-    private String UNIDAD_DE_COMPRA;
-    private String UNIDAD_DE_VENTA;
+    private int ID_UNIDAD_MEDIDA;
     private int FACTOR;
     private int ID_CATEGORIA;
     private int ID_MARCA;
@@ -37,8 +36,8 @@ public class ARTICULO {
 
     public int Insertar() throws SQLException {
         String consulta = "INSERT INTO public.articulo(\n"
-                + "	clave, nombre, descripcion, precio_compra_ref, precio_venta_ref, margen_de_utilidad, unidad_de_compra, unidad_de_venta, factor, id_categoria, id_marca, id_departamento)\n"
-                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                + "	clave, nombre, descripcion, precio_compra_ref, precio_venta_ref, margen_de_utilidad, id_unidad_medida, factor, id_categoria, id_marca, id_departamento)\n"
+                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = con.statamet(consulta);
         ps.setString(1, getCLAVE());
         ps.setString(2, getNOMBRE());
@@ -46,12 +45,11 @@ public class ARTICULO {
         ps.setDouble(4, getPRECIO_COMPRA_REF());
         ps.setDouble(5, getPRECIO_VENTA_REF());
         ps.setDouble(6, getMARGEN_DE_UTILIDAD());
-        ps.setString(7, getUNIDAD_DE_COMPRA());
-        ps.setString(8, getUNIDAD_DE_VENTA());
-        ps.setInt(9, getFACTOR());
-        ps.setInt(10, getID_CATEGORIA());
-        ps.setInt(11, getID_MARCA());
-        ps.setInt(12, getID_DEPARTAMENTO());
+        ps.setInt(7, getID_UNIDAD_MEDIDA());
+        ps.setInt(8, getFACTOR());
+        ps.setInt(9, getID_CATEGORIA());
+        ps.setInt(10, getID_MARCA());
+        ps.setInt(11, getID_DEPARTAMENTO());
         ps.execute();
         consulta = "select last_value from articulo_id_seq ";
         ps = con.statamet(consulta);
@@ -110,8 +108,7 @@ public class ARTICULO {
         parseObj.put("precio_compra_ref", rs.getDouble("precio_compra_ref"));
         parseObj.put("precio_venta_ref", rs.getDouble("precio_venta_ref"));
         parseObj.put("margen_de_utilidad", rs.getDouble("margen_de_utilidad"));
-        parseObj.put("unidad_de_compra", rs.getString("unidad_de_compra") != null ? rs.getString("unidad_de_compra") : "");
-        parseObj.put("unidad_de_venta", rs.getString("unidad_de_venta") != null ? rs.getString("unidad_de_venta") : "");
+        parseObj.put("unidad_de_medida", rs.getInt("unidad_de_medida"));
         parseObj.put("factor", rs.getInt("factor"));
         parseObj.put("id_categoria", rs.getInt("id_categoria"));
         parseObj.put("id_marca", rs.getInt("id_marca"));
@@ -175,22 +172,6 @@ public class ARTICULO {
         this.MARGEN_DE_UTILIDAD = MARGEN_DE_UTILIDAD;
     }
 
-    public String getUNIDAD_DE_COMPRA() {
-        return UNIDAD_DE_COMPRA;
-    }
-
-    public void setUNIDAD_DE_COMPRA(String UNIDAD_DE_COMPRA) {
-        this.UNIDAD_DE_COMPRA = UNIDAD_DE_COMPRA;
-    }
-
-    public String getUNIDAD_DE_VENTA() {
-        return UNIDAD_DE_VENTA;
-    }
-
-    public void setUNIDAD_DE_VENTA(String UNIDAD_DE_VENTA) {
-        this.UNIDAD_DE_VENTA = UNIDAD_DE_VENTA;
-    }
-
     public int getFACTOR() {
         return FACTOR;
     }
@@ -237,6 +218,14 @@ public class ARTICULO {
 
     public void setParseObj(JSONObject parseObj) {
         this.parseObj = parseObj;
+    }
+
+    public int getID_UNIDAD_MEDIDA() {
+        return ID_UNIDAD_MEDIDA;
+    }
+
+    public void setID_UNIDAD_MEDIDA(int ID_UNIDAD_MEDIDA) {
+        this.ID_UNIDAD_MEDIDA = ID_UNIDAD_MEDIDA;
     }
 
 }

@@ -24,8 +24,8 @@ public class SEG_ARTICULO {
     private double PRECIO_COMPRA_REF;
     private double PRECIO_VENTA_REF;
     private double MARGEN_DE_UTILIDAD;
-    private String UNIDAD_DE_COMPRA;
-    private String UNIDAD_DE_VENTA;
+
+    private int ID_UNIDAD_MEDIDA;
     private int FACTOR;
     private int ID_CATEGORIA;
     private int ID_MARCA;
@@ -47,8 +47,7 @@ public class SEG_ARTICULO {
         this.PRECIO_COMPRA_REF=articulo.getPRECIO_COMPRA_REF();
         this.PRECIO_VENTA_REF=articulo.getPRECIO_VENTA_REF();
         this.MARGEN_DE_UTILIDAD=articulo.getMARGEN_DE_UTILIDAD();
-        this.UNIDAD_DE_COMPRA=articulo.getUNIDAD_DE_COMPRA();
-        this.UNIDAD_DE_VENTA=articulo.getUNIDAD_DE_VENTA();
+        this.ID_UNIDAD_MEDIDA=articulo.getID_UNIDAD_MEDIDA();
         this.FACTOR=articulo.getFACTOR();
         this.ID_CATEGORIA=articulo.getID_CATEGORIA();
         this.ID_MARCA=articulo.getID_MARCA();
@@ -57,8 +56,8 @@ public class SEG_ARTICULO {
 
     public int Insertar() throws SQLException {
         String consulta = "INSERT INTO public.articulo(\n"
-                + "	clave, nombre, descripcion, precio_compra_ref, precio_venta_ref, margen_de_utilidad, unidad_de_compra, unidad_de_venta, factor, id_categoria, id_marca, id_departamento)\n"
-                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                + "	clave, nombre, descripcion, precio_compra_ref, precio_venta_ref, margen_de_utilidad, id_unidad_medida ,factor, id_categoria, id_marca, id_departamento)\n"
+                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = con.statamet(consulta);
         ps.setString(1, getCLAVE());
         ps.setString(2, getNOMBRE());
@@ -66,12 +65,11 @@ public class SEG_ARTICULO {
         ps.setDouble(4, getPRECIO_COMPRA_REF());
         ps.setDouble(5, getPRECIO_VENTA_REF());
         ps.setDouble(6, getMARGEN_DE_UTILIDAD());
-        ps.setString(7, getUNIDAD_DE_COMPRA());
-        ps.setString(8, getUNIDAD_DE_VENTA());
-        ps.setInt(9, getFACTOR());
-        ps.setInt(10, getID_CATEGORIA());
-        ps.setInt(11, getID_MARCA());
-        ps.setInt(12, getID_DEPARTAMENTO());
+        ps.setInt(7, getID_UNIDAD_MEDIDA());
+        ps.setInt(8, getFACTOR());
+        ps.setInt(9, getID_CATEGORIA());
+        ps.setInt(10, getID_MARCA());
+        ps.setInt(11, getID_DEPARTAMENTO());
         ps.execute();
         consulta = "select last_value from articulo_id_seq ";
         ps = con.statamet(consulta);
@@ -195,20 +193,28 @@ public class SEG_ARTICULO {
         this.MARGEN_DE_UTILIDAD = MARGEN_DE_UTILIDAD;
     }
 
-    public String getUNIDAD_DE_COMPRA() {
-        return UNIDAD_DE_COMPRA;
+    public int getID_ARTICULO() {
+        return ID_ARTICULO;
     }
 
-    public void setUNIDAD_DE_COMPRA(String UNIDAD_DE_COMPRA) {
-        this.UNIDAD_DE_COMPRA = UNIDAD_DE_COMPRA;
+    public void setID_ARTICULO(int ID_ARTICULO) {
+        this.ID_ARTICULO = ID_ARTICULO;
     }
 
-    public String getUNIDAD_DE_VENTA() {
-        return UNIDAD_DE_VENTA;
+    public int getID_UNIDAD_MEDIDA() {
+        return ID_UNIDAD_MEDIDA;
     }
 
-    public void setUNIDAD_DE_VENTA(String UNIDAD_DE_VENTA) {
-        this.UNIDAD_DE_VENTA = UNIDAD_DE_VENTA;
+    public void setID_UNIDAD_MEDIDA(int ID_UNIDAD_MEDIDA) {
+        this.ID_UNIDAD_MEDIDA = ID_UNIDAD_MEDIDA;
+    }
+
+    public int getESTADO() {
+        return ESTADO;
+    }
+
+    public void setESTADO(int ESTADO) {
+        this.ESTADO = ESTADO;
     }
 
     public int getFACTOR() {
