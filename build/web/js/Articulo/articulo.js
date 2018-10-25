@@ -22,6 +22,7 @@ $(document).ready(function () {
     cargar_categoria();
     cargar_marca();
     cargar_unidad_medida();
+    disabled();
 
 });
 function buscar_departamento(input) {
@@ -262,7 +263,7 @@ function registrar_articulo() {
     var categoria = $("#art_categoria").val() || null;
     var marca = $("#art_marca").val() || null;
     var unidad_medida = $("#art_unidad_medida").val() || null;
-    
+
     var factor = $("#art_factor").val() || null;
     var precio_compra_ref = $("#art_precio_compra").val() || null;
     var precio_venta_ref = $("#art_precio_venta").val() || null;
@@ -338,24 +339,24 @@ function registrar_articulo() {
         exito = false;
     }
     if (exito) {
-        $.post(url, 
-        {
-            evento: "registrar_articulo", 
-            TokenAcceso: TokenAcceso, 
-            id_usr: usr_log.id,
-            clave: clave, 
-            nombre: nombre, 
-            descripcion: descripcion,
-            departamento: departamento,
-            categoria: categoria, 
-            marca: marca, 
-            unidad_compra: unidad_compra,
-            unidad_venta: unidad_venta, 
-            factor: factor, 
-            precio_compra_red: precio_compra_ref,
-            precio_venta_ref: precio_venta_ref, 
-            margen: margen
-        }, function (respuesta) {
+        $.post(url,
+                {
+                    evento: "registrar_articulo",
+                    TokenAcceso: TokenAcceso,
+                    id_usr: usr_log.id,
+                    clave: clave,
+                    nombre: nombre,
+                    descripcion: descripcion,
+                    departamento: departamento,
+                    categoria: categoria,
+                    marca: marca,
+                    unidad_compra: unidad_compra,
+                    unidad_venta: unidad_venta,
+                    factor: factor,
+                    precio_compra_red: precio_compra_ref,
+                    precio_venta_ref: precio_venta_ref,
+                    margen: margen
+                }, function (respuesta) {
             cerrar_progress();
             if (respuesta != null) {
                 var obj = $.parseJSON(respuesta);
@@ -369,7 +370,7 @@ function registrar_articulo() {
                 }
             }
         });
-    }else{
+    } else {
         cerrar_progress();
     }
 }
@@ -480,4 +481,18 @@ function seleccionar_unidad_medida(id, nombre) {
     $("#art_unidad_medida").val(nombre);
     $("#art_unidad_medida").data("id", id);
     $(".bd-unidad").modal('toggle');
+}
+
+
+function disabled() {
+    $(".input-disabled").prop('disabled', true);
+}
+
+function desactivar() {
+    if ($(".input-disabled").val() == 1) {
+        $(".input-disabled").attr('disabled', 'disabled');
+    }
+    else {
+        $(".input-disabled").removeAttr("disabled");
+    }
 }
