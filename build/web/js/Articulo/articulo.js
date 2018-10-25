@@ -16,6 +16,7 @@ $(document).ready(function () {
 //alert();
 //});
 //calc_dist();
+//nnuevo comentario
 
     cargar_departamentos();
     cargar_categoria();
@@ -190,6 +191,46 @@ function registrar_marca() {
         cerrar_progress();
     }
 }
+
+
+function seleccionar_unidad_medida() {
+    mostrar_progress();
+    var exito = true;
+    var nombre = $("#mar_nombre").val() || null;
+    var TokenAcceso = "servi12sis3";
+    var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
+    if (nombre != null && nombre.length > 0) {
+        $("#mar_nombre").css("background", "#ffffff");
+    } else {
+        $("#mar_nombre").css("background", "#00ff00");
+        exito = false;
+    }
+    if (exito) {
+        $.post(url, {evento: "registrar_art_unidad_medida", TokenAcceso: TokenAcceso, id_usr: usr_log.id,
+            nombre: nombre}, function (respuesta) {
+            cerrar_progress();
+            if (respuesta != null) {
+                var obj = $.parseJSON(respuesta);
+                if (obj.estado != 1) {
+//error
+                    alert(obj.mensaje);
+                } else {
+//exito
+                    $("#mar_nombre").val("");
+                    var resp = $.parseJSON(obj.resp);
+                    var html = "<li class='list-group-item'  onclick=\"seleccionar_unidad_medida(" + obj.id + ",'" + obj.nombre + "');\">" + resp.nombre + "</li>";
+                    $("#lista_unidad_medida").prepend(html);
+                    var resp = obj.resp;
+                    alert(resp);
+                }
+            }
+        });
+    } else {
+        cerrar_progress();
+    }
+}
+
+
 
 function registrar_articulo() {
     mostrar_progress();
@@ -382,6 +423,28 @@ function cargar_marca() {
     });
 }
 
+function cargar_unidad_medida() {
+    var html = "";
+    // mostrar_progress();
+    $.post(url, {TokenAcceso: "servi12sis3", evento: "get_art_unidad_medida"}, function (resp) {
+
+        //cerrar_progress();
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+            if (obj.estado != "1") {
+                alert(obj.mensaje);
+            } else {
+                var arr = $.parseJSON(obj.resp);
+                $.each(arr, function (i, obj) {
+                    html += "<li class='list-group-item' onclick=\"seleccionar_unidad_medida(" + obj.id + ",'" + obj.nombre + "');\">" + obj.nombre + "</li>";
+                });
+                $("#lista_unidad_medida").html(html);
+            }
+        }
+
+    });
+}
+
 function seleccionar_departamento(id, nombre) {
     $("#art_departamento").val(nombre);
     $("#art_departamento").data("id", id);
@@ -396,4 +459,10 @@ function seleccionar_marca(id, nombre) {
     $("#art_marca").val(nombre);
     $("#art_marca").data("id", id);
     $(".bd-marca").modal('toggle');
+}
+
+function seleccionar_unidad_medida(id, nombre) {
+    $("#art_unidad").val(nombre);
+    $("#art_unidad").data("id", id);
+    $(".bd-unidad").modal('toggle');
 }
