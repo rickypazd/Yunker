@@ -17,13 +17,68 @@ $(document).ready(function () {
 //});
 //calc_dist();
 //nnuevo comentario
-
+  $('#tbl_articulos').dynatable({
+                    features: {
+                        paginate: false,
+                        recordCount: false
+                    }
+                    // We have one column, but it contains multiple types of info.
+                    // So let's define a custom reader for that column to grab
+                    // all the extra info and store it in our normalized records.
+                });
+    cargar_articulos();
     cargar_departamentos();
     cargar_categoria();
     cargar_marca();
     cargar_unidad_medida();
 
 });
+function cargar_articulos() {
+
+
+    var html = "";
+    mostrar_progress();
+    $.post(url, {TokenAcceso: "servi12sis3", evento: "get_articulos"}, function (resp) {
+
+        cerrar_progress();
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+            if (obj.estado != "1") {
+                alert(obj.mensaje);
+                alert(obj.error);
+            } else {
+                var arr = $.parseJSON(obj.resp);
+                $.each(arr, function (i, obj) {
+                    html += "<tr>";
+                    html += "        <td>" + obj.clave + "</td>";
+                    html += "        <td>" + obj.nombre + "</td>";
+                    html += "        <td>" + obj.descripcion + "</td>";
+                    html += "        <td>" + obj.precio_compra_ref + "</td>";
+                    html += "        <td>" + obj.precio_venta_ref + "</td>";
+                    html += "        <td>" + obj.margen_de_utilidad + "</td>";
+                    html += "        <td>" + obj.id_unidad_medida + "</td>";
+                    html += "        <td>" + obj.factor + "</td>";
+                    html += "        <td>" + obj.id_categoria + "</td>";
+                    html += "        <td>" + obj.id_marca + "</td>";
+                    html += "        <td>" + obj.id_departamento + "</td>";
+                    html += "</tr>";
+                });
+                $("#body_tbl_articulos").html(html);
+                $('#tbl_articulos').dynatable({
+                    features: {
+                        paginate: false,
+                        recordCount: false
+                    }
+                    // We have one column, but it contains multiple types of info.
+                    // So let's define a custom reader for that column to grab
+                    // all the extra info and store it in our normalized records.
+                });
+                $("#dynatable-query-search-tbl_articulos").attr("placeholder", "Precione fuera para buscar.");
+            }
+        }
+
+    });
+}
 function buscar_departamento(input) {
     var text = $(input).val() + "";
     var arr = $("#lista_departamentos").find("li");
@@ -259,10 +314,13 @@ function registrar_articulo() {
     var nombre = $("#art_nombre").val() || null;
     var descripcion = $("#art_descripcion").val() || null;
     var departamento = $("#art_departamento").val() || null;
+    var id_departamento = $("#art_departamento").data("id");
     var categoria = $("#art_categoria").val() || null;
+    var id_categoria = $("#art_categoria").data("id");
     var marca = $("#art_marca").val() || null;
+    var id_marca = $("#art_marca").data("id");
     var unidad_medida = $("#art_unidad_medida").val() || null;
-    
+    var id_unidad_medida = $("#art_unidad_medida").data("id");
     var factor = $("#art_factor").val() || null;
     var precio_compra_ref = $("#art_precio_compra").val() || null;
     var precio_venta_ref = $("#art_precio_venta").val() || null;
@@ -287,25 +345,25 @@ function registrar_articulo() {
         $("#art_descripcion").css("background", "#df5b5b");
         exito = false;
     }
-    if (departamento != null && departamento.length > 0) {
+    if (departamento != null && departamento.length > 0 && id_departamento > 0) {
         $("#art_departamento").css("background", "#ffffff");
     } else {
         $("#art_departamento").css("background", "#df5b5b");
         exito = false;
     }
-    if (categoria != null && categoria.length > 0) {
+    if (categoria != null && categoria.length > 0 && id_categoria > 0) {
         $("#art_categoria").css("background", "#ffffff");
     } else {
         $("#art_categoria").css("background", "#df5b5b");
         exito = false;
     }
-    if (marca != null && marca.length > 0) {
+    if (marca != null && marca.length > 0 && id_marca > 0) {
         $("#art_marca").css("background", "#ffffff");
     } else {
         $("#art_marca").css("background", "#df5b5b");
         exito = false;
     }
-    if (unidad_medida != null && unidad_medida.length > 0) {
+    if (unidad_medida != null && unidad_medida.length > 0 && id_unidad_medida > 0) {
 
         $("#art_unidad_medida").css("background", "#ffffff");
     } else {
@@ -338,29 +396,28 @@ function registrar_articulo() {
         exito = false;
     }
     if (exito) {
-        $.post(url, 
-        {
-            evento: "registrar_articulo", 
-            TokenAcceso: TokenAcceso, 
-            id_usr: usr_log.id,
-            clave: clave, 
-            nombre: nombre, 
-            descripcion: descripcion,
-            departamento: departamento,
-            categoria: categoria, 
-            marca: marca, 
-            unidad_compra: unidad_compra,
-            unidad_venta: unidad_venta, 
-            factor: factor, 
-            precio_compra_red: precio_compra_ref,
-            precio_venta_ref: precio_venta_ref, 
-            margen: margen
-        }, function (respuesta) {
+        $.post(url,
+                {
+                    evento: "registrar_articulo",
+                    TokenAcceso: TokenAcceso,
+                    id_usr: usr_log.id,
+                    clave: clave,
+                    nombre: nombre,
+                    descripcion: descripcion,
+                    id_departamento: id_departamento,
+                    id_categoria: id_categoria,
+                    id_marca: id_marca,
+                    id_unidad_medida: id_unidad_medida,
+                    factor: factor,
+                    precio_compra_red: precio_compra_ref,
+                    precio_venta_ref: precio_venta_ref,
+                    margen: margen
+                }, function (respuesta) {
             cerrar_progress();
             if (respuesta != null) {
                 var obj = $.parseJSON(respuesta);
                 if (obj.estado != 1) {
-//error
+//
                     alert(obj.mensaje);
                 } else {
 //exito                    
@@ -369,7 +426,7 @@ function registrar_articulo() {
                 }
             }
         });
-    }else{
+    } else {
         cerrar_progress();
     }
 }

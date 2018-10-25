@@ -13,6 +13,7 @@ import MODELO.ARTICULO.ART_CATEGORIA;
 import MODELO.ARTICULO.ART_DEPARTAMENTO;
 import MODELO.ARTICULO.ART_MARCA;
 import MODELO.ARTICULO.ART_UNIDAD_MEDIDA;
+import MODELO.ARTICULO.SEG_ARTICULO;
 import MODELO.ARTICULO.SEG_ART_CATEGORIA;
 import MODELO.ARTICULO.SEG_ART_DEPARTAMENTO;
 import MODELO.ARTICULO.SEG_ART_MARCA;
@@ -107,6 +108,9 @@ public class adminController extends HttpServlet {
                     break;
                 case "registrar_art_unidad_medida":
                     html = registrar_art_unidad_medida(request, con);
+                    break;
+                case "get_articulos":
+                    html = get_articulos(request, con);
                     break;
                 case "get_art_departamentos":
                     html = get_art_departamentos(request, con);
@@ -266,24 +270,58 @@ public class adminController extends HttpServlet {
     }
 
     private String registrar_articulo(HttpServletRequest request, Conexion con) {
-//        try {
-//
-//            String usuario = request.getParameter("usuario");
-//            String pass = request.getParameter("pass");
-//            ARTICULO articulo = new ARTICULO(con);
-//            
-//            RESPUESTA resp = new RESPUESTA(0, "", "No se encontro el usuario.", obj.toString());
-//            return resp.toString();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
-//            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al registrar el articulo.", "{}");
-//            return resp.toString();
-//        } catch (JSONException ex) {
-//            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
-//            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
-//            return resp.toString();
-//        }
-        return "pendiente";
+        try {
+            int id_usr = Integer.parseInt(request.getParameter("id_usr"));
+            String clave = request.getParameter("clave");
+            String nombre = request.getParameter("nombre");
+            String descripcion = request.getParameter("descripcion");
+            int id_departamento =Integer.parseInt(request.getParameter("id_departamento")) ;//data
+            int id_categoria =Integer.parseInt(request.getParameter("id_categoria")) ;//data
+            int id_marca =Integer.parseInt(request.getParameter("id_marca")) ;//data
+            int id_unidad_medida =Integer.parseInt(request.getParameter("id_unidad_medida")) ;//data
+            int factor = Integer.parseInt(request.getParameter("factor"));
+            double precio_compra_red = Double.parseDouble(request.getParameter("precio_compra_red"));
+            double precio_venta_ref = Double.parseDouble(request.getParameter("precio_venta_ref"));
+            double margen = Double.parseDouble(request.getParameter("margen"));
+            ARTICULO articulo = new ARTICULO(con);
+            articulo.setCLAVE(clave);
+            articulo.setNOMBRE(nombre);
+            articulo.setDESCRIPCION(descripcion);
+            articulo.setID_DEPARTAMENTO(id_departamento);
+            articulo.setID_CATEGORIA(id_categoria);
+            articulo.setID_UNIDAD_MEDIDA(id_unidad_medida);
+            articulo.setID_MARCA(id_marca);
+            articulo.setFACTOR(factor);
+            articulo.setPRECIO_COMPRA_REF(id_marca);
+            articulo.setPRECIO_VENTA_REF(precio_venta_ref);
+            articulo.setMARGEN_DE_UTILIDAD(margen);
+            int id = articulo.Insertar();
+            articulo.setID(id);
+            SEG_ARTICULO seg_articulo = new SEG_ARTICULO(con, articulo);
+            seg_articulo.setESTADO(1);
+            int id_seg_articulo = seg_articulo.Insertar();
+            SEG_MODIFICACIONES seg_modificaciones = new SEG_MODIFICACIONES(con);
+            seg_modificaciones.setID_USR(id_usr);
+            seg_modificaciones.setTBL_NOMBRE("art_categoria");
+            seg_modificaciones.setTBL_ID(id);
+            seg_modificaciones.setMENSAJE("Se inserto un nuevo articulo.");
+            //TODO: insertar ip
+            seg_modificaciones.setIP("192.168.0.0");
+            seg_modificaciones.setTIPO(1);
+            seg_modificaciones.Insertar();
+            RESPUESTA resp = new RESPUESTA(1, "", "Articulo registrado con exito.", articulo.getJson().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al registrar el articulo.", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
+            return resp.toString();
+        }
     }
 
     private String registrar_art_categoria(HttpServletRequest request, Conexion con) {
@@ -481,7 +519,7 @@ public class adminController extends HttpServlet {
     }
 
     private String get_art_unidad_medida(HttpServletRequest request, Conexion con) {
-          try {
+        try {
             ART_UNIDAD_MEDIDA art_unidad_medida = new ART_UNIDAD_MEDIDA(con);
             RESPUESTA resp = new RESPUESTA(1, "", "Exito.", art_unidad_medida.gelAll().toString());
             return resp.toString();
@@ -489,6 +527,24 @@ public class adminController extends HttpServlet {
             con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener unidad de medidas de articulos.", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+
+    private String get_articulos(HttpServletRequest request, Conexion con) {
+           try {
+            ARTICULO articulo = new ARTICULO(con);
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", articulo.getAll().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener articulos.", "{}");
             return resp.toString();
         } catch (JSONException ex) {
             con.rollback();
