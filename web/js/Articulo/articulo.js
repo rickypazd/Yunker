@@ -19,10 +19,7 @@ $(document).ready(function () {
 //nnuevo comentario
 
     cargar_articulos();
-    cargar_departamentos();
-    cargar_categoria();
-    cargar_marca();
-    cargar_unidad_medida();
+
 });
 function cargar_articulos() {
 
@@ -31,6 +28,7 @@ function cargar_articulos() {
     mostrar_progress();
     $.post(url, {TokenAcceso: "servi12sis3", evento: "get_articulos"}, function (resp) {
         cerrar_progress();
+
         if (resp != null) {
             var obj = $.parseJSON(resp);
             if (obj.estado != "1") {
@@ -38,37 +36,41 @@ function cargar_articulos() {
                 alert(obj.error);
             } else {
                 var arr = JSON.parse(obj.resp);
-                        $.each(arr, function (i, obj) {
-                        html += "<tr>";
-                                html += "        <td>" + obj.clave + "</td>";
-                                html += "        <td>" + obj.nombre + "</td>";
-                                html += "        <td>" + obj.descripcion + "</td>";
-                                html += "        <td>" + obj.precio_compra_ref + "</td>";
-                                html += "        <td>" + obj.precio_venta_ref + "</td>";
-                                html += "        <td>" + obj.margen_de_utilidad + "</td>";
-                                html += "        <td>" + obj.id_unidad_medida + "</td>";
-                                html += "        <td>" + obj.factor + "</td>";
-                                html += "        <td>" + obj.id_categoria + "</td>";
-                                html += "        <td>" + obj.id_marca + "</td>";
-                                html += "        <td>" + obj.id_departamento + "</td>";
-                                html += "        <td> EDITAR</td>";
-                                html += "</tr>";
-                        });
-                        $("#body_tbl_articulos").html(html);
-                $('#tbl_articulos').dynatable({
-                    features: {
-                        paginate: false,
-                        recordCount: false
-                    }
-                    // We have one column, but it contains multiple types of info.
-                    // So let's define a custom reader for that column to grab
-                    // all the extra info and store it in our normalized records.
+                $.each(arr, function (i, obj) {
+                    html += "<tr onclick=\'editar_articulo(\'" + JSON.stringify(obj) + "\');\'>";
+                    html += "        <td>" + obj.clave + "</td>";
+                    html += "        <td>" + obj.nombre + "</td>";
+                    html += "        <td>" + obj.descripcion + "</td>";
+                    html += "        <td>" + obj.precio_compra_ref + "</td>";
+                    html += "        <td>" + obj.precio_venta_ref + "</td>";
+                    html += "        <td>" + obj.margen_de_utilidad + "</td>";
+                    html += "        <td>" + obj.id_unidad_medida + "</td>";
+                    html += "        <td>" + obj.factor + "</td>";
+                    html += "        <td>" + obj.id_categoria + "</td>";
+                    html += "        <td>" + obj.id_marca + "</td>";
+                    html += "        <td>" + obj.id_departamento + "</td>";
+                    html += "        <td> EDITAR</td>";
+                    html += "</tr>";
                 });
-                $("#dynatable-query-search-tbl_articulos").attr("placeholder", "Precione fuera para buscar.");
+                $("#body_tbl_articulos").html(html);
+                //$('#tbl_articulos').dynatable({
+                  //  features: {
+                 //       paginate: false,
+              //          recordCount: false
+              //      }
+             //   });
+             //   $("#dynatable-query-search-tbl_articulos").attr("placeholder", "Precione fuera para buscar.");
             }
         }
-
+        cargar_departamentos();
+        cargar_categoria();
+        cargar_marca();
+        cargar_unidad_medida();
     });
+}
+function editar_articulo(strobj) {
+    var obj = $.parseJSON(strobj);
+    alert(obj.id);
 }
 function buscar_departamento(input) {
     var text = $(input).val() + "";
