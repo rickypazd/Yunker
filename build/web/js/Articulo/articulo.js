@@ -6,6 +6,7 @@
 
 
 var url = "admin/adminController";
+var listaArituclos=null;
 $(document).ready(function () {
 //aki
 //
@@ -36,20 +37,21 @@ function cargar_articulos() {
                 alert(obj.error);
             } else {
                 var arr = JSON.parse(obj.resp);
+                listaArituclos=arr;
                 $.each(arr, function (i, obj) {
-                    html += "<tr onclick=\'editar_articulo(\'" + JSON.stringify(obj) + "\');\'>";
+                    html += "<tr onclick='editar_articulo("+i+","+obj.id+");'>";
                     html += "        <td>" + obj.clave + "</td>";
                     html += "        <td>" + obj.nombre + "</td>";
                     html += "        <td>" + obj.descripcion + "</td>";
                     html += "        <td>" + obj.precio_compra_ref + "</td>";
                     html += "        <td>" + obj.precio_venta_ref + "</td>";
                     html += "        <td>" + obj.margen_de_utilidad + "</td>";
-                    html += "        <td>" + obj.id_unidad_medida + "</td>";
                     html += "        <td>" + obj.factor + "</td>";
+                    html += "        <td>" + obj.id_unidad_medida + "</td>";
                     html += "        <td>" + obj.id_categoria + "</td>";
                     html += "        <td>" + obj.id_marca + "</td>";
                     html += "        <td>" + obj.id_departamento + "</td>";
-                    html += "        <td> EDITAR</td>";
+
                     html += "</tr>";
                 });
                 $("#body_tbl_articulos").html(html);
@@ -68,9 +70,9 @@ function cargar_articulos() {
         cargar_unidad_medida();
     });
 }
-function editar_articulo(strobj) {
-    var obj = $.parseJSON(strobj);
-    alert(obj.id);
+function editar_articulo(i,id) {
+    $(".modal-configuracion").modal();
+    JSON.stringify(listaArituclos[i]);
 }
 function buscar_departamento(input) {
     var text = $(input).val() + "";
