@@ -104,8 +104,14 @@ html, body {
 
 /*// Articulo Style*/
 .input_hover:hover{
-    cursor:pointer !important;   
+    cursor:pointer !important;       
 }
+
+.form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+}
+    
 
 #myModal .modal-dialog {
     -webkit-transform: translate(0,-50%);
