@@ -30,7 +30,6 @@ function cargar_articulos() {
     var html = "";
     mostrar_progress();
     $.post(url, {TokenAcceso: "servi12sis3", evento: "get_articulos"}, function (resp) {
-
         cerrar_progress();
         if (resp != null) {
             var obj = $.parseJSON(resp);
@@ -52,6 +51,7 @@ function cargar_articulos() {
                                 html += "        <td>" + obj.id_categoria + "</td>";
                                 html += "        <td>" + obj.id_marca + "</td>";
                                 html += "        <td>" + obj.id_departamento + "</td>";
+                                html += "        <td> EDITAR</td>";
                                 html += "</tr>";
                         });
                         $("#body_tbl_articulos").html(html);
