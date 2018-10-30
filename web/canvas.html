@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+            }
+            #myCanvas{
+                border: black 1px solid;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-top: -300px;
+                margin-left: -300px;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="500" height="500"></canvas>
+        <script>
+            function writeMessage(canvas, message) {
+                var context = canvas.getContext('2d');
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.font = '18pt Calibri';
+                context.fillStyle = 'black';
+                context.fillText(message, 10, 25);
+            }
+            function getMousePos(canvas, evt) {
+                var rect = canvas.getBoundingClientRect();
+                return {
+                    x: evt.clientX - rect.left,
+                    y: evt.clientY - rect.top
+                };
+            }
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+            var img = new Image();
+            img.src = "img/esquema.jpg";
+            
+            img.onload = function () {
+                var w=img.width;
+                var h=img.heigh;
+                if(w >canvas.width){
+                    
+                }
+                if(h>canvas.h){
+                    
+                }
+                context.drawImage(img, 0, 0,500,500);
+            };
+
+            var flag2 = 0;
+            var flag = 0;
+            var click = null;
+            canvas.addEventListener("mousedown", function (evt) {
+                flag = 0;
+                flag2 = 1;
+                click = getMousePos(canvas, evt);
+
+
+            }, false);
+            canvas.addEventListener("mousemove", function (evt) {
+                if (flag2 == 1) {
+                    clearCanvas(context, canvas);
+                      context.drawImage(img, 0, 0,500,500);
+                    var mousePos = getMousePos(canvas, evt);
+                    var mousePos2 = click;
+                    var width = mousePos.x - mousePos2.x;
+                    var heigh = mousePos.y - mousePos2.y;
+                    context.rect(mousePos2.x, mousePos2.y, width, heigh);
+                    context.stroke();
+
+                }
+                flag = 1;
+            }, false);
+            canvas.addEventListener("mouseup", function (evt) {
+                flag2 = 0;
+                if (flag === 0) {
+//                    console.log("click");
+//                    var mousePos = getMousePos(canvas, evt);
+//                    var message = 'Mouse click ' + mousePos.x + ',' + mousePos.y;
+//                    writeMessage(canvas, message);
+                } else if (flag === 1) {
+                    console.log("drag");
+                    var mousePos = getMousePos(canvas, evt);
+                    var mousePos2 = click;
+                    var width = mousePos.x - mousePos2.x;
+                    var heigh = mousePos.y - mousePos2.y;
+                    context.rect(mousePos2.x, mousePos2.y, width, heigh);
+                    context.stroke();
+
+                }
+            }, false);
+
+            function clearCanvas(context, canvas) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                var w = canvas.width;
+                canvas.width = 1;
+                canvas.width = w;
+            }
+
+        </script>
+    </body>
+</html>

@@ -39,8 +39,7 @@ function cargar_articulos() {
                 var arr = JSON.parse(obj.resp);
                 listaArituclos=arr;
                 $.each(arr, function (i, obj) {
-                    html += "<tr onclick='editar_articulo("+i+","+obj.id+");'>";
-                    html += "        <td>" + obj.clave + "</td>";
+                    html += "<tr>";
                     html += "        <td>" + obj.nombre + "</td>";
                     html += "        <td>" + obj.descripcion + "</td>";
                     html += "        <td>" + obj.precio_compra_ref + "</td>";
@@ -51,17 +50,16 @@ function cargar_articulos() {
                     html += "        <td>" + obj.id_categoria + "</td>";
                     html += "        <td>" + obj.id_marca + "</td>";
                     html += "        <td>" + obj.id_departamento + "</td>";
-
                     html += "</tr>";
                 });
                 $("#body_tbl_articulos").html(html);
-                //$('#tbl_articulos').dynatable({
-                  //  features: {
-                 //       paginate: false,
-              //          recordCount: false
-              //      }
-             //   });
-             //   $("#dynatable-query-search-tbl_articulos").attr("placeholder", "Precione fuera para buscar.");
+                $('#tbl_articulos').dynatable({
+                    features: {
+                        paginate: false,
+                        recordCount: false
+                    }
+                });
+                $("#dynatable-query-search-tbl_articulos").attr("placeholder", "Precione fuera para buscar.");
             }
         }
         cargar_departamentos();
