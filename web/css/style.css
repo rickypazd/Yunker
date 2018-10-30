@@ -164,6 +164,13 @@ html, body {
     border-color: #fff transparent #fff transparent;
     animation: lds-hourglass 1.2s infinite;
 }
+
+
+/*    justify-content: flex-end;
+    display: flex;
+    margin: auto;
+    margin-bottom: 14px;*/
+
 @keyframes lds-hourglass {
     0% {
         transform: rotate(0);
