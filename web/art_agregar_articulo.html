@@ -15,68 +15,157 @@ and open the template in the editor.
         <link href="plugin/jspkg-archive/jquery.dynatable.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body class="app sidebar-mini rtl">
-        <header class="navbar navbar-light bg-light">
-            <div class="container-fluid">
-                 <div class="col-md-12">
-                     <h1 style="float: right">Articulos</h1>
-                </div>
-                <div class="col-md-12 ">    
-                    <a href="index.html" class="btn btn-outline-danger" >Cerrar</a>    </br>                
-                    <button class="btn btn-success " style="width: 120px !important  ; color: white " type="button" onclick="ver_pagina('art_agregar_articulo.html');"><i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>agregar</button>                                                                                      
-                    <!--<button class="btn btn-success " data-toggle="modal" data-target=".bd-example-modal-lg" style="width: 120px !important  ; color: white " type="button"><i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>agregar</button>-->                                                                  
-                    <button class="btn btn-warning" style="width: 120px !important ; color: white " type="button"><i class="fa fa-edit fa-1x" aria-hidden="true" style="color: #495057; flex-align: auto"></i>editar</button>                                                                  
-                    <button class="btn btn-danger " style="width: 120px !important " type="button"><i class="fa fa-minus-circle fa-1x" aria-hidden="true" style="color:#495057" ></i>eliminar</button>                                                                  
-                    <button class="btn btn-primary" style="width: 120px !important " type="button"><i class="fa fa-retweet fa-1x" aria-hidden="true" style="color:#495057" ></i>actualizar</button>                                                                                     
-                </div>
-               
-            </div>            
+    <body>    
+        <header class="container">
+            <div class="page-header text-center">
+                <h1>Registrar Articulo</h1>
+            </div>
         </header>
-        <div class="container-fluid">           
-            <div class="row">
-                <div class="col-md-12">                    
-                    <div class="card-body row no-gutters">   
-                        <div class="form-group col-md-2 justify-content-center">                                   
-                            <select id="inputState" class="form-control">                                       
-                                <option value="1">Filtrar Todos</option>
-                                <option value="2">Sin Stock</option>
-                                <option value="3">Por Departamento</option>
-                                <option value="3">Por Categoria</option>
-                            </select>
+        <br>            
+        <div class="container form-group">                                   
+            <div class="form-group rounded-top" style="background: whitesmoke;">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item ">
+                        <a class="nav-link active" data-toggle="tab" href="#home">Agregar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#menu1">Caracteristicas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#menu2">Adicionales</a>
+                    </li>
+                </ul>
+            </div>
+        </div>  
+
+        <div class="container form-group">  
+            <div class="border border-top-0">
+                <div class="form-group">
+                    <div class="tab-content">
+                        <div id="home" class="container tab-pane active"><br>
+                            <form class="container-fluid">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="art_clave">Clave</label>
+                                        <input type="text" class="form-control" id="art_clave" placeholder="Clave">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="art_nombre">Nombre</label>
+                                        <input type="text" class="form-control" id="art_nombre" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="art_descripcion">Descripcion</label>
+                                    <input type="text" class="form-control" id="art_descripcion" placeholder="Descripción">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="art_departamento">Departamento</label>
+                                        <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-departamento"  id="art_departamento" style="background: white">
+                                    </div>    
+                                    <div class="form-group col-md-4">
+                                        <label for="art_categoria">Categoria</label>
+                                        <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-familia" id="art_categoria" style="background: white">
+                                    </div> 
+                                    <div class="form-group col-md-4">
+                                        <label for="art_marca">Marca</label>
+                                        <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-marca" id="art_marca" style="background: white">
+                                    </div> 
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="art_unidad">Unidad de medida</label>
+                                        <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-unidad" id="art_unidad_medida" style="background: white">
+                                    </div>                                   
+                                    <div class="form-group col-md-2">
+                                        <label for="art_factor">factor</label>
+                                        <input type="number" class="form-control" id="art_factor">
+                                    </div> 
+                                    <div class="form-group col-md-2 col-auto">
+                                        <label for="inputCity">Por partes</label>
+                                        <!--<input class="align-content-center" type="checkbox" id="gridCheck">-->
+                                        <label class="btn btn-secondary active">
+                                            <input class="align-content-center" type="checkbox" autocomplete="off" id="gridCheck" >
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <label class="form-check-label" for="gridCheck">Por partes</label>
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="art_Precio_compra">Precio de Compra Ref.</label>
+                                        <div class="input-group">
+                                            <input type="Number" class="form-control" id="art_precio_compra">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text" id="btnGroupAddon">0.0</div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                    <div class="form-group col-md-4">
+                                        <label for="art_Precio_venta">Precio de Venta Ref.</label>
+                                        <div class="input-group">
+                                            <input type="Number" class="form-control" id="art_precio_venta">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text" id="btnGroupAddon">0.0</div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group col-md-4">
+                                        <label for="art_margen">Margen de Utilidad</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="art_margen">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text" id="btnGroupAddon">%</div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>                            
+                            </form> 
                         </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-secondary" type="submit" >Buscar</button>
+                        <div id="menu1" class="container tab-pane fade"><br>
+                            <h3>Menu 1</h3>
+                            <form method="POST" action="" id="submitform" enctype="multipart/form-data">
+                                <input type="hidden" name="evento" value="subir_archibo"/>
+                                <input type="hidden" id="id_usr" name="id_usr" value="0"/>
+                                <input type="hidden" id="id_tipo" name="id_tipo" value="0"/>
+                                <input type="hidden" id="fechafin" name="fecha" value="0"/>
+
+                                <div class="file-preview">
+                                    <button type="button" class="close fileinput-remove" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>    <div class=" file-drop-zone"><div class="file-drop-zone-title">Drag &amp; drop files here …</div>
+                                        <div class="file-preview-thumbnails">
+                                        </div>
+                                        <div class="clearfix">                                            
+                                        </div>    
+                                        <div class="file-preview-status text-center text-success">                                            
+                                        </div>
+                                        <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
+                                    </div>
+                                </div>
+                                <div class="file-loading">
+                                    <input id="input-b3" name="archibo[]" type="file" class="file" multiple 
+                                           data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+                                </div>
+
+                                <div class="form-group" style="text-align: center; margin-top: 20px;">
+
+                                    <button class="btn btn-primary">SUBIR</button>
+
+                                </div>
+
+                            </form>
                         </div>
+                        <div id="menu2" class="container tab-pane fade"><br>
+                            <h3>Menu 2</h3>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
 
-                        </div>                                               
-                    </div>                   
-                </div>                
-            </div>      
-        <div class="">
-            <div class="table-responsive">
-
-                <table id="tbl_articulos" class="table table-bordered table-hover">
-                    <thead style="text-align: center; background-color: #495057;">
-
-                    <th>Clave</th>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Precio de compra Ref</th>
-                    <th>Precio de venta Ref</th>
-                    <th>Margen de utilidad</th>
-                    <th>Factor</th>
-                    <th>Unidad de medida</th>
-                    <th>Categoria</th>
-                    <th>Marca</th>
-                    <th>Departamento</th>
-                    </thead>
-                    <tbody id="body_tbl_articulos">
-                        
-                    </tbody>
-                </table>
-            </div>        
-        </div>        
-       
         <!--Modal Agregar Articulo-->
         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -412,7 +501,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        
+
         <!--agregar modal unidad de medida-->
         <div class="modal fade modal-add-unidad" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
             <div class="modal-dialog" role="document">
@@ -439,7 +528,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade modal-configuracion" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="background-color: whitesmoke" >
@@ -450,7 +539,7 @@ and open the template in the editor.
                         </button>
                     </div>
                     <div class="modal-body">
-                       <div class="row" >
+                        <div class="row" >
                             <div class=" col-md-12">                                   
                                 <button type="button" class="btn btn-success" onclick="registrar_unidad_medida();">Editar</button>
                             </div>
