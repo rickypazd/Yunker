@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Servisis</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>        
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">       
+        <link href="plugin/jspkg-archive/jquery.dynatable.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>    
+        <header class="container">
+            <div class="page-header text-center">
+                <h1>Registrar Articulo</h1>
+            </div>
+        </header>
+        <br>            
+        <div class="container form-group">                                   
+            <div class="form-group rounded-top" style="background: whitesmoke;">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item ">
+                        <a class="nav-link active" data-toggle="tab" href="#home">Agregar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#menu1">Caracteristicas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#menu2">Adicionales</a>
+                    </li>
+                </ul>
+            </div>
+        </div>  
+
+        <div class="container form-group">  
+            <div class="border border-top-0">
+                <div class="form-group">
+                    <div class="tab-content">
+                        <div id="home" class="container tab-pane active"><br>
+                            <form class="container-fluid">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="art_clave">Clave</label>
+                                        <input type="text" class="form-control" id="art_clave" placeholder="Clave">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="art_nombre">Nombre</label>
+                                        <input type="text" class="form-control" id="art_nombre" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="art_descripcion">Descripcion</label>
+                                    <input type="text" class="form-control" id="art_descripcion" placeholder="Descripción">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="art_departamento">Departamento</label>
+                                        <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-departamento"  id="art_departamento" style="background: white">
+                                    </div>    
+                                    <div class="form-group col-md-4">
+                                        <label for="art_categoria">Categoria</label>
+                                        <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-familia" id="art_categoria" style="background: white">
+                                    </div> 
+                                    <div class="form-group col-md-4">
+                                        <label for="art_marca">Marca</label>
+                                        <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-marca" id="art_marca" style="background: white">
+                                    </div> 
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="art_unidad">Unidad de medida</label>
+                                        <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-unidad" id="art_unidad_medida" style="background: white">
+                                    </div>                                   
+                                    <div class="form-group col-md-2">
+                                        <label for="art_factor">factor</label>
+                                        <input type="number" class="form-control" id="art_factor">
+                                    </div> 
+                                    <div class="form-group col-md-2 col-auto">
+                                        <label for="inputCity">Por partes</label>
+                                        <!--<input class="align-content-center" type="checkbox" id="gridCheck">-->
+                                        <label class="btn btn-secondary active">
+                                            <input class="align-content-center" type="checkbox" autocomplete="off" id="gridCheck" >
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <label class="form-check-label" for="gridCheck">Por partes</label>
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="art_Precio_compra">Precio de Compra Ref.</label>
+                                        <div class="input-group">
+                                            <input type="Number" class="form-control" id="art_precio_compra">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text" id="btnGroupAddon">0.0</div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                    <div class="form-group col-md-4">
+                                        <label for="art_Precio_venta">Precio de Venta Ref.</label>
+                                        <div class="input-group">
+                                            <input type="Number" class="form-control" id="art_precio_venta">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text" id="btnGroupAddon">0.0</div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group col-md-4">
+                                        <label for="art_margen">Margen de Utilidad</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="art_margen">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text" id="btnGroupAddon">%</div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>                            
+                            </form> 
+                        </div>
+                        <div id="menu1" class="container tab-pane fade"><br>
+                            <h3>Menu 1</h3>
+                            <form method="POST" action="" id="submitform" enctype="multipart/form-data">
+                                <input type="hidden" name="evento" value="subir_archibo"/>
+                                <input type="hidden" id="id_usr" name="id_usr" value="0"/>
+                                <input type="hidden" id="id_tipo" name="id_tipo" value="0"/>
+                                <input type="hidden" id="fechafin" name="fecha" value="0"/>
+
+                                <div class="file-preview">
+                                    <button type="button" class="close fileinput-remove" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>    <div class=" file-drop-zone"><div class="file-drop-zone-title">Drag &amp; drop files here …</div>
+                                        <div class="file-preview-thumbnails">
+                                        </div>
+                                        <div class="clearfix">                                            
+                                        </div>    
+                                        <div class="file-preview-status text-center text-success">                                            
+                                        </div>
+                                        <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
+                                    </div>
+                                </div>
+                                <div class="file-loading">
+                                    <input id="input-b3" name="archibo[]" type="file" class="file" multiple 
+                                           data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+                                </div>
+
+                                <div class="form-group" style="text-align: center; margin-top: 20px;">
+
+                                    <button class="btn btn-primary">SUBIR</button>
+
+                                </div>
+
+                            </form>
+                        </div>
+                        <div id="menu2" class="container tab-pane fade"><br>
+                            <h3>Menu 2</h3>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+
+        <!--Modal Agregar Articulo-->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: whitesmoke">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar articulo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container-fluid">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="art_clave">Clave</label>
+                                    <input type="text" class="form-control" id="art_clave" placeholder="Clave">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="art_nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="art_nombre" placeholder="Nombre">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="art_descripcion">Descripcion</label>
+                                <input type="text" class="form-control" id="art_descripcion" placeholder="Descripción">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="art_departamento">Departamento</label>
+                                    <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-departamento"  id="art_departamento" style="background: white">
+                                </div>    
+                                <div class="form-group col-md-4">
+                                    <label for="art_categoria">Categoria</label>
+                                    <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-familia" id="art_categoria" style="background: white">
+                                </div> 
+                                <div class="form-group col-md-4">
+                                    <label for="art_marca">Marca</label>
+                                    <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-marca" id="art_marca" style="background: white">
+                                </div> 
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="art_unidad">Unidad de medida</label>
+                                    <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-unidad" id="art_unidad_medida" style="background: white">
+                                </div>                                   
+                                <div class="form-group col-md-2">
+                                    <label for="art_factor">factor</label>
+                                    <input type="number" class="form-control" id="art_factor">
+                                </div> 
+                                <div class="form-group col-md-2 col-auto">
+                                    <label for="inputCity">Por partes</label>
+                                    <!--<input class="align-content-center" type="checkbox" id="gridCheck">-->
+                                    <label class="btn btn-secondary active">
+                                        <input class="align-content-center" type="checkbox" autocomplete="off" id="gridCheck" >
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                        <label class="form-check-label" for="gridCheck">Por partes</label>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="art_Precio_compra">Precio de Compra Ref.</label>
+                                    <div class="input-group">
+                                        <input type="Number" class="form-control" id="art_precio_compra">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" id="btnGroupAddon">0.0</div>
+                                        </div>
+                                    </div>
+                                </div>    
+                                <div class="form-group col-md-4">
+                                    <label for="art_Precio_venta">Precio de Venta Ref.</label>
+                                    <div class="input-group">
+                                        <input type="Number" class="form-control" id="art_precio_venta">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" id="btnGroupAddon">0.0</div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group col-md-4">
+                                    <label for="art_margen">Margen de Utilidad</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="art_margen">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" id="btnGroupAddon">%</div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>                            
+                        </form>                       
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">
+                                <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary " onclick="registrar_articulo();">Guardar</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bd-departamento" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: whitesmoke">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Departamento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container-fluid">
+                            <div class="input-group">      
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" id="btnGroupAddon"> 
+                                        <span>
+                                            <i class="fa fa-search" aria-hidden="true"></i>                                           
+                                        </span>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_departamento(this);">                                
+                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-departamento">Agregar Nuevo</button>
+                            </div>
+                            <hr>                            
+                            <ul class="list-group lista_art" id="lista_departamentos">
+
+                            </ul>                      
+                        </form>                       
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                               
+                                <button type="button" class="btn btn-primary ">Aceptar</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade modal-add-departamento"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: whitesmoke" >
+                    <div class="modal-header" style="background-color: #929292 ">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Departamento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-md-12">
+                            <label for="dep_nombre">Nombre</label>
+                            <input type="text" class="form-control" id="dep_nombre" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                                   
+                                <button type="button" class="btn btn-outline-success" onclick="registrar_departamento();">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Model Categoria-->
+        <div class="modal fade bd-familia" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: whitesmoke">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Categoría</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container-fluid">
+                            <div class="input-group">      
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" id="btnGroupAddon"> 
+                                        <span>
+                                            <i class="fa fa-search" aria-hidden="true"></i>                                           
+                                        </span>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_categoria(this);">                                
+                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-categoria" >Agregar Nuevo</button>
+                            </div>
+                            <hr>                            
+                            <ul class="list-group lista_art"  id="lista_categoria">
+
+                            </ul>                      
+                        </form>                       
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                                
+                                <button type="button" class="btn btn-primary ">Aceptar</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade modal-add-categoria" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: whitesmoke" >
+                    <div class="modal-header" style="background-color: #929292 ">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Categoría</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-md-12">
+                            <label for="cat_nombre">Nombre</label>
+                            <input type="text" class="form-control" id="cat_nombre" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                                   
+                                <button type="button" class="btn btn-outline-success" onclick="registrar_categoria();">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Model Marca-->
+        <div class="modal fade bd-marca" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: whitesmoke">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Marca</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container-fluid">
+                            <div class="input-group">      
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" id="btnGroupAddon"> 
+                                        <span>
+                                            <i class="fa fa-search" aria-hidden="true"></i>                                           
+                                        </span>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_marca(this);">                                
+                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-marca">agregar nuevo</button>
+                            </div>
+                            <hr>                            
+                            <ul class="list-group lista_art"  id="lista_marca">
+
+                            </ul>                      
+                        </form>                       
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                               
+                                <button type="button" class="btn btn-primary ">Aceptar</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade modal-add-marca" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: whitesmoke" >
+                    <div class="modal-header" style="background-color: #929292 ">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Marca</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-md-12">
+                            <label for="mar_nombre">Nombre</label>
+                            <input type="text" class="form-control" id="mar_nombre" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                                   
+                                <button type="button" class="btn btn-outline-success" onclick="registrar_marca();">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Unidad de medida-->        
+        <div class="modal fade bd-unidad" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: whitesmoke">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Unidad de Medida</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container-fluid">
+                            <div class="input-group">      
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" id="btnGroupAddon"> 
+                                        <span>
+                                            <i class="fa fa-search" aria-hidden="true"></i>                                           
+                                        </span>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_unidad_medida(this);">                                
+                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-unidad">Agregar Nuevo</button>
+                            </div>
+                            <hr>                            
+                            <ul class="list-group lista_art" id="lista_unidad_medida">
+
+                            </ul>                      
+                        </form>                       
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                               
+                                <button type="button" class="btn btn-primary ">Aceptar</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--agregar modal unidad de medida-->
+        <div class="modal fade modal-add-unidad" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: whitesmoke" >
+                    <div class="modal-header" style="background-color: #929292 ">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Unidad de Medida</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-md-12">
+                            <label for="unidad_medida_nombre">Nombre</label>
+                            <input type="text" class="form-control" id="unidad_medida_nombre" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                                   
+                                <button type="button" class="btn btn-outline-success" onclick="registrar_unidad_medida();">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade modal-configuracion" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: whitesmoke" >
+                    <div class="modal-header" style="background-color: #929292 ">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" >
+                            <div class=" col-md-12">                                   
+                                <button type="button" class="btn btn-success" onclick="registrar_unidad_medida();">Editar</button>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class=" col-md-12">                                   
+                                <button type="button" class="btn btn-danger" onclick="registrar_unidad_medida();">Eliminar</button>
+                            </div>
+                        </div>                                                
+                    </div>                   
+                </div>
+            </div>
+        </div>
+
+
+        <script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>   
+        <script src="plugin/templateAdmin/js/popper.min.js" type="text/javascript"></script>
+        <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script>                                  
+        <script src="js/verifySession.js" type="text/javascript"></script>        
+        <script src="js/load.js" type="text/javascript"></script>        
+        <script src="plugin/jspkg-archive/jquery.dynatable.js" type="text/javascript"></script>
+        <script src="js/Articulo/articulo.js" type="text/javascript"></script>
+        <script type="text/javascript">
+                                    if (document.location.hostname == 'pratikborsadiya.in') {
+                                        (function (i, s, o, g, r, a, m) {
+                                            i['GoogleAnalyticsObject'] = r;
+                                            i[r] = i[r] || function () {
+                                                (i[r].q = i[r].q || []).push(arguments)
+                                            }, i[r].l = 1 * new Date();
+                                            a = s.createElement(o),
+                                                    m = s.getElementsByTagName(o)[0];
+                                            a.async = 1;
+                                            a.src = g;
+                                            m.parentNode.insertBefore(a, m)
+                                        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                                        ga('create', 'UA-72504830-1', 'auto');
+                                        ga('send', 'pageview');
+                                    }
+        </script>
+    </body>
+</html>
