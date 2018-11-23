@@ -31,7 +31,7 @@ public class Conexion
         this.baseDatos=URL.db_name;
         //this.baseDatos="postgres";
         this.puerto="5432";
-        this.ip="localhost";
+        this.ip="204.93.196.61";
         ifConnected();       
     }
    
