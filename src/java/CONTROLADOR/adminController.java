@@ -141,8 +141,8 @@ public class adminController extends HttpServlet {
                 //</editor-fold>
 
                 //<editor-fold defaultstate="collapsed" desc="ALMACEN">
-                case "resgistrar_almacen":
-                    html = resgistrar_almacen(request, con);
+                case "registrar_almacen":
+                    html = registrar_almacen(request, con);
                     break;
                 case "getall_almacen":
                     html = getall_almacen(request, con);
@@ -153,8 +153,8 @@ public class adminController extends HttpServlet {
                 //</editor-fold>
 
                 //<editor-fold defaultstate="collapsed" desc="PRESONA">
-                case "resgistrar_persona":
-                    html = resgistrar_persona(request, con);
+                case "registrar_persona":
+                    html = registrar_persona(request, con);
                     break;
                 case "getall_persona":
                     html = getall_persona(request, con);
@@ -165,8 +165,8 @@ public class adminController extends HttpServlet {
                 //</editor-fold>
 
                 //<editor-fold defaultstate="collapsed" desc="COMPRA">
-                case "resgistrar_compra":
-                    html = resgistrar_compra(request, con);
+                case "registrar_compra":
+                    html = registrar_compra(request, con);
                     break;
                 case "getall_compra":
                     html = getall_compra(request, con);
@@ -177,8 +177,8 @@ public class adminController extends HttpServlet {
                 //</editor-fold>
 
                 //<editor-fold defaultstate="collapsed" desc="DETALLE_COMPRA">
-                case "resgistrar_detalle_compra":
-                    html = resgistrar_detalle_compra(request, con);
+                case "registrar_detalle_compra":
+                    html = registrar_detalle_compra(request, con);
                     break;
                 case "getall_detalle_compra":
                     html = getall_detalle_compra(request, con);
@@ -189,8 +189,8 @@ public class adminController extends HttpServlet {
                 //</editor-fold>
 
                 //<editor-fold defaultstate="collapsed" desc="STOCK">
-                case "resgistrar_stock":
-                    html = resgistrar_stock(request, con);
+                case "registrar_stock":
+                    html = registrar_stock(request, con);
                     break;
                 case "getall_stock":
                     html = getall_stock(request, con);
@@ -658,7 +658,7 @@ public class adminController extends HttpServlet {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="ALMACEN">
-    private String resgistrar_almacen(HttpServletRequest request, Conexion con) {
+    private String registrar_almacen(HttpServletRequest request, Conexion con) {
         String nameAlert = "Almacen";
         try {
             ALMACEN almacen = new ALMACEN(con);
@@ -723,7 +723,7 @@ public class adminController extends HttpServlet {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="PERSONA">
-    private String resgistrar_persona(HttpServletRequest request, Conexion con) {
+    private String registrar_persona(HttpServletRequest request, Conexion con) {
         String nameAlert = "Persona";
         try {
             PERSONA presona = new PERSONA(con);
@@ -792,7 +792,7 @@ public class adminController extends HttpServlet {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="COMPRA">
-    private String resgistrar_compra(HttpServletRequest request, Conexion con) {
+    private String registrar_compra(HttpServletRequest request, Conexion con) {
         String nameAlert = "Compra";
         try {
             COMPRA compra = new COMPRA(con);
@@ -867,7 +867,7 @@ public class adminController extends HttpServlet {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="DETALLE_COMPRA">
-    private String resgistrar_detalle_compra(HttpServletRequest request, Conexion con) {
+    private String registrar_detalle_compra(HttpServletRequest request, Conexion con) {
         String nameAlert = "Detalle de compra";
         try {
             DETALLE_COMPRA detalle_compra = new DETALLE_COMPRA(con);
@@ -938,7 +938,7 @@ public class adminController extends HttpServlet {
     //</editor-fold> 
 
     //<editor-fold defaultstate="collapsed" desc="STOCK">
-    private String resgistrar_stock(HttpServletRequest request, Conexion con) {
+    private String registrar_stock(HttpServletRequest request, Conexion con) {
         String nameAlert = "Stock";
         try {
             STOCK stock = new STOCK(con);
