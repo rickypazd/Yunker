@@ -720,7 +720,7 @@ public class adminController extends HttpServlet {
             return resp.toString();
         }
     }
-    //</editor-fold>
+    //</editor-fold> 
 
     //<editor-fold defaultstate="collapsed" desc="PERSONA">
     private String resgistrar_persona(HttpServletRequest request, Conexion con) {
