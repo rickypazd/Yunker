@@ -19,10 +19,10 @@ and open the template in the editor.
             <div class="container-fluid">
                 <div class="col-md-12 ">    
                     <a href="index.html" class="btn btn-outline-danger" >Cerrar</a>    
-                    <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" style="width: 120px !important  ; color: white " type="button"><i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>Buscar</button>                                                                  
-                    <button class="btn btn-warning" style="width: 120px !important ; color: white " type="button"><i class="fa fa-edit fa-1x" aria-hidden="true" style="color: #495057; flex-align: auto"></i>editar</button>                                                                  
-                    <button class="btn btn-danger" style="width: 120px !important " type="button"><i class="fa fa-minus-circle fa-1x" aria-hidden="true" style="color:#495057" ></i>eliminar</button>                                                                  
-                    <button class="btn btn-primary" style="width: 120px !important " type="button"><i class="fa fa-retweet fa-1x" aria-hidden="true" style="color:#495057" ></i>actualizar</button>                                                                                     
+                    <button class="btn btn-success" data-toggle="modal" data-target=".modal_buscar_articulo" style="width: 120px !important  ; color: white " type="button"><i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>Buscar</button>                                                                  
+                    <!--<button class="btn btn-warning" style="width: 120px !important ; color: white " type="button"><i class="fa fa-edit fa-1x" aria-hidden="true" style="color: #495057; flex-align: auto"></i>editar</button>-->                                                                  
+                    <!--<button class="btn btn-danger" style="width: 120px !important " type="button"><i class="fa fa-minus-circle fa-1x" aria-hidden="true" style="color:#495057" ></i>eliminar</button>-->                                                                  
+                    <!--<button class="btn btn-primary" style="width: 120px !important " type="button"><i class="fa fa-retweet fa-1x" aria-hidden="true" style="color:#495057" ></i>actualizar</button>-->                                                                                     
                 </div>
             </div>            
         </header>
@@ -33,7 +33,7 @@ and open the template in the editor.
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon">Fecha</div>
                         </div>
-                        <input class="form-control form-control-sm" type="date" class="form-control" id="com_fecha">                        
+                        <input class="form-control form-control-sm" id="text_fecha" type="date" class="form-control" id="com_fecha">                        
                     </div>
                 </div>
                 <div class="form-group col-md-4" style="margin-bottom: 0.5rem;">                    
@@ -41,7 +41,7 @@ and open the template in the editor.
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon">Documento</div>
                         </div>
-                        <input class="form-control form-control-sm" type="text" class="form-control" id="com_fecha">                        
+                        <input class="form-control form-control-sm" id="text_documento" type="text" class="form-control" id="com_fecha">                        
                     </div>
                 </div>
                 <div class="form-group col-md-3" style="margin-bottom: 0.5rem;">                    
@@ -49,18 +49,17 @@ and open the template in the editor.
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon">Serie</div>
                         </div>
-                        <input class="form-control form-control-sm" type="text" class="form-control" id="com_fecha">                        
+                        <input class="form-control form-control-sm"  id="text_serie" type="text" class="form-control" id="com_fecha">                        
                     </div>
                 </div>
             </div>
             <div class="form-row">
-
                 <div class="form-group col-md-4" style="margin-bottom: 0.5rem;">                    
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon">Proveedor</div>
                         </div>
-                        <label class="form-control form-control-sm" data-toggle="modal" data-target=".model-proveedor"></label>                        
+                        <label class="form-control form-control-sm" id="text_proveedor" data-toggle="modal" data-target=".model-proveedor" onclick="cargar_proveedor()"></label>                        
                     </div>
                 </div>
                 <div class="form-group col-md-3" style="margin-bottom: 0.5rem;">                    
@@ -68,7 +67,7 @@ and open the template in the editor.
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon">Cod. control</div>
                         </div>
-                        <input class="form-control form-control-sm" type="text" class="form-control" id="com_fecha">                        
+                        <input class="form-control form-control-sm" id="text_codigo_control" type="text" class="form-control" id="com_fecha">                        
                     </div>
                 </div>
                 <div class="form-group col-md-3" style="margin-bottom: 0.5rem;">                    
@@ -76,7 +75,7 @@ and open the template in the editor.
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon">Autorización</div>
                         </div>
-                        <input class="form-control form-control-sm" type="text" class="form-control" id="com_fecha">                        
+                        <input class="form-control form-control-sm" id="text_autorizacion" type="text" class="form-control" id="com_fecha">                        
                     </div>
                 </div>
             </div>
@@ -100,30 +99,45 @@ and open the template in the editor.
 
         <div class="card-body container-fluid">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover" id="tabla_compra">
                     <thead>
                         <tr class="success" style="background: whitesmoke;"> 
-                            <th scope="col">Codigo</th>
-                            <th scope="col">descripcion</th>
-                            <th scope="col">Almacen</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col">Precio</th>
+                            <th scope="col">Codigo Articulo</th>
+                            <th scope="col">unidad</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">factor</th>
+                            <th scope="col">Precio Compra</th>
+                            <th scope="col">Precio venta</th>                           
+                            <th scope="col">sub Total</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody_tabla_compra">
                         <tr>
                             <th scope="row">1</th>
                             <td>Mark</td>
                             <td>df</td>
                             <td>Otto</td>
+                            <td>@twitter</td>
+                            <td>@twitter</td>
                             <td>@mdo</td>
+                            <td class="text-center" style="width: 220px;">
+                                <button class="btn btn-default btn-warning">Editar</button>
+                                <button class="btn btn-default btn-danger">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
                             <td>Jacob</td>
                             <td>Mark</td>
                             <td>Thornton</td>
+                            <td>@twitter</td>
                             <td>@fat</td>
+                            <td>@twitter</td>
+                            <td class="text-center" style="width: 220px;">
+                                <button class="btn btn-default btn-warning">Editar</button>
+                                <button class="btn btn-default btn-danger">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">3</th>
@@ -131,6 +145,12 @@ and open the template in the editor.
                             <td>Mark</td>
                             <td>the Bird</td>
                             <td>@twitter</td>
+                            <td>@twitter</td>
+                            <td>@twitter</td>
+                            <td class="text-center" style="width: 220px;">
+                                <button class="btn btn-default btn-warning">Editar</button>
+                                <button class="btn btn-default btn-danger">Eliminar</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -146,7 +166,7 @@ and open the template in the editor.
         </footer>
 
         <!--Modal Buscar Articulo-->
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal fade modal_buscar_articulo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: whitesmoke">
@@ -166,21 +186,25 @@ and open the template in the editor.
                                         <input class="form-control form-control-sm" type="text" class="form-control">                        
                                     </div>
                                 </div> 
-                                <div class="form-group col-md-3">                                   
-                                    <select id="inputState" class="form-control">                                       
-                                        <option value="1">Filtrar Todos</option>
-                                        <option value="2">Sin Stock</option>
-                                        <option value="3">Por Departamento</option>
-                                        <option value="3">Por Categoria</option>
-                                    </select>
-                                </div>
                             </div>
+                            
+                            <hr>                            
+                            <ul class="list-group lista_compra"  id="lista_articulos">
+                            </ul> 
+                            <!--                                <div class="form-group col-md-3">                                   
+                                                                <select id="inputState" class="form-control">                                       
+                                                                    <option value="1">Filtrar Todos</option>
+                                                                    <option value="2">Sin Stock</option>
+                                                                    <option value="3">Por Departamento</option>
+                                                                    <option value="3">Por Categoria</option>
+                                                                </select>
+                                                            </div>-->
 
-                            <div class="table-responsive">
+<!--                            <div class="table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr class="success">
-                                            <th scope="col">Clave</th>
+                                            <th scope="col">nombre</th>
                                             <th scope="col">Descripcion</th>
                                             <th scope="col">Existencias</th>                                           
                                             <th scope="col">Precio</th>
@@ -207,14 +231,12 @@ and open the template in the editor.
                                         </tr>                                      
                                     </tbody>
                                 </table>
-                            </div>  
+                            </div>  -->
                         </form>                       
                     </div>
                     <div class="modal-footer justify-content-center">
                         <div class="row" >
-                            <div class=" col-md-12">     
-                                <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" style="width: 120px !important  ; color: white " type="button"><i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>Agregar</button>                                                                  
-                                <button class="btn btn-warning" style="width: 120px !important ; color: white " type="button"><i class="fa fa-edit fa-1x" aria-hidden="true" style="color: #495057; flex-align: auto"></i>editar</button>                                                                                                                                
+                            <div class=" col-md-12">                                                                     
                                 <button type="button" class="btn btn-primary" style="width: 120px !important; ">Aceptar</button>
                             </div>                            
                         </div>
@@ -245,43 +267,25 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                     <input type="text" class="form-control" name="x" placeholder="Buscar...">                                
-                                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-categoria" >Agregar Nuevo</button>
+                                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-categoria" >Buscar</button>
                                 </div>
                             </div>
-
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr class="success">                                           
-                                            <th scope="col">Nombre</th>                                            
-                                            <th scope="col">telefono</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>                                           
-                                            <td>Mark</td>
-                                            <td>75424440</td>                                                                                      
-                                        </tr>
-                                        <tr>                                           
-                                            <td>Jacob</td>
-                                            <td>752025465</td>
-                                        </tr>                                                                        
-                                    </tbody>
-                                </table>
-                            </div>
-
+                            <hr>                            
+                            <ul class="list-group lista_compra"  id="lista_proveedor">
+                            </ul> 
                         </form>                       
                     </div>
                     <div class="modal-footer justify-content-center">
                         <div class="row" >
                             <div class=" col-md-12">                                
-                                <button type="button" class="btn btn-primary ">Aceptar</button>
+                                <button type="button" class="btn btn-primary" onclick="ver_pagina('persona.html');">Agregar</button>
                             </div>                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!--Modal Agregar Compra-->
         <div class="modal fade model-compra" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -301,7 +305,7 @@ and open the template in the editor.
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" id="btnGroupAddon">Clave</div>
                                         </div>
-                                        <label class="form-control form-control-sm" style="background: whitesmoke"></label>                        
+                                        <label class="form-control form-control-sm" id="text_clave" style="background: whitesmoke"></label>                        
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -309,7 +313,7 @@ and open the template in the editor.
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" id="btnGroupAddon">Nombre</div>
                                         </div>
-                                        <label class="form-control form-control-sm" style="background: whitesmoke"></label>                        
+                                        <label class="form-control form-control-sm" id="text_nombre" style="background: whitesmoke"></label>                        
                                     </div>
                                 </div>
                             </div>
@@ -318,7 +322,7 @@ and open the template in the editor.
                                     <div class="input-group-prepend">
                                         <div class="input-group-text" id="btnGroupAddon">Descripción</div>
                                     </div>
-                                    <label class="form-control form-control-sm" style="background: whitesmoke"></label>                                          
+                                    <label class="form-control form-control-sm" id="text_descripcion" style="background: whitesmoke"></label>                                          
                                 </div>
                             </div>
                             <div class="dropdown-divider"></div>
@@ -329,7 +333,7 @@ and open the template in the editor.
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" id="btnGroupAddon">Precio</div>
                                         </div>
-                                        <label class="form-control form-control-sm" style="background: whitesmoke"></label>                                            
+                                        <label class="form-control form-control-sm" id="text_precio" style="background: whitesmoke"></label>                                            
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -337,7 +341,7 @@ and open the template in the editor.
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" id="btnGroupAddon">%</div>
                                         </div>
-                                        <label class="form-control form-control-sm" style="background: whitesmoke"></label>                        
+                                        <label class="form-control form-control-sm" id="text_margen" style="background: whitesmoke"></label>                        
                                     </div>
                                 </div>
                             </div>
@@ -345,15 +349,11 @@ and open the template in the editor.
                             <h6 class="modal-title"  id="exampleModalLabel">Detalle de Compra</h6>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label class="mr-sm-2" for="com_unidad_compra">Unidad de compra</label>                                         
-                                    <select id="com_unidad_compra" class="form-control">                                       
-                                        <option value="1">Pieza</option>
-                                        <option value="2">Caja</option>
-                                        <option value="3">Conjunto</option>
-                                    </select>
+                                    <label class="mr-sm-2" for="com_unidad_compra">Cantidad</label>                                         
+                                    <input type="number" class="form-control" id="com_factor">
                                 </div>    
                                 <div class="form-group col-md-4">
-                                    <label for="com_unidad_venta">Unidad de venta</label>
+                                    <label for="com_unidad_venta">Unidad de compra</label>
                                     <select id="com_unidad_venta" class="form-control">                                        
                                         <option value="1">Pieza</option>
                                         <option value="2">Caja</option>
@@ -364,6 +364,7 @@ and open the template in the editor.
                                     <label for="com_factor">factor</label>
                                     <input type="number" class="form-control" id="com_factor">
                                 </div> 
+
                             </div> 
                             <div class="form-row">
                                 <div class="form-group col-md-4">
@@ -385,28 +386,10 @@ and open the template in the editor.
                                     </div>
                                 </div> 
                                 <div class="form-group col-md-4">
-                                    <label for="com_margen">Margen de Utilidad</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control"id="com_margen">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text" id="btnGroupAddon">%</div>
-                                        </div>
-                                    </div>
+                                    <label for="com_factor">Almacen</label>
+                                    <input type="text" class="form-control" id="com_factor" data-toggle="modal" data-target=".model-almacen">
                                 </div> 
-                            </div> 
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="com_cantidad">Cantidad</label>
-                                    <input type="number" class="form-control input_hover" data-toggle="modal" data-target=".bd-departamento" id="com_cantidad">
-                                </div>   
-                                <div class="form-group col-md-4">
-                                    <label for="con_forma_pago">Forma de pago</label>
-                                    <select id="com_forma_pago" class="form-control">                                       
-                                        <option value="1">Efectivo</option>
-                                        <option value="2">Cheque</option>                                        
-                                    </select>
-                                </div> 
-                            </div> 
+                            </div>                           
                         </form>                       
                     </div>
                     <div class="modal-footer justify-content-center">
@@ -414,6 +397,45 @@ and open the template in the editor.
                             <div class=" col-md-12">
                                 <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
                                 <button type="button" class="btn btn-primary " onclick="registrar_compra()">Guardar</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Agregar almacen-->
+        <div class="modal fade model-almacen" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background-color: whitesmoke">
+                    <div class="modal-header" style="background-color: #929292 ">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Almacen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container-fluid">
+                            <div class="input-group">      
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" id="btnGroupAddon"> 
+                                        <span>
+                                            <i class="fa fa-search" aria-hidden="true"></i>                                           
+                                        </span>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_marca(this);">                                                                
+                            </div>
+                            <hr>                            
+                            <ul class="list-group lista_art" id="lista_marca">
+
+                            </ul>                      
+                        </form>                       
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                               
+                                <button type="button" class="btn btn-primary ">Aceptar</button>
                             </div>                            
                         </div>
                     </div>
@@ -434,26 +456,19 @@ and open the template in the editor.
                     <div class="modal-body">
                         <form class="container-fluid">
                             <div class="form-row">
-                               <div class="form-group col-md-6">
-                                    <label for="art_clave">Total de la Compra</label>
-                                    <input type="text" class="form-control" id="art_clave" placeholder="0.0">
-                                </div>
-                                <div class="form-group col-md-6 align-content-between">                                   
+                                <div class="form-group col-md-12 text-center">
+                                    <h2>Total de la Compra</h2>                                    
+                                    <h4>Bs. 500.000</h4>
+                                </div>                                                                                               
+                            </div> 
+                            <div class="form-row">                                                                                              
+                                <div class="form-group col-md-12 align-content-between ">                                   
                                     <label for="art_clave">Forma de pago</label>
                                     <select id="inputState" class="form-control">                                       
-                                        <option value="1">Efectivo</option>
-                                        <option value="2">Tarjeta</option>
-                                        <option value="3">Cheque</option>
-                                        <option value="3">Credito</option>
+                                        <option value="1">Efectivo</option>                                                                                                                        
                                     </select>
                                 </div>
-                            </div>      
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="art_clave">Descuentos</label>
-                                    <input type="text" class="form-control" id="art_clave" placeholder="0.0">
-                                </div>                                
-                            </div> 
+                            </div>                                 
                         </form>                       
                     </div>
                     <div class="modal-footer justify-content-center">
