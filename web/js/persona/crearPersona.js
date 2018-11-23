@@ -5,6 +5,7 @@
  */
 
 var url = "admin/adminController";
+var token = "servi12sis3";
 var rol_id;
 
 $(document).ready(function () {
@@ -81,19 +82,32 @@ function ok_crear() {
 
     if (acepted) {
 
-        $.post(url, {evento: "registrar_usuario_persona",
+        $.post(url, {evento: "registrar_persona",
+            TokenAcceso: token,
             nombre: nombre,
-            apellido_na: apellido_na,
+            ap_rs: apellido_na,
+            ci_nit: carnet,
             id_rol: tipo,
-            tipoPersona: tipoPersona,
+            tipo_rol: 2,
             correo: correo,
-            telefono: telefono,
-            carnet: carnet
-        }, function (resp) {
-            if (resp === "false" || resp.length <= 0) {
-                alert("Ocurrio un herror al registrar Persona");
-            } else {
-                alert("Persona registrada con exito");
+            tipo: tipoPersona,
+            telefono: telefono
+
+        }, function (respuesta) {
+            cerrar_progress();
+            if (respuesta != null) {
+                var obj = $.parseJSON(respuesta);
+                if (obj.estado != 1) {
+//error
+                    alert(obj.mensaje);
+                } else {
+//exito
+                    $("#dep_nombre").val("");
+                    var resp = $.parseJSON(obj.resp);
+
+                    var respd = obj.resp;
+                    alert(respd);
+                }
             }
         });
     }
