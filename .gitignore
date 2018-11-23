@@ -3,3 +3,10 @@
 /dist/
 dist/Yunker.war
 *.war
+nbproject/private/private.properties
+*.properties
+*.xml
+*.properties
+*.properties
+*.dpf
+

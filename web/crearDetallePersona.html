@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>SIETE: Perfil Persona</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/RRHH/rrhh.css" rel="stylesheet" type="text/css"/>
+        <script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="plugin/md5/md5.min.js" type="text/javascript"></script>
+        <script src="js/verifySession.js" type="text/javascript"></script>
+        <script src="js/persona/crearDetallePersona.js" type="text/javascript"></script>
+        <script src="js/load.js" type="text/javascript"></script>
+    </head>
+    <body data-permisourl="Registrar_Detalle_Persona">
+        <h1>Perfil Persona</h1>
+        <a href="index.html" class="btn btn-outline-danger">Volver</a>
+        <div class="container">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">Editar Perfil</h4>
+                                </div>
+                                <div class="card-content">
+                                    <form class="col-md-12">               
+
+                                        <div class="row">
+                                            <div class="form-group col-md-5">
+                                                <label for="cu_tipo">Tipo:</label>
+                                                <select class="form-control" id="cu_tipo" name="cu_tipo" onchange="cambiarTipo();">  
+                                                    <option value="1">Persona Natural</option>
+                                                    <option value="2">Persona Juridica</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="cu_nombre">Nombre:</label>
+                                                <input type="text" class="form-control" id="cu_nombre" placeholder="Escriba su Nombre...">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="cu_ap_pa">Persona Natural:</label>
+                                                <input type="text" class="form-control" id="cu_ap_pa" placeholder="Escriba su Apellido Paterno">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="cu_ci_nit">Carnet Identidad:</label>
+                                                <input type="text" class="form-control" id="cu_ci_nit" placeholder="Escriba su Carnet Identidad">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="cu_telf">Telefono:</label>
+                                                <input type="text" class="form-control" id="cu_telf" placeholder="Escriba su Numero de Telefono">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="cu_correo">Correo:</label>
+                                                <input type="email" class="form-control" id="cu_correo" placeholder="example@siete.com">
+                                            </div>
+                                        </div>                                        
+                                        <div class="row d-flex justify-content-center">
+                                            <button type="button" class="btn btn-primary" onclick="ok_crear();" >
+                                                ACTUALIZAR
+                                            </button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>
