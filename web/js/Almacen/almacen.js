@@ -5,6 +5,7 @@
  */
 
 var url = "admin/adminController";
+var listaArituclos = null;
 $(document).ready(function () {
 //aki
 //
@@ -18,30 +19,30 @@ $(document).ready(function () {
 //nnuevo comentario   
 });
 
-function registrar_almacen() {
+function registrar_articulo() {
     mostrar_progress();
     var exito = true;
-    var nombre = $("#text_nombre").val() || null;
-    var direccion = $("#text_direccion").val() || null;
-    var descripcion = $("#text_descripcion").val() || null;
+    var nombre = $("#alm_nombre").val() || null;
+    var descripcion = $("#alm_direccion").val() || null;
+    var direccion = $("#alm_descripcion").val() || null;
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
-        $("#text_nombre").css("background", "#ffffff");
+        $("#alm_nombre").css("background", "#ffffff");
     } else {
-        $("#text_nombre").css("background", "#df5b5b");
+        $("#alm_nombre").css("background", "#df5b5b");
         exito = false;
     }
     if (direccion != null && direccion.length > 0) {
-        $("#text_direccion").css("background", "#ffffff");
+        $("#alm_direccion").css("background", "#ffffff");
     } else {
-        $("#text_direccion").css("background", "#df5b5b");
+        $("#alm_direccion").css("background", "#df5b5b");
         exito = false;
     }
     if (descripcion != null && descripcion.length > 0) {
-        $("#text_descripcion").css("background", "#ffffff");
+        $("#alm_descripcion").css("background", "#ffffff");
     } else {
-        $("#text_descripcion").css("background", "#df5b5b");
+        $("#alm_descripcion").css("background", "#df5b5b");
         exito = false;
     }
     if (exito) {
@@ -51,8 +52,8 @@ function registrar_almacen() {
                     TokenAcceso: TokenAcceso,
                     id_usr: usr_log.id,
                     nombre: nombre,
-                    descripcion: descripcion,
-                    direccion: direccion                    
+                    direccion: direccion,
+                    descripcion: descripcion
                 }, function (respuesta) {
             cerrar_progress();
             if (respuesta != null) {

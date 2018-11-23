@@ -62,7 +62,7 @@ function cargar_articulos() {
             } else {
                 var arr = $.parseJSON(obj.resp);
                 $.each(arr, function (i, obj) {
-                    html += "<li class='list-group-item' onclick=\"seleccionar_articulo(" + obj.id + ",'" + obj.nombre + "','" + obj.descripcion + "'," + obj.precio_venta_ref + "," + obj.margen_de_utilidad+ ");\">" + obj.nombre + "</li>";
+                    html += "<li class='list-group-item' onclick=\"seleccionar_articulo(" + obj.id + ",'" + obj.nombre + ",'" + obj.descripcion + ",'" + obj.precio + ",'" + obj.margen_de_utilidad + "');\">" + obj.nombre + "</li>";
                 });
                 $("#lista_articulos").html(html);
             }
@@ -71,14 +71,14 @@ function cargar_articulos() {
 }
 
 function seleccionar_articulo(id, nombre, descripcion, precio, margen) {
-    $(".modal_buscar_articulo").modal('toggle');
+    $(".modal_buscar_articulo").modal('togle');
 //    jQuery.noConflict();
     $('.model-compra').modal('show');
-    $("#text_clave").html(id);   
-    $("#text_nombre").html(nombre);           
-    $("#text_descripcion").html(descripcion);       
-    $("#text_precio").html(precio);       
-    $("#text_margen").html(margen);       
+    $("#text_clave").val(id);   
+    $("#text_nombre").val(nombre);           
+    $("#text_descripcion").val(descripcion);       
+    $("#text_precio").val(precio);       
+    $("#text_margen").val(margen);       
 }
 
 function cargar_proveedor() {
