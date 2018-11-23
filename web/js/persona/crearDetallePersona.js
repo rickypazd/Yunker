@@ -29,6 +29,17 @@ function cambiarTipo() {
     }
 }
 
+function cambiarCombo(a)
+{
+    var b;
+    if (a == 1) {
+        b = true;
+    }else if (a == 2) {
+        b = false;
+    }
+    return b;
+}
+
 function getUsuario() {
 
     mostrar_progress();
@@ -48,24 +59,26 @@ function getUsuario() {
                 var resp = $.parseJSON(obj.resp);
                 var respd = obj.mensaje;
                 //alert(respd);
-
-                if (resp.tipo_rol == 1) {
+                
+                var aux; 
+                if (resp.tipo_rol == 1) {                    
+                    
                     $("#cu_nombre").attr("placeholder", resp.nombre);
                     $("#cu_ap_pa").attr("placeholder", resp.ap_rs);
                     $("#cu_ci_nit").attr("placeholder", resp.ci_nit);
                     $("#cu_telf").attr("placeholder", resp.telefono);
                     $("#cu_correo").attr("placeholder", resp.correo);
                     $("#cu_tipo").attr("placeholder", resp.tipo);
-                    $('#cu_tipo').parent().find("option").val();
+                    
                 } else if (resp.tipo_rol == 2)
-                {
+                {                    
                     $("#cu_nombre").attr("placeholder", resp.nombre);
                     $("#cu_ap_pa").attr("placeholder", resp.ap_rs);
                     $("#cu_ci_nit").attr("placeholder", resp.ci_nit);
                     $("#cu_telf").attr("placeholder", resp.telefono);
                     $("#cu_correo").attr("placeholder", resp.correo);
                     $("#cu_tipo").attr("placeholder", resp.tipo);
-                    $('#cu_tipo').parent().find("option").val();
+                    
                 }
 
 
