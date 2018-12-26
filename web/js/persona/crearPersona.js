@@ -31,8 +31,8 @@ function cambiarTipo() {
         $('#cu_ap_pa').parent().find("label").html("Persona Natural");
         $('#cu_ap_pa').attr("placeholder", "Escriba su Nombre de Persona Natural");
     } else if (tipo == 2) {
-        $('#cu_ap_pa').parent().find("label").html("Razon Social");
-        $('#cu_ap_pa').attr("placeholder", "Escriba la razon Social");
+        $('#cu_ap_pa').parent().find("label").html("Razon Social:");
+        $('#cu_ap_pa').attr("placeholder", "Escriba la razon Social:");
     }
 
 }
@@ -81,7 +81,7 @@ function ok_crear() {
     }
 
     if (acepted) {
-
+        mostrar_progress();
         $.post(url, {evento: "registrar_persona",
             TokenAcceso: token,
             nombre: nombre,
@@ -98,14 +98,13 @@ function ok_crear() {
             if (respuesta != null) {
                 var obj = $.parseJSON(respuesta);
                 if (obj.estado != 1) {
-//error
+                    //error
                     alert(obj.mensaje);
                 } else {
-//exito
+                    //exito
                     $("#dep_nombre").val("");
                     var resp = $.parseJSON(obj.resp);
-
-                    var respd = obj.resp;
+                    var respd = obj.mensaje;
                     alert(respd);
                 }
             }

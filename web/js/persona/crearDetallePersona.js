@@ -5,96 +5,101 @@
  */
 
 var url = "admin/adminController";
+var token = "servi12sis3";
 var rol_id;
+var id_persona;
+
 
 $(document).ready(function () {
-//    $.post(urlRoles, {evento: "get_rol_por_nombre", nombre: "Cliente"}, function (resp) {
-//        if (resp == "falso") {
-//            alert("Ocurrio un error inesperado al cargar la pagina, intente nuevamente.");
-//            window.location.href = "index.html";
-//        } else {
-//            var json = $.parseJSON(resp);
-//            if (json.exito == "si") {
-//                rol_id = json.ID;
-//            } else if (json.exito == "no") {
-//                alert("No se pudo obtener el rol Conductor, favor de contactarse con el administrador.");
-//            }
-//        }
-//    });
-
+    var id = getQueryVariable("id");
+    alert(id);
+    id_persona = id;
+    getUsuario();
 });
 
 function cambiarTipo() {
     var tipo = $("#cu_tipo").val();
+    var aux = tipo;
     if (tipo == 1) {
-        $('#cu_ap_pa').parent().find("label").html("Persona Natural");
-        $('#cu_ap_pa').attr("placeholder", "Escriba su Nombre de Persona Natural");
+        $('#cu_ap_pa').parent().find("label").html("Persona Natural:");
+        $('#cu_ap_pa').attr("placeholder", "Escriba su Nombre de Persona Natural:");
     } else if (tipo == 2) {
-        $('#cu_ap_pa').parent().find("label").html("Razon Social");
-        $('#cu_ap_pa').attr("placeholder", "Escriba la razon Social");
+        $('#cu_ap_pa').parent().find("label").html("Razon Social:");
+        $('#cu_ap_pa').attr("placeholder", "Escriba la razon Social:");
     }
-
 }
 
-function ok_crear() {
-    var acepted = true;
-    var tipo = rol_id;
-    var nombre = $("#cu_nombre").val() || null;
-    var apellido_na = $("#cu_ap_pa").val() || null;
-    var carnet = $("#cu_ci_nit").val() || null;
-    var telefono = $("#cu_telf").val() || null;
-    var correo = $("#cu_correo").val() || null;
-    var tipoPersona = $("#cu_tipo").val() || null;
+function cambiarCombo(a)
+{
+    var b;
+    if (a == 1) {
+        b = true;
+    }else if (a == 2) {
+        b = false;
+    }
+    return b;
+}
 
+function getUsuario() {
 
-    if (nombre == null) {
-        $("#cu_nombre").css("background-color", "#f386ab");
-        acepted = false;
-    } else {
-        $("#cu_nombre").css("background-color", "#ffffff");
-    }
+    mostrar_progress();
+    $.post(url, {evento: "getbyid_persona",
+        TokenAcceso: token,
+        id: id_persona
+    }, function (respuesta) {
+        cerrar_progress();
+        if (respuesta != null) {
+            var obj = $.parseJSON(respuesta);
+            if (obj.estado != 1) {
+                //error
+                alert(obj.mensaje);
 
-    if (apellido_na == null) {
-        $("#cu_ap_pa").css("background-color", "#f386ab");
-        acepted = false;
-    } else {
-        $("#cu_ap_pa").css("background-color", "#ffffff");
-    }
-    if (carnet == null) {
-        $("#cu_ci_nit").css("background-color", "#f386ab");
-        acepted = false;
-    } else {
-        $("#cu_ci_nit").css("background-color", "#ffffff");
-    }
-    if (telefono == null) {
-        $("#cu_telf").css("background-color", "#f386ab");
-        acepted = false;
-    } else {
-        $("#cu_telf").css("background-color", "#ffffff");
-    }
-    if (correo == null) {
-        $("#cu_correo").css("background-color", "#f386ab");
-        acepted = false;
-    } else {
-        $("#cu_correo").css("background-color", "#ffffff");
-    }
-
-    if (acepted) {
-        $.post(url, {evento: "registrar_usuario_persona",
-            nombre: nombre,
-            apellido_na: apellido_na,
-            id_rol: tipo,
-            tipoPersona: tipoPersona,
-            correo: correo,
-            telefono: telefono,
-            carnet: carnet
-        }, function (resp) {
-            if (resp === "false" || resp.length <= 0) {
-                alert("Ocurrio un herror al registrar Persona");
             } else {
-                alert("Persona registrada con exito");
-            }
-        });
-    }
+                //exito
+                var resp = $.parseJSON(obj.resp);
+                var respd = obj.mensaje;
+                //alert(respd);
+                
+                var aux; 
+                if (resp.tipo_rol == 1) {                    
+                    
+                    $("#cu_nombre").attr("placeholder", resp.nombre);
+                    $("#cu_ap_pa").attr("placeholder", resp.ap_rs);
+                    $("#cu_ci_nit").attr("placeholder", resp.ci_nit);
+                    $("#cu_telf").attr("placeholder", resp.telefono);
+                    $("#cu_correo").attr("placeholder", resp.correo);
+                    $("#cu_tipo").attr("placeholder", resp.tipo);
+                    
+                } else if (resp.tipo_rol == 2)
+                {                    
+                    $("#cu_nombre").attr("placeholder", resp.nombre);
+                    $("#cu_ap_pa").attr("placeholder", resp.ap_rs);
+                    $("#cu_ci_nit").attr("placeholder", resp.ci_nit);
+                    $("#cu_telf").attr("placeholder", resp.telefono);
+                    $("#cu_correo").attr("placeholder", resp.correo);
+                    $("#cu_tipo").attr("placeholder", resp.tipo);
+                    
+                }
 
+
+            }
+        }
+    });
+
+
+}
+function getQueryVariable(varia) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == varia) {
+            return pair[1];
+        }
+    }
+    return (false);
+}
+
+function ver_conductor(id) {
+    window.location.href = "VehiculoPerf.html?id=" + id;
 }
