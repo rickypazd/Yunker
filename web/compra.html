@@ -20,8 +20,8 @@ and open the template in the editor.
                 <div class="col-md-12 ">    
                     <a href="index.html" class="btn btn-outline-danger" >Cerrar</a>    
                     <button class="btn btn-success" data-toggle="modal" data-target=".modal_buscar_articulo" 
-                    style="width: 120px !important  ; color: white " type="button"  onclick="cargar_articulos();">
-                    <i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>Buscar</button>                                                                  
+                            style="width: 120px !important  ; color: white " type="button"  onclick="cargar_articulos();">
+                        <i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>Buscar</button>                                                                  
                     <!--<button class="btn btn-warning" style="width: 120px !important ; color: white " type="button"><i class="fa fa-edit fa-1x" aria-hidden="true" style="color: #495057; flex-align: auto"></i>editar</button>-->                                                                  
                     <!--<button class="btn btn-danger" style="width: 120px !important " type="button"><i class="fa fa-minus-circle fa-1x" aria-hidden="true" style="color:#495057" ></i>eliminar</button>-->                                                                  
                     <!--<button class="btn btn-primary" style="width: 120px !important " type="button"><i class="fa fa-retweet fa-1x" aria-hidden="true" style="color:#495057" ></i>actualizar</button>-->                                                                                     
@@ -92,7 +92,7 @@ and open the template in the editor.
                                 </span>
                             </div>
                         </div>
-                        <input class="form-control form-control-sm" data-toggle="modal" data-target=".model-compra" type="text" name="x" placeholder="Buscar por clave">                                                
+                        <input class="form-control form-control-sm" type="text" name="x" placeholder="Buscar por clave">                                                
                     </div>
                 </div> 
             </div> 
@@ -105,55 +105,17 @@ and open the template in the editor.
                     <thead>
                         <tr class="success" style="background: whitesmoke;"> 
                             <th scope="col">Codigo Articulo</th>
-                            <th scope="col">unidad</th>
+                            <th scope="col">cantidad</th>
+                            <th scope="col">unidad de medida</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">factor</th>
                             <th scope="col">Precio Compra</th>
                             <th scope="col">Precio venta</th>                           
-                            <th scope="col">sub Total</th>
+                            <th scope="col">Total</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="tbody_tabla_compra">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>df</td>
-                            <td>Otto</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td>@mdo</td>
-                            <td class="text-center" style="width: 220px;">
-                                <button class="btn btn-default btn-warning">Editar</button>
-                                <button class="btn btn-default btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Mark</td>
-                            <td>Thornton</td>
-                            <td>@twitter</td>
-                            <td>@fat</td>
-                            <td>@twitter</td>
-                            <td class="text-center" style="width: 220px;">
-                                <button class="btn btn-default btn-warning">Editar</button>
-                                <button class="btn btn-default btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>Mark</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td class="text-center" style="width: 220px;">
-                                <button class="btn btn-default btn-warning">Editar</button>
-                                <button class="btn btn-default btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>        
@@ -162,8 +124,25 @@ and open the template in the editor.
         <div class="dropdown-divider"></div>
 
         <footer class="page-footer font-small blue">            
-            <div class="footer-copyright text-center py-3">
-                <button class="btn btn-success" data-toggle="modal" data-target=".model-cerrar-compra" style="width: 300px !important " type="button">Cerrar compra</button>                                                                                     
+<!--            <div class="modal-body">
+                <form class="container-fluid">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-left">
+                            <h3>Total de la Compra</h3>                                    
+                            <h5 id="total_precio" >Bs.500.000</h5>
+                        </div>                                                                                                                                                  
+                        <div class="form-group col-md-6 align-content-between ">                                   
+                            <label for="art_clave">Forma de pago</label>
+                            <select id="inputState" class="form-control">                                       
+                                <option value="1">Efectivo</option>                                                                                                                        
+                            </select>
+                        </div>
+                    </div>                                 
+                </form>                       
+            </div>-->
+            <div class="footer-copyright text-center py-3">                
+                <button class="btn btn-success"  onclick="cerrar_compra();
+                        "style="width: 300px !important" type="button">Cerrar compra</button>                                                                                                     
             </div>            
         </footer>
 
@@ -190,7 +169,7 @@ and open the template in the editor.
                                     </div>
                                 </div> 
                             </div>
-                            
+
                             <hr>                            
                             <ul class="list-group lista_compra"  id="lista_articulos">
                             </ul> 
@@ -203,38 +182,38 @@ and open the template in the editor.
                                                                 </select>
                                                             </div>-->
 
-<!--                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr class="success">
-                                            <th scope="col">nombre</th>
-                                            <th scope="col">Descripcion</th>
-                                            <th scope="col">Existencias</th>                                           
-                                            <th scope="col">Precio</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>                                           
-                                            <td>Mark</td>
-                                            <td>df</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>                                           
-                                            <td>Jacob</td>
-                                            <td>Mark</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>                                            
-                                            <td>Larry</td>
-                                            <td>Mark</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>                                      
-                                    </tbody>
-                                </table>
-                            </div>  -->
+                            <!--                            <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr class="success">
+                                                                        <th scope="col">nombre</th>
+                                                                        <th scope="col">Descripcion</th>
+                                                                        <th scope="col">Existencias</th>                                           
+                                                                        <th scope="col">Precio</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>                                           
+                                                                        <td>Mark</td>
+                                                                        <td>df</td>
+                                                                        <td>Otto</td>
+                                                                        <td>@mdo</td>
+                                                                    </tr>
+                                                                    <tr>                                           
+                                                                        <td>Jacob</td>
+                                                                        <td>Mark</td>
+                                                                        <td>Thornton</td>
+                                                                        <td>@fat</td>
+                                                                    </tr>
+                                                                    <tr>                                            
+                                                                        <td>Larry</td>
+                                                                        <td>Mark</td>
+                                                                        <td>the Bird</td>
+                                                                        <td>@twitter</td>
+                                                                    </tr>                                      
+                                                                </tbody>
+                                                            </table>
+                                                        </div>  -->
                         </form>                       
                     </div>
                     <div class="modal-footer justify-content-center">
@@ -352,45 +331,41 @@ and open the template in the editor.
                             <h6 class="modal-title"  id="exampleModalLabel">Detalle de Compra</h6>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label class="mr-sm-2" for="com_unidad_compra">Cantidad</label>                                         
-                                    <input type="number" class="form-control" id="com_factor">
+                                    <label class="mr-sm-2" for="text_cantidad">Cantidad</label>                                         
+                                    <input type="number" class="form-control" id="text_cantidad">
                                 </div>    
                                 <div class="form-group col-md-4">
-                                    <label for="com_unidad_venta">Unidad de compra</label>
-                                    <select id="com_unidad_venta" class="form-control">                                        
-                                        <option value="1">Pieza</option>
-                                        <option value="2">Caja</option>
-                                        <option value="3">Conjunto</option>
-                                    </select>
+                                    <label for="text_unidad">Unidad de medida</label>
+                                    <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-unidad" id="text_unidad" style="background: white" onclick="cargar_unidad_medida();">
                                 </div> 
                                 <div class="form-group col-md-2">
-                                    <label for="com_factor">factor</label>
-                                    <input type="number" class="form-control" id="com_factor">
+                                    <label for="text_factor">factor</label>
+                                    <input type="number" class="form-control" id="text_factor">
                                 </div> 
 
                             </div> 
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="com_precio_compra">Precio de Compra</label>
+                                    <label for="text_precio_compra">Precio de Compra</label>
                                     <div class="input-group">
-                                        <input type="Number" class="form-control" id="com_precio_compra">
+                                        <input type="Number" class="form-control" id="text_precio_compra">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">0.0</div>
                                         </div>
                                     </div>
                                 </div>    
                                 <div class="form-group col-md-4">
-                                    <label for="com_precio_venta">Precio de Venta</label>
+                                    <label for="text_precio_venta">Precio de Venta</label>
                                     <div class="input-group">
-                                        <input type="Number" class="form-control"id="com_precio_venta">
+                                        <input type="Number" class="form-control"id="text_precio_venta">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" id="btnGroupAddon">0.0</div>
                                         </div>
                                     </div>
                                 </div> 
                                 <div class="form-group col-md-4">
-                                    <label for="com_factor">Almacen</label>
-                                    <input type="text" class="form-control" id="com_factor" data-toggle="modal" data-target=".model-almacen">
+                                    <label for="text_almacen">Almacen</label>
+                                    <input type="text" class="form-control" id="text_almacen" data-toggle="modal" data-target=".model-almacen" onclick="cargar_almacen();">
                                 </div> 
                             </div>                           
                         </form>                       
@@ -399,7 +374,7 @@ and open the template in the editor.
                         <div class="row" >
                             <div class=" col-md-12">
                                 <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary " onclick="registrar_compra()">Guardar</button>
+                                <button id="btn_marcar_detalle" type="button" class="btn btn-primary " onclick="marcar_detalle_compra(this);">Guardar</button>
                             </div>                            
                         </div>
                     </div>
@@ -407,7 +382,7 @@ and open the template in the editor.
             </div>
         </div>
 
-        <!--Agregar almacen-->
+        <!--Seleccionar almacen-->
         <div class="modal fade model-almacen" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content" style="background-color: whitesmoke">
@@ -427,10 +402,10 @@ and open the template in the editor.
                                         </span>
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_marca(this);">                                                                
+                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_almacen(this);">                                                                
                             </div>
                             <hr>                            
-                            <ul class="list-group lista_art" id="lista_marca">
+                            <ul class="list-group lista_alm" id="lista_almacen">
 
                             </ul>                      
                         </form>                       
@@ -440,6 +415,74 @@ and open the template in the editor.
                             <div class=" col-md-12">                               
                                 <button type="button" class="btn btn-primary ">Aceptar</button>
                             </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Unidad de medida-->        
+        <div class="modal fade bd-unidad" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: whitesmoke">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Unidad de Medida</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container-fluid">
+                            <div class="input-group">      
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" id="btnGroupAddon"> 
+                                        <span>
+                                            <i class="fa fa-search" aria-hidden="true"></i>                                           
+                                        </span>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_unidad_medida(this);">                                
+                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-unidad">Agregar Nuevo</button>
+                            </div>
+                            <hr>                            
+                            <ul class="list-group lista_art" id="lista_unidad_medida">
+
+                            </ul>                      
+                        </form>                       
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                               
+                                <button type="button" class="btn btn-primary ">Aceptar</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--agregar modal unidad de medida-->
+        <div class="modal fade modal-add-unidad" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: whitesmoke" >
+                    <div class="modal-header" style="background-color: #929292 ">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Unidad de Medida</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-md-12">
+                            <label for="unidad_medida_nombre">Nombre</label>
+                            <input type="text" class="form-control" id="unidad_medida_nombre" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                                   
+                                <button type="button" class="btn btn-outline-success" onclick="registrar_unidad_medida();">Guardar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -461,7 +504,7 @@ and open the template in the editor.
                             <div class="form-row">
                                 <div class="form-group col-md-12 text-center">
                                     <h2>Total de la Compra</h2>                                    
-                                    <h4>Bs. 500.000</h4>
+                                    <h4 id="precio_compra">Bs. 500.000</h4>
                                 </div>                                                                                               
                             </div> 
                             <div class="form-row">                                                                                              

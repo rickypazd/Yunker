@@ -23,13 +23,13 @@ and open the template in the editor.
                 <div class="col-md-12">
                     <h1 style="float: right">Articulos</h1>
                 </div>
-                <div class="col-md-12 ">    
-                    <a href="index.html" class="btn btn-outline-danger" >Cerrar</a>    </br>                
+                <div class="col-md-6 ">    
+                    <a href="index.html" class="btn btn-outline-danger" >Cerrar</a>     
                     <!--<button class="btn btn-success " style="width: 120px !important  ; color: white " type="button" onclick="ver_pagina('art_agregar_articulo.html');"><i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>agregar</button>-->                                                                                      
                     <button class="btn btn-success " data-toggle="modal" data-target=".bd-example-modal-lg" style="width: 120px !important  ; color: white " type="button"><i class="fa fa-plus-circle" aria-hidden="true" style="color:#495057" ></i>agregar</button>                                                                  
-                    <button class="btn btn-warning" style="width: 120px !important ; color: white " type="button"><i class="fa fa-edit fa-1x" aria-hidden="true" style="color: #495057; flex-align: auto"></i>editar</button>                                                                  
-                    <button class="btn btn-danger " style="width: 120px !important " type="button"><i class="fa fa-minus-circle fa-1x" aria-hidden="true" style="color:#495057" ></i>eliminar</button>                                                                  
-                    <button class="btn btn-primary" style="width: 120px !important " type="button"><i class="fa fa-retweet fa-1x" aria-hidden="true" style="color:#495057" ></i>actualizar</button>                                                                                     
+                    <!--<button class="btn btn-warning" style="width: 120px !important ; color: white " type="button"><i class="fa fa-edit fa-1x" aria-hidden="true" style="color: #495057; flex-align: auto"></i>editar</button>-->                                                                  
+                    <!--<button class="btn btn-danger " style="width: 120px !important " type="button"><i class="fa fa-minus-circle fa-1x" aria-hidden="true" style="color:#495057" ></i>eliminar</button>-->                                                                  
+                    <!--<button class="btn btn-primary" style="width: 120px !important " type="button"><i class="fa fa-retweet fa-1x" aria-hidden="true" style="color:#495057" ></i>actualizar</button>-->                                                                                     
                 </div>
             </div>            
         </header>
@@ -58,7 +58,6 @@ and open the template in the editor.
 
                 <table id="tbl_articulos" class="table table-bordered table-hover">
                     <thead style="text-align: center; background-color: #495057;">
-
                     <th>Clave</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
@@ -440,7 +439,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-                        
+
         <div class="modal fade modal-configuracion" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="background-color: whitesmoke" >
@@ -455,11 +454,11 @@ and open the template in the editor.
                             <div class=" col-6">                                   
                                 <button type="button" class="btn btn-success" onclick="registrar_unidad_medida();">Editar</button>
                             </div>
-                                               <div class=" col-6">                                   
+                            <div class=" col-6">                                   
                                 <button type="button" class="btn btn-danger" onclick="registrar_unidad_medida();">Eliminar</button>
                             </div>
                         </div>
-                        
+
                     </div>                   
                 </div>
             </div>

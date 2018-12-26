@@ -45,6 +45,7 @@ function registrar_almacen() {
         exito = false;
     }
     if (exito) {
+        mostrar_progress();
         $.post(url,
                 {
                     evento: "registrar_almacen",
