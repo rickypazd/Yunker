@@ -37,11 +37,10 @@ and open the template in the editor.
                                 <input type="text" class="form-control color-input" id="art_clave">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="art_nombre" class="label-titulo">Nombre</label>
-                                <input type="text" class="form-control color-input" id="art_nombre">
+                                <label for="art_version" class="label-titulo">version</label>
+                                <input type="text" class="form-control color-input" id="art_version" placeholder="Descripción" data-toggle="modal" data-target=".bd-version">
                             </div>
                         </div>
-
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="art_marca" class="label-titulo">Marca</label>
@@ -49,7 +48,7 @@ and open the template in the editor.
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="art_departamento" class="label-titulo">Modelo</label>
-                                <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-departamento"  id="art_departamento" >
+                                <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-modelo"  id="art_departamento" >
                             </div>    
                             <div class="form-group col-md-4">
                                 <label for="art_categoria" class="label-titulo" >Año</label>
@@ -60,123 +59,26 @@ and open the template in the editor.
                                     </div>
                                 </div>                           
                             </div> 
-                        </div>   
-                        <div class="form-group">
-                            <label for="art_descripcion" class="label-titulo">Descripcion</label>
-                            <input type="text" class="form-control color-input" id="art_descripcion" placeholder="Descripción">
-                        </div>
+                        </div>                      
                     </form> 
-                </div>                                                                    
-            </div>
-        </div>
-
-        <!--Modal Agregar Articulo-->
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color: whitesmoke">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar articulo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="container-fluid">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="art_clave">Clave</label>
-                                    <input type="text" class="form-control" id="art_clave" placeholder="Clave">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="art_nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="art_nombre" placeholder="Nombre">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="art_descripcion">Descripcion</label>
-                                <input type="text" class="form-control" id="art_descripcion" placeholder="Descripción">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="art_departamento">Departamento</label>
-                                    <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-departamento"  id="art_departamento" style="background: white">
-                                </div>    
-                                <div class="form-group col-md-4">
-                                    <label for="art_categoria">Categoria</label>
-                                    <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-familia" id="art_categoria" style="background: white">
-                                </div> 
-                                <div class="form-group col-md-4">
-                                    <label for="art_marca">Marca</label>
-                                    <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-marca" id="art_marca" style="background: white">
-                                </div> 
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="art_unidad">Unidad de medida</label>
-                                    <input class="form-control input_hover input-color" readonly="readonly" data-toggle="modal" data-target=".bd-unidad" id="art_unidad_medida" style="background: white">
-                                </div>                                   
-                                <div class="form-group col-md-2">
-                                    <label for="art_factor">factor</label>
-                                    <input type="number" class="form-control" id="art_factor">
-                                </div> 
-                                <div class="form-group col-md-2 col-auto">
-                                    <label for="inputCity">Por partes</label>
-                                    <!--<input class="align-content-center" type="checkbox" id="gridCheck">-->
-                                    <label class="btn btn-secondary active">
-                                        <input class="align-content-center" type="checkbox" autocomplete="off" id="gridCheck" >
-                                        <span class="glyphicon glyphicon-ok"></span>
-                                        <label class="form-check-label" for="gridCheck">Por partes</label>
-                                    </label>
-
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="art_Precio_compra">Precio de Compra Ref.</label>
-                                    <div class="input-group">
-                                        <input type="Number" class="form-control" id="art_precio_compra">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text" id="btnGroupAddon">0.0</div>
-                                        </div>
-                                    </div>
-                                </div>    
-                                <div class="form-group col-md-4">
-                                    <label for="art_Precio_venta">Precio de Venta Ref.</label>
-                                    <div class="input-group">
-                                        <input type="Number" class="form-control" id="art_precio_venta">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text" id="btnGroupAddon">0.0</div>
-                                        </div>
-                                    </div>
-                                </div> 
-                                <div class="form-group col-md-4">
-                                    <label for="art_margen">Margen de Utilidad</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="art_margen">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text" id="btnGroupAddon">%</div>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div>                            
-                        </form>                       
-                    </div>
                     <div class="modal-footer justify-content-center">
                         <div class="row" >
                             <div class=" col-md-12">
                                 <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary " onclick="registrar_articulo();">Guardar</button>
+                                <button type="button" class="btn btn-primary " onclick="registrar_vehiculo();">Guardar</button>
                             </div>                            
                         </div>
                     </div>
-                </div>
+                </div>                                                                    
             </div>
         </div>
-        <div class="modal fade bd-departamento" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+
+        <div class="modal fade bd-modelo" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: whitesmoke">
-                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Departamento</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Modelo</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -192,7 +94,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_departamento(this);">                                
-                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-departamento">Agregar Nuevo</button>
+                                <button type="button" class="btn btn-outline-success" onclick="ver_pagina('art_vehiculo_modelo.html');">Agregar Nuevo</button>
                             </div>
                             <hr>                            
                             <ul class="list-group lista_art" id="lista_departamentos">
@@ -210,38 +112,14 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        <div class="modal fade modal-add-departamento"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="background-color: whitesmoke" >
-                    <div class="modal-header" style="background-color: #929292 ">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Departamento</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group col-md-12">
-                            <label for="dep_nombre">Nombre</label>
-                            <input type="text" class="form-control" id="dep_nombre" placeholder="Nombre">
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <div class="row" >
-                            <div class=" col-md-12">                                   
-                                <button type="button" class="btn btn-outline-success" onclick="registrar_departamento();">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!--Model Categoria-->
-        <div class="modal fade bd-familia" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        
+        <!--Model version-->
+        <div class="modal fade bd-version" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: whitesmoke">
-                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Categoría</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Version</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -257,7 +135,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_categoria(this);">                                
-                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-categoria" >Agregar Nuevo</button>
+                                <button type="button" class="btn btn-outline-success" onclick="ver_pagina('art_vehiculo_version.html');">Agregar Nuevo</button>
                             </div>
                             <hr>                            
                             <ul class="list-group lista_art"  id="lista_categoria">
@@ -275,31 +153,8 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        <div class="modal fade modal-add-categoria" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="background-color: whitesmoke" >
-                    <div class="modal-header" style="background-color: #929292 ">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Categoría</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group col-md-12">
-                            <label for="cat_nombre">Nombre</label>
-                            <input type="text" class="form-control" id="cat_nombre" placeholder="Nombre">
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <div class="row" >
-                            <div class=" col-md-12">                                   
-                                <button type="button" class="btn btn-outline-success" onclick="registrar_categoria();">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        
 
         <!--Model Marca-->
         <div class="modal fade bd-marca" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -322,7 +177,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_marca(this);">                                
-                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-marca">agregar nuevo</button>
+                                <button type="button" class="btn btn-outline-success" onclick="ver_pagina('art_vehiculo_marca.html');">Agregar Nuevo</button>
                             </div>
                             <hr>                            
                             <ul class="list-group lista_art"  id="lista_marca">
@@ -337,123 +192,6 @@ and open the template in the editor.
                             </div>                            
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade modal-add-marca" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="background-color: whitesmoke" >
-                    <div class="modal-header" style="background-color: #929292 ">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Marca</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group col-md-12">
-                            <label for="mar_nombre">Nombre</label>
-                            <input type="text" class="form-control" id="mar_nombre" placeholder="Nombre">
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <div class="row" >
-                            <div class=" col-md-12">                                   
-                                <button type="button" class="btn btn-outline-success" onclick="registrar_marca();">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--Unidad de medida-->        
-        <div class="modal fade bd-unidad" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color: whitesmoke">
-                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Unidad de Medida</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="container-fluid">
-                            <div class="input-group">      
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" id="btnGroupAddon"> 
-                                        <span>
-                                            <i class="fa fa-search" aria-hidden="true"></i>                                           
-                                        </span>
-                                    </div>
-                                </div>
-                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_unidad_medida(this);">                                
-                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".modal-add-unidad">Agregar Nuevo</button>
-                            </div>
-                            <hr>                            
-                            <ul class="list-group lista_art" id="lista_unidad_medida">
-
-                            </ul>                      
-                        </form>                       
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <div class="row" >
-                            <div class=" col-md-12">                               
-                                <button type="button" class="btn btn-primary ">Aceptar</button>
-                            </div>                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--agregar modal unidad de medida-->
-        <div class="modal fade modal-add-unidad" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="background-color: whitesmoke" >
-                    <div class="modal-header" style="background-color: #929292 ">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Unidad de Medida</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group col-md-12">
-                            <label for="unidad_medida_nombre">Nombre</label>
-                            <input type="text" class="form-control" id="unidad_medida_nombre" placeholder="Nombre">
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <div class="row" >
-                            <div class=" col-md-12">                                   
-                                <button type="button" class="btn btn-outline-success" onclick="registrar_unidad_medida();">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade modal-configuracion" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="background-color: whitesmoke" >
-                    <div class="modal-header" style="background-color: #929292 ">
-                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row" >
-                            <div class=" col-md-12">                                   
-                                <button type="button" class="btn btn-success" onclick="registrar_unidad_medida();">Editar</button>
-                            </div>
-                        </div>
-                        <div class="row" >
-                            <div class=" col-md-12">                                   
-                                <button type="button" class="btn btn-danger" onclick="registrar_unidad_medida();">Eliminar</button>
-                            </div>
-                        </div>                                                
-                    </div>                   
                 </div>
             </div>
         </div>

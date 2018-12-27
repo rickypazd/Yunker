@@ -220,7 +220,7 @@ function marcar_detalle_compra(btn) {
         obja.almacen = almacen;
         obja.almacen_val = almacen_val;
         $("#tbody_tabla_compra").append(cargar_iten(obja));
-        articulos.push(obja);
+//        articulos.push(obja);
         $(".model-compra").modal('toggle');
         precio_total();
     }
@@ -228,8 +228,9 @@ function marcar_detalle_compra(btn) {
 
 function precio_total() {
     var precio = 0;
-    $.each(articulos, function (i, obj) {
-        var aux = obj.precio_compra;
+    var lis_articulo = $("#tbody_tabla_compra").find("tr");
+    $.each(lis_articulo, function (i, obj) {
+        var aux = $(obj).data("obj").precio_compra;
         precio += Math.floor(aux);
     });
     $("#total_precio").html(precio);
@@ -243,7 +244,7 @@ function cargar_iten(obj) {
     var cantidad = obj.cantidad;
     var factor = obj.factor;
     var total_articulo = (cantidad * factor);
-    html += "  <tr>";
+    html += "  <tr data-obj='" + JSON.stringify(obj) + "'>";
     html += "                        <th scope=+row'>" + obj.id + "</th>";
     html += "                        <td>" + cantidad + "</td>";
     html += "                        <td>" + obj.unidad_medida_val + "</td>";
@@ -307,12 +308,65 @@ function cerrar_compra() {
     }
     if (exito) {
         var precio = 0;
-        $.each(articulos, function (i, obj) {
-            var aux = obj.precio_compra;
+        var lis_articulo = $("#tbody_tabla_compra").find("tr");
+        $.each(lis_articulo, function (i, obj) {
+            var aux = $(obj).data("obj").precio_compra;
             precio += Math.floor(aux);
         });
-        alert(precio);
-        $("#precio_compra").html("Bs "+precio);
+        //alert(precio);
+        $("#precio_compra").html("Bs. " + precio);
         $('.model-cerrar-compra').modal('show');
+    }
+}
+
+
+function registrar_compra() {
+    mostrar_progress();
+    var exito = true;
+    var text_fecha = $("#text_fecha").val() || null;
+    var text_documento = $("#text_documento").val() || null;
+    var text_serie = $("#text_serie").val() || null;
+    var text_proveedor = $("#text_proveedor").data("id") || null;
+    var text_codigo_control = $("#text_codigo_control").val() || null;
+    var text_autorizacion = $("#text_autorizacion").val() || null;
+    var text_forma_pago = $("#com_forma_pago").val() || null;
+    var TokenAcceso = "servi12sis3";
+    var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
+    var lista = [];
+    var lis_articulo = $("#tbody_tabla_compra").find("tr");
+        $.each(lis_articulo, function (i, obj) {
+            var objeto = $(obj).data("obj");            
+            lista.push(objeto);
+        });
+        alert(lista);
+    if (exito) {        
+        $.post(url,
+                {
+                    evento: "registrar_compra",
+                    TokenAcceso: TokenAcceso,
+                    id_usr: usr_log.id,
+                    fecha: text_fecha,
+                    documento: text_documento,
+                    serie: text_serie,
+                    autorizacion: text_autorizacion,
+                    codigo_control: text_codigo_control,
+                    forma_pago: text_forma_pago,
+                    id_persona: text_proveedor, 
+                    detalle_compra: lista
+                }, function (respuesta) {
+            cerrar_progress();
+            if (respuesta != null) {
+                var obj = $.parseJSON(respuesta);
+                if (obj.estado != 1) {
+                    alert(obj.mensaje);
+                } else {
+                    //exito                    
+                    var resp = obj.resp;
+                    alert(resp);
+                }
+            }
+        });
+    } else {
+        cerrar_progress();
     }
 }

@@ -504,13 +504,13 @@ and open the template in the editor.
                             <div class="form-row">
                                 <div class="form-group col-md-12 text-center">
                                     <h2>Total de la Compra</h2>                                    
-                                    <h4 id="precio_compra">Bs. 500.000</h4>
+                                    <h4 id="precio_compra"></h4>
                                 </div>                                                                                               
                             </div> 
                             <div class="form-row">                                                                                              
                                 <div class="form-group col-md-12 align-content-between ">                                   
-                                    <label for="art_clave">Forma de pago</label>
-                                    <select id="inputState" class="form-control">                                       
+                                    <label for="com_forma_pago">Forma de pago</label>
+                                    <select id="com_forma_pago" class="form-control">                                       
                                         <option value="1">Efectivo</option>                                                                                                                        
                                     </select>
                                 </div>
@@ -520,7 +520,8 @@ and open the template in the editor.
                     <div class="modal-footer justify-content-center">
                         <div class="row" >
                             <div class=" col-md-12">                                     
-                                <button type="button" class="btn btn-primary" style="width: 120px !important; ">Comprar</button>
+                                <button type="button" class="btn btn-primary" style="width: 120px !important;"
+                                        onclick="registrar_compra();">Comprar</button>
                             </div>                            
                         </div>
                     </div>
