@@ -107,18 +107,21 @@ public class repuestosController extends HttpServlet {
                     break;
               
                 //</editor-fold>
+                    
                 //<editor-fold defaultstate="collapsed" desc="REP_AUTO_MODELO">
                 case "registrar_rep_auto_modelo":
                     html = registrar_rep_auto_modelo(request, con);
                     break;
               
                 //</editor-fold>
+                    
                 //<editor-fold defaultstate="collapsed" desc="REP_AUTO_VERSION">
                 case "registrar_rep_auto_version":
                     html = registrar_rep_auto_version(request, con);
                     break;
               
                 //</editor-fold>
+                    
                 //<editor-fold defaultstate="collapsed" desc="UTILES">
                 case "descargar":
                     descargar(request, response, con);
@@ -236,6 +239,7 @@ public class repuestosController extends HttpServlet {
     }
     
 //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="REP_AUTO_MODELO">
     private String registrar_rep_auto_modelo(HttpServletRequest request, Conexion con) {
         String nameAlert = "rep_auto_modelo";
@@ -260,6 +264,7 @@ public class repuestosController extends HttpServlet {
     }
     
 //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="REP_AUTO_MARCA">
     private String registrar_rep_auto_version(HttpServletRequest request, Conexion con) {
         String nameAlert = "rep_auto_version";
