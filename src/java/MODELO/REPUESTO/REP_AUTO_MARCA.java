@@ -1,5 +1,6 @@
-package MODELO.ARTICULO;
+package MODELO.REPUESTO;
 
+import MODELO.ARTICULO.*;
 import Conexion.Conexion;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -14,14 +15,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ART_CATEGORIA {
+public class REP_AUTO_MARCA {
 
     private int ID;
     private String NOMBRE;
+    private String URL_FOTO;
     private Conexion con = null;
-    private String TBL = "art_categoria";
+    private String TBL = "rep_auto_marca";
 
-    public ART_CATEGORIA(Conexion con) {
+    public REP_AUTO_MARCA(Conexion con) {
         this.con = con;
     }
 
@@ -85,6 +87,7 @@ public class ART_CATEGORIA {
         parseObj = new JSONObject();
         parseObj.put("id", rs.getInt("id"));
         parseObj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
+        parseObj.put("url_foto", rs.getString("url_foto") != null ? rs.getString("url_foto") : "");
         return parseObj;
     }
 
@@ -92,6 +95,7 @@ public class ART_CATEGORIA {
         JSONObject obj = new JSONObject();
         obj.put("id", getID());
         obj.put("nombre", getNOMBRE());
+         obj.put("url_foto", getURL_FOTO());
         return obj;
     }
 
@@ -111,6 +115,15 @@ public class ART_CATEGORIA {
         this.NOMBRE = NOMBRE;
     }
 
+    public String getURL_FOTO() {
+        return URL_FOTO;
+    }
+
+    public void setURL_FOTO(String URL_FOTO) {
+        this.URL_FOTO = URL_FOTO;
+    }
+    
+    
     public Conexion getCon() {
         return con;
     }

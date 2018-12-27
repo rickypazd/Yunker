@@ -1,5 +1,6 @@
-package MODELO.ARTICULO;
+package MODELO.REPUESTO;
 
+import MODELO.ARTICULO.*;
 import Conexion.Conexion;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -14,14 +15,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ART_CATEGORIA {
+public class REP_AUTO_VERSION {
 
     private int ID;
     private String NOMBRE;
     private Conexion con = null;
-    private String TBL = "art_categoria";
+    private String TBL = "rep_auto_marca";
 
-    public ART_CATEGORIA(Conexion con) {
+    public REP_AUTO_VERSION(Conexion con) {
         this.con = con;
     }
 
@@ -110,7 +111,7 @@ public class ART_CATEGORIA {
     public void setNOMBRE(String NOMBRE) {
         this.NOMBRE = NOMBRE;
     }
-
+    
     public Conexion getCon() {
         return con;
     }

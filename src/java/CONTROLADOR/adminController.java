@@ -187,7 +187,13 @@ public class adminController extends HttpServlet {
                     html = getbyid_detalle_compra(request, con);
                     break;
                 //</editor-fold>
-
+                  
+                //<editor-fold defaultstate="collapsed" desc="COMPRA Y DETALLE">
+                case "registrar_compra_y_detalle":
+                    html = registrar_compra_y_detalle(request, con);
+                    break;
+//</editor-fold>
+                    
                 //<editor-fold defaultstate="collapsed" desc="STOCK">
                 case "registrar_stock":
                     html = registrar_stock(request, con);
@@ -937,6 +943,43 @@ public class adminController extends HttpServlet {
     }
     //</editor-fold> 
 
+    //<editor-fold defaultstate="collapsed" desc="COMPRA Y DETALLE">
+    private String registrar_compra_y_detalle(HttpServletRequest request, Conexion con) {
+        String nameAlert = "Compra";
+        try {
+            COMPRA compra = new COMPRA(con);
+            compra.setDOCUMENTO(pString(request, "documento"));
+            compra.setSERIE(pString(request, "serie"));
+            compra.setAUTORIZACION(pString(request, "autorizacion"));
+            compra.setCODIGO_CONTROL(pString(request, "codigo_control"));
+            SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
+            compra.setFECHA(form.parse(pString(request, "fecha")));
+            compra.setFORMA_PAGO(pInt(request, "forma_pago"));
+            compra.setID_PERSONA(pInt(request, "id_persona"));
+            int id = compra.Insertar();
+            compra.setID(id);
+            JSONArray arr = new JSONArray(pString(request, "detalle_compra"));
+            RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", compra.getJson().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al registrar " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        } catch (ParseException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+//</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="STOCK">
     private String registrar_stock(HttpServletRequest request, Conexion con) {
         String nameAlert = "Stock";
@@ -1005,5 +1048,6 @@ public class adminController extends HttpServlet {
         }
     }
     //</editor-fold> 
+
 
 }
