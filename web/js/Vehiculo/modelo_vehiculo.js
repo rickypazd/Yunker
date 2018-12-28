@@ -18,36 +18,78 @@ $(document).ready(function () {
 //nnuevo comentario   
 });
 
+//function registrar_modelo_vehiculo() {
+//    mostrar_progress();
+//    var exito = true;
+//    var nombre = $("#text_modelo_nombre").val() || null;        
+//    var TokenAcceso = "servi12sis3";
+//    var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
+//    if (nombre != null && nombre.length > 0) {
+//        $("#text_nombre").css("background", "#ffffff");
+//    } else {
+//        $("#text_nombre").css("background", "#df5b5b");
+//        exito = false;
+//    }   
+//    if (exito) {
+//        mostrar_progress();
+//        $.post(url,
+//                {
+//                    evento: "registrar_rep_auto_modelo",
+//                    TokenAcceso: TokenAcceso,
+//                    id_usr: usr_log.id,
+//                    nombre: nombre                   
+//                }, function (respuesta) {
+//            cerrar_progress();
+//            if (respuesta != null) {
+//                var obj = $.parseJSON(respuesta);
+//                if (obj.estado != 1) {
+//                    alert(obj.mensaje);
+//                } else {
+//                    var resp = obj.resp;
+//                    alert(resp);
+//                }
+//            }
+//        });
+//    } else {
+//        cerrar_progress();
+//    }
+//}
+
+
 function registrar_modelo_vehiculo() {
     mostrar_progress();
     var exito = true;
-    var nombre = $("#text_modelo_nombre").val() || null;        
+    var nombre = $("#text_modelo_nombre").val() || null;
+     var foto = $("#file-0d").val() || null;
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
-        $("#text_nombre").css("background", "#ffffff");
+        $("#text_modelo_nombre").css("background", "#ffffff");
     } else {
-        $("#text_nombre").css("background", "#df5b5b");
+        $("#text_modelo_nombre").css("background", "#df5b5b");
         exito = false;
     }   
+     if (foto != null && nombre.length > 0) {
+        $("#file-0d").css("background", "#ffffff");
+    } else {
+        $(".file-caption").css("background", "#df5b5b");       
+        exito = false;
+    }  
     if (exito) {
         mostrar_progress();
-        $.post(url,
-                {
-                    evento: "registrar_rep_auto_modelo",
-                    TokenAcceso: TokenAcceso,
-                    id_usr: usr_log.id,
-                    nombre: nombre                   
-                }, function (respuesta) {
-            cerrar_progress();
-            if (respuesta != null) {
-                var obj = $.parseJSON(respuesta);
-                if (obj.estado != 1) {
-                    alert(obj.mensaje);
-                } else {
-                    var resp = obj.resp;
-                    alert(resp);
-                }
+        var formData = new FormData($("#submitform")[0]);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data)
+            {
+                //despues de cargar
+                cerrar_progress();
+                alert(data);                            
             }
         });
     } else {

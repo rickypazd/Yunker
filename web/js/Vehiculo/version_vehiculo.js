@@ -18,23 +18,23 @@ $(document).ready(function () {
 //nnuevo comentario   
 });
 
-function registrar_modelo_vehiculo() {
+function registrar_version_vehiculo() {
     mostrar_progress();
     var exito = true;
-    var nombre = $("#text_modelo_nombre").val() || null;        
+    var nombre = $("#text_nombre_version").val() || null;        
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
-        $("#text_nombre").css("background", "#ffffff");
+        $("#text_nombre_version").css("background", "#ffffff");
     } else {
-        $("#text_nombre").css("background", "#df5b5b");
+        $("#text_nombre_version").css("background", "#df5b5b");
         exito = false;
     }   
     if (exito) {
         mostrar_progress();
         $.post(url,
                 {
-                    evento: "registrar_rep_auto_serie",
+                    evento: "registrar_rep_auto_version",
                     TokenAcceso: TokenAcceso,
                     id_usr: usr_log.id,
                     nombre: nombre                   

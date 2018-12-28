@@ -34,25 +34,25 @@ and open the template in the editor.
                 </div>
                 <div class="card-body" >  
                     <form method="POST" action="admin/adminController" id="submitform" enctype="multipart/form-data">
-                        <div class="d-flex justify-content-center">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="text_marca_nombre" class="label-titulo" >Nombre</label>
+                                <input type="text" name="nombre" class="form-control color-input" id="text_marca_nombre">
+                            </div>                         
+                        </div>      
+                        <div class="d-flex ">
                             <input type="hidden" name="evento" value="registrar_rep_auto_marca"/>
                             <input type="hidden" name="TokenAcceso" value="servi12sis3"/>
-                            
+
                             <div class="file-loading">
                                 <input id="file-0d" name="foto" class="file" type="file" accept="image/*">
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="text_marca_nombre" class="label-titulo" >Nombre</label>
-                                <input type="text" name="nombre" class="form-control color-input" id="text_marca_nombre">
-                            </div>                         
-                        </div>                       
                     </form> 
+                    <br>
                     <div class="modal-footer justify-content-center">
                         <div class="row" >
-                            <div class=" col-md-12">
-                                <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
+                            <div class=" col-md-12">                                
                                 <button type="button" class="btn btn-primary " onclick="registrar_marca_vehiculo();">Guardar</button>
                             </div>                            
                         </div>
