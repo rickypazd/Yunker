@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var url = "admin/adminController";
+var url = "repuestosController";
 $(document).ready(function () {
 //aki
 //

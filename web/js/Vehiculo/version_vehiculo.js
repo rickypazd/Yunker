@@ -34,7 +34,7 @@ function registrar_modelo_vehiculo() {
         mostrar_progress();
         $.post(url,
                 {
-                    evento: "registrar_rep_auto_modelo",
+                    evento: "registrar_rep_auto_serie",
                     TokenAcceso: TokenAcceso,
                     id_usr: usr_log.id,
                     nombre: nombre                   

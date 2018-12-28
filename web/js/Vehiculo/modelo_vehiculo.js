@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var url = "admin/adminController";
+var url = "repuestosController";
 $(document).ready(function () {
 //aki
 //
@@ -18,12 +18,10 @@ $(document).ready(function () {
 //nnuevo comentario   
 });
 
-function registrar_almacen() {
+function registrar_modelo_vehiculo() {
     mostrar_progress();
     var exito = true;
-    var nombre = $("#text_nombre").val() || null;
-    var direccion = $("#text_direccion").val() || null;
-    var descripcion = $("#text_descripcion").val() || null;
+    var nombre = $("#text_modelo_nombre").val() || null;        
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
@@ -31,29 +29,15 @@ function registrar_almacen() {
     } else {
         $("#text_nombre").css("background", "#df5b5b");
         exito = false;
-    }
-    if (direccion != null && direccion.length > 0) {
-        $("#text_direccion").css("background", "#ffffff");
-    } else {
-        $("#text_direccion").css("background", "#df5b5b");
-        exito = false;
-    }
-    if (descripcion != null && descripcion.length > 0) {
-        $("#text_descripcion").css("background", "#ffffff");
-    } else {
-        $("#text_descripcion").css("background", "#df5b5b");
-        exito = false;
-    }
+    }   
     if (exito) {
         mostrar_progress();
         $.post(url,
                 {
-                    evento: "registrar_almacen",
+                    evento: "registrar_rep_auto_modelo",
                     TokenAcceso: TokenAcceso,
                     id_usr: usr_log.id,
-                    nombre: nombre,
-                    descripcion: descripcion,
-                    direccion: direccion                    
+                    nombre: nombre                   
                 }, function (respuesta) {
             cerrar_progress();
             if (respuesta != null) {
