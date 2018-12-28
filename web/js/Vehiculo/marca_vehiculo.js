@@ -58,14 +58,21 @@ function registrar_marca_vehiculo() {
     mostrar_progress();
     var exito = true;
     var nombre = $("#text_marca_nombre").val() || null;
+    var foto = $("#file-0d").val() || null;
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
-        $("#text_nombre").css("background", "#ffffff");
+        $("#text_marca_nombre").css("background", "#ffffff");
     } else {
-        $("#text_nombre").css("background", "#df5b5b");
+        $("#text_marca_nombre").css("background", "#df5b5b");
         exito = false;
     }
+    if (foto != null && nombre.length > 0) {
+        $("#file-0d").css("background", "#ffffff");
+    } else {
+        $(".file-caption").css("background", "#df5b5b");       
+        exito = false;
+    }     
     if (exito) {
         mostrar_progress();
         var formData = new FormData($("#submitform")[0]);
@@ -85,7 +92,7 @@ function registrar_marca_vehiculo() {
              
             }
         });
-    } else {
+    } else {       
         cerrar_progress();
     }
 }
