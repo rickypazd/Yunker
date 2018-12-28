@@ -10,3 +10,8 @@ nbproject/private/private.properties
 *.properties
 *.dpf
 
+nbproject/project.xml
+nbproject/project.properties
+nbproject/private/private.properties
+nbproject/genfiles.properties
+nbproject/build-impl.xml
