@@ -93,7 +93,7 @@ public class repuestosController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/plain");
         String evento = request.getParameter("evento");
-        String tokenAcceso = request.getParameter("TokenAcceso");
+        String tokenAcceso = request.getParameter("TokenAcceso") != null ? request.getParameter("TokenAcceso") : "";
         boolean retornar = true;
         String html = "";
 //</editor-fold>
