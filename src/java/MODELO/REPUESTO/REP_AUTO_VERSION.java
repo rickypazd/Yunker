@@ -34,7 +34,7 @@ public class REP_AUTO_VERSION {
 
         ps.setString(1, getNOMBRE());
         ps.execute();
-        consulta = "select last_value from art_categoria_id_seq ";
+        consulta = "select last_value from " + TBL + "_id_seq ";
         ps = con.statamet(consulta);
         ResultSet rs = ps.executeQuery();
         int id = 0;
@@ -111,7 +111,7 @@ public class REP_AUTO_VERSION {
     public void setNOMBRE(String NOMBRE) {
         this.NOMBRE = NOMBRE;
     }
-    
+
     public Conexion getCon() {
         return con;
     }

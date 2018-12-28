@@ -35,7 +35,7 @@ public class REP_AUTO_MARCA {
 
         ps.setString(1, getNOMBRE());
         ps.execute();
-        consulta = "select last_value from art_categoria_id_seq ";
+        consulta = "select last_value from "+TBL+"_id_seq ";
         ps = con.statamet(consulta);
         ResultSet rs = ps.executeQuery();
         int id = 0;
@@ -45,6 +45,17 @@ public class REP_AUTO_MARCA {
         rs.close();
         ps.close();
         return id;
+    }
+    
+     public int subir_foto_perfil() throws SQLException {
+        String consulta = "UPDATE public."+ TBL +" \n"
+                + "	SET url_foto=?\n"
+                + "	WHERE id=" + getID();
+        PreparedStatement ps = con.statamet(consulta);
+        ps.setString(1, getURL_FOTO());
+        int row = ps.executeUpdate();
+        ps.close();
+        return row;
     }
 
     public JSONObject getById(int id) throws SQLException, JSONException {
@@ -65,7 +76,7 @@ public class REP_AUTO_MARCA {
         return obj;
     }
 
-    public JSONArray gelAll() throws SQLException, JSONException {
+    public JSONArray getAll() throws SQLException, JSONException {
         String consulta = "select ar.* "
                 + "from " + TBL + " ar";
         PreparedStatement ps = con.statamet(consulta);
