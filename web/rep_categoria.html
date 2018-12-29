@@ -34,51 +34,7 @@ and open the template in the editor.
                 </div>
                 <div class="card-body" >  
                     <div id="accordion">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onclick="">
-                                        Transmision Automatica
-                                    </button>
-                                </h5>
-                            </div>
-
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                <div class="card-body">
-                                    <ul class="list-group lista_sub_categorias">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Cras justo odio
-                                            <span class="badge badge-primary badge-pill">14</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Dapibus ac facilisis in
-                                            <span class="badge badge-primary badge-pill">2</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Morbi leo risus
-                                            <span class="badge badge-primary badge-pill">1</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Collapsible Group Item #2
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                <div class="card-body">
-                                    <ul class="list-group lista_sub_categorias">
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
+                        
                     </div>    
                     <br>
                     <div class="modal-footer justify-content-center">
@@ -102,13 +58,35 @@ and open the template in the editor.
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="art_marca" class="label-titulo">Nombre</label>
+                            <label for="nombre_categoria" class="label-titulo">Nombre</label>
                             <input class="form-control" type="text" placeholder="Nombre de la categoria." id="nombre_categoria" >
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary" onclick="agregar_categoria();">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal_agregar_sub_categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Agregar Sub-Categoria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nombre_sub_categoria" class="label-titulo">Nombre</label>
+                            <input class="form-control" type="text" placeholder="Nombre de la Sub-Categoria." id="nombre_sub_categoria" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="btn_agregar_sub_categoria" onclick="agregar_sub_categoria();">Guardar</button>
                     </div>
                 </div>
             </div>

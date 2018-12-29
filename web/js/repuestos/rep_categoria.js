@@ -8,7 +8,7 @@ var id = 0;
 $(document).ready(function () {
 
 });
-
+//----------CATEGORIA-------------
 function agregar_categoria() {
     mostrar_progress();
     var exito = true;
@@ -31,8 +31,6 @@ function agregar_categoria() {
         cerrar_progress();
     }
 }
-
-
 function cargar_categoria_iten(obj) {
     var html = "<div class='card'>";
     html += "                    <div class='card-header' id='heading-" + obj.id + "'>";
@@ -44,8 +42,8 @@ function cargar_categoria_iten(obj) {
     html += "                     </div>";
     html += "                     <div id='collapse-" + obj.id + "' class='collapse' aria-labelledby='heading-" + obj.id + "' data-parent='#accordion'>";
     html += "                         <div class='card-body'>";
-    html += "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal_agregar_categoria'>  Agregar Sub-Categoria</button>";
-    html += "                             <ul class='list-group lista_sub_categorias'>";
+    html += "                             <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal_agregar_sub_categoria' onclick='abrir_agregar_sub_categoria("+obj.id+");'>  Agregar Sub-Categoria</button>";
+    html += "                             <ul class='list-group lista_sub_categorias' id='lista_sub_categoria_"+obj.id+"'>";
     html += "                                 ";
     html += "                             </ul>";
     html += "                         </div>";
@@ -53,15 +51,45 @@ function cargar_categoria_iten(obj) {
     html += "                 </div>";
     $("#accordion").append(html);
 }
-
 function abrir_categoria(iten) {
     var cargado = $(iten).data("subcategorias_cargadas");
     if (!cargado) {
         $(iten).data("subcategorias_cargadas", true);
-        
+        var iten_lista=$(iten).parent().parent().parent().find(".lista_sub_categorias");
+        //cargar_sub_categoria_iten({},iten_lista);
+    }
+}
+//----------SUB-CATEGORIA----------
+var lista_selected;
+function abrir_agregar_sub_categoria(id){
+    $("#btn_agregar_sub_categoria").attr("onclick","agregar_sub_categoria("+id+")");
+}
+function agregar_sub_categoria(id) {
+    mostrar_progress();
+    var exito = true;
+    var nombre = $("#nombre_sub_categoria").val() || null;
+    if (nombre != null && nombre.length > 0) {
+        $("#nombre_sub_categoria").css("background", "#ffffff");
+    } else {
+        $("#nombre_sub_categoria").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (exito) {
+        cerrar_progress();
+        var obj = {id: id, nombre: nombre};
+        cargar_sub_categoria_iten(obj,$("#lista_sub_categoria_"+id));
+        $("#nombre_sub_categoria").val("");
+        $("#modal_agregar_sub_categoria").modal("toggle");
+
+    } else {
+        cerrar_progress();
     }
 }
 
-function cargar_sub_categoria_iten(obj)
-    
+function cargar_sub_categoria_iten(obj, iten){
+    var html= " <li class='list-group-item d-flex justify-content-between align-items-center'>";
+        html += obj.nombre;
+        html += "                                    <span class='badge badge-primary badge-pill'>14</span>";
+        html += "                                </li>";
+     $(iten).append(html);
 }
