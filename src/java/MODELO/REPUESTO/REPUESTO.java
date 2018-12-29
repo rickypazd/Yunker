@@ -15,34 +15,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class REP_AUTO {
+public class REPUESTO {
 
     private int ID;
-    private int ID_MARCA;
-    private int ID_MODELO;
-    private String ANHO;
-    private String CLAVE;
-    private String MARCA;
-    private String MODELO;
+    private String NOMBRE;
+    private String OTROS_NOMBRES;
+    private String DESCRIPCION;
+    private String FABRICANTE;
+    private String SERIE;
+    private String URL_FOTO;
+    private double PRECIO;
     private Conexion con = null;
-    private String TBL = "rep_auto";
+    private String TBL = "repuesto";
 
-    public REP_AUTO(Conexion con) {
+    public REPUESTO(Conexion con) {
         this.con = con;
     }
 
     public int Insertar() throws SQLException {
         String consulta = "INSERT INTO public." + TBL + "(\n"
-                + "	anho, id_marca, marca, id_modelo, modelo, clave)\n"
+                + "	fabricante, precio, serie, descripcion, nombre, otros_nombres)\n"
                 + "	VALUES (?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = con.statamet(consulta);
 
-        ps.setString(1, getANHO());
-        ps.setInt(2, getID_MARCA());
-        ps.setString(3, getMARCA());
-        ps.setInt(4, getID_MODELO());
-        ps.setString(5, getMODELO());
-        ps.setString(6, getCLAVE());
+        ps.setString(1, getNOMBRE());
         ps.execute();
         consulta = "select last_value from " + TBL + "_id_seq ";
         ps = con.statamet(consulta);
@@ -54,6 +50,17 @@ public class REP_AUTO {
         rs.close();
         ps.close();
         return id;
+    }
+
+    public int subir_foto_perfil() throws SQLException {
+        String consulta = "UPDATE public." + TBL + " \n"
+                + "	SET url_foto=?\n"
+                + "	WHERE id=" + getID();
+        PreparedStatement ps = con.statamet(consulta);
+        ps.setString(1, getURL_FOTO());
+        int row = ps.executeUpdate();
+        ps.close();
+        return row;
     }
 
     public JSONObject getById(int id) throws SQLException, JSONException {
@@ -90,52 +97,31 @@ public class REP_AUTO {
         return arr;
     }
 
-    public JSONArray getBy_id_marca_and_id_modelo(int id_marca, int id_modelo) throws SQLException, JSONException {
-        String consulta = "select * from rep_auto ra\n"
-                + "where ra.id_modelo = "+id_modelo+" and ra.id_marca = "+id_marca+ " order by (ra.anho) desc";
-        PreparedStatement ps = con.statamet(consulta);
-        ResultSet rs = ps.executeQuery();
-        JSONArray arr = new JSONArray();
-        JSONObject obj;
-        while (rs.next()) {
-            obj = parseJson(rs);
-            arr.put(obj);
-        }
-        ps.close();
-        rs.close();
-        return arr;
-    }
-
     private JSONObject parseObj;
 
-//    private int ID;
-//    private int ID_MARCA;
-//    private int ID_MODELO;
-//    private String ANHO;
-//    private String CLAVE;
-//    private String MARCA;
-//    private String MODELO;
     private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
         parseObj = new JSONObject();
         parseObj.put("id", rs.getInt("id"));
-        parseObj.put("id_marca", rs.getInt("id_marca"));
-        parseObj.put("id_modelo", rs.getInt("id_modelo"));
-        parseObj.put("anho", rs.getString("anho") != null ? rs.getString("anho") : "");
-        parseObj.put("clave", rs.getString("clave") != null ? rs.getString("clave") : "");
-        parseObj.put("marca", rs.getString("marca") != null ? rs.getString("marca") : "");
-        parseObj.put("modelo", rs.getString("modelo") != null ? rs.getString("modelo") : "");
+        parseObj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
+        parseObj.put("otros_nombres", rs.getString("otros_nombres") != null ? rs.getString("otros_nombres") : "");
+        parseObj.put("descripcion", rs.getString("descripcion") != null ? rs.getString("descripcion") : "");
+        parseObj.put("fabricante", rs.getString("fabricante") != null ? rs.getString("fabricante") : "");
+        parseObj.put("serie", rs.getString("serie") != null ? rs.getString("serie") : "");
+        parseObj.put("url_foto", rs.getString("url_foto") != null ? rs.getString("url_foto") : "img/Sin_imagen.png");
+        parseObj.put("precio", rs.getDouble("precio"));
         return parseObj;
     }
 
     public JSONObject getJson() throws JSONException, SQLException {
         JSONObject obj = new JSONObject();
         obj.put("id", getID());
-        obj.put("id_marca", getID_MARCA());
-        obj.put("id_modelo", getID_MODELO());
-        obj.put("anho", getANHO());
-        obj.put("clave", getCLAVE());
-        obj.put("marca", getMARCA());
-        obj.put("modelo", getMODELO());
+        obj.put("nombre", getNOMBRE());
+        obj.put("otros_nombres", getOTROS_NOMBRES());
+        obj.put("descripcion", getDESCRIPCION());
+        obj.put("fabricante", getFABRICANTE());
+        obj.put("serie", getSERIE());
+        obj.put("url_foto", getURL_FOTO());
+        obj.put("precio", getPRECIO());
         return obj;
     }
 
@@ -147,52 +133,68 @@ public class REP_AUTO {
         this.ID = ID;
     }
 
-    public int getID_MARCA() {
-        return ID_MARCA;
+    public String getNOMBRE() {
+        return NOMBRE;
     }
 
-    public void setID_MARCA(int ID_MARCA) {
-        this.ID_MARCA = ID_MARCA;
+    public void setNOMBRE(String NOMBRE) {
+        this.NOMBRE = NOMBRE;
     }
 
-    public int getID_MODELO() {
-        return ID_MODELO;
+    public String getOTROS_NOMBRES() {
+        return OTROS_NOMBRES;
     }
 
-    public void setID_MODELO(int ID_MODELO) {
-        this.ID_MODELO = ID_MODELO;
+    public void setOTROS_NOMBRES(String OTROS_NOMBRES) {
+        this.OTROS_NOMBRES = OTROS_NOMBRES;
     }
 
-    public String getANHO() {
-        return ANHO;
+    public String getDESCRIPCION() {
+        return DESCRIPCION;
     }
 
-    public void setANHO(String ANHO) {
-        this.ANHO = ANHO;
+    public void setDESCRIPCION(String DESCRIPCION) {
+        this.DESCRIPCION = DESCRIPCION;
     }
 
-    public String getCLAVE() {
-        return CLAVE;
+    public String getFABRICANTE() {
+        return FABRICANTE;
     }
 
-    public void setCLAVE(String CLAVE) {
-        this.CLAVE = CLAVE;
+    public void setFABRICANTE(String FABRICANTE) {
+        this.FABRICANTE = FABRICANTE;
     }
 
-    public String getMARCA() {
-        return MARCA;
+    public String getSERIE() {
+        return SERIE;
     }
 
-    public void setMARCA(String MARCA) {
-        this.MARCA = MARCA;
+    public void setSERIE(String SERIE) {
+        this.SERIE = SERIE;
     }
 
-    public String getMODELO() {
-        return MODELO;
+    public String getURL_FOTO() {
+        return URL_FOTO;
     }
 
-    public void setMODELO(String MODELO) {
-        this.MODELO = MODELO;
+    public void setURL_FOTO(String URL_FOTO) {
+        this.URL_FOTO = URL_FOTO;
+    }
+
+    public double getPRECIO() {
+        return PRECIO;
+    }
+
+    public void setPRECIO(double PRECIO) {
+        this.PRECIO = PRECIO;
+    }
+
+    public String getTBL() {
+        return TBL;
+    }
+
+    public void setTBL(String TBL) {
+        this.TBL = TBL;
     }
 
     public Conexion getCon() {

@@ -24,6 +24,7 @@ import MODELO.COMPRA.COMPRA;
 import MODELO.COMPRA.DETALLE_COMPRA;
 import MODELO.PERMISO;
 import MODELO.PERSONA.PERSONA;
+import MODELO.REPUESTO.REPUESTO;
 import MODELO.REPUESTO.REP_AUTO;
 import MODELO.REPUESTO.REP_AUTO_MARCA;
 import MODELO.REPUESTO.REP_AUTO_MODELO;
@@ -105,10 +106,17 @@ public class repuestosController extends HttpServlet {
 
         if (tokenAcceso.equals(URL.TokenAcceso)) {
             switch (evento) {
-                
+                //<editor-fold defaultstate="collapsed" desc="REPUESTO">
+                case "registrar_repuesto":
+                    html = registrar_repuesto(request, con);
+                    break;
+//</editor-fold>
                 //<editor-fold defaultstate="collapsed" desc="REP_AUTO">
                 case "registrar_rep_auto":
                     html = registrar_rep_auto(request, con);
+                    break;
+                case "getBy_id_marca_and_id_modelo":
+                    html = getBy_id_marca_and_id_modelo(request, con);
                     break;
 
                 //</editor-fold>
@@ -119,6 +127,9 @@ public class repuestosController extends HttpServlet {
                 case "getAll_rep_auto_marca":
                     html = getAll_rep_auto_marca(request, con);
                     break;
+                case "getAll_rep_auto_marca_registrados":
+                    html = getAll_rep_auto_marca_registrados(request, con);
+                    break;
 
                 //</editor-fold>
                 //<editor-fold defaultstate="collapsed" desc="REP_AUTO_MODELO">
@@ -127,6 +138,9 @@ public class repuestosController extends HttpServlet {
                     break;
                 case "get_rep_auto_modelo_by_id_rep_auto_marca":
                     html = get_rep_auto_modelo_by_id_rep_auto_marca(request, con);
+                    break;
+                case "get_rep_auto_modelo_by_id_rep_auto_marca_registrados":
+                    html = get_rep_auto_modelo_by_id_rep_auto_marca_registrados(request, con);
                     break;
 
                 //</editor-fold>                    
@@ -254,7 +268,54 @@ public class repuestosController extends HttpServlet {
 
     }
 //</editor-fold>
-    
+    //<editor-fold defaultstate="collapsed" desc="REPUESTO">
+    private String registrar_repuesto(HttpServletRequest request, Conexion con) {
+        String nameAlert = "repuesto";
+        try {
+            REPUESTO repuesto = new REPUESTO(con);
+            repuesto.setNOMBRE(pString(request, "nombre"));
+            repuesto.setDESCRIPCION(pString(request, "descripcion"));
+            repuesto.setFABRICANTE(pString(request, "fabricante"));
+            repuesto.setOTROS_NOMBRES(pString(request, "otros_nombres"));
+            repuesto.setPRECIO(pDouble(request, "precio"));
+            repuesto.setSERIE(pString(request, "serie"));
+            int id = repuesto.Insertar();
+            repuesto.setID(id);
+            Part file = request.getPart("foto");
+            String name = "";
+            String names = "";
+            if (file != null) {
+                names = file.getSubmittedFileName();
+                String ruta = request.getSession().getServletContext().getRealPath("/");
+                name = EVENTOS.guardar_file(file, ruta + URL.ruta_foto_repuesto + "/" + id + "/", names);
+            }
+            repuesto.setURL_FOTO(URL.ruta_foto_repuesto + "/" + id + "/" + name);
+            repuesto.subir_foto_perfil();
+            RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", repuesto.getJson().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al registrar " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        } catch (IOException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al subir foto.", "{}");
+            return resp.toString();
+        } catch (ServletException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al subir foto.", "{}");
+            return resp.toString();
+        }
+    }
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="REP_AUTO">
     private String registrar_rep_auto(HttpServletRequest request, Conexion con) {
         String nameAlert = "rep_auto";
@@ -284,6 +345,26 @@ public class repuestosController extends HttpServlet {
             con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al registrar " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+    private String getBy_id_marca_and_id_modelo(HttpServletRequest request, Conexion con) {
+        String nameAlert = "rep_auto";
+        try {
+            REP_AUTO rep_auto = new REP_AUTO(con);
+            int id_marca = pInt(request, "id_marca");
+            int id_modelo = pInt(request, "id_modelo");
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto.getBy_id_marca_and_id_modelo(id_marca, id_modelo).toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
             return resp.toString();
         } catch (JSONException ex) {
             con.rollback();
@@ -343,6 +424,24 @@ public class repuestosController extends HttpServlet {
         try {
             REP_AUTO_MARCA rep_auto_marca = new REP_AUTO_MARCA(con);
             RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto_marca.getAll().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+    private String getAll_rep_auto_marca_registrados(HttpServletRequest request, Conexion con) {
+        String nameAlert = "rep_auto_marca";
+        try {
+            REP_AUTO_MARCA rep_auto_marca = new REP_AUTO_MARCA(con);
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto_marca.getAll_autos_registrados().toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();
@@ -427,6 +526,25 @@ public class repuestosController extends HttpServlet {
             REP_AUTO_MODELO rep_auto_modelo = new REP_AUTO_MODELO(con);
             int id_rep_auto_marca = pInt(request, "id_rep_auto_marca");
             RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto_modelo.getBy_id_rep_auto_marca(id_rep_auto_marca).toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+    private String get_rep_auto_modelo_by_id_rep_auto_marca_registrados(HttpServletRequest request, Conexion con) {
+        String nameAlert = "rep_auto_modelo";
+        try {
+            REP_AUTO_MODELO rep_auto_modelo = new REP_AUTO_MODELO(con);
+            int id_rep_auto_marca = pInt(request, "id_rep_auto_marca");
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto_modelo.getBy_id_rep_auto_marca_registrados(id_rep_auto_marca).toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();

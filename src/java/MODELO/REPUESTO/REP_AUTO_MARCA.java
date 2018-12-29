@@ -35,7 +35,7 @@ public class REP_AUTO_MARCA {
 
         ps.setString(1, getNOMBRE());
         ps.execute();
-        consulta = "select last_value from "+TBL+"_id_seq ";
+        consulta = "select last_value from " + TBL + "_id_seq ";
         ps = con.statamet(consulta);
         ResultSet rs = ps.executeQuery();
         int id = 0;
@@ -46,9 +46,9 @@ public class REP_AUTO_MARCA {
         ps.close();
         return id;
     }
-    
-     public int subir_foto_perfil() throws SQLException {
-        String consulta = "UPDATE public."+ TBL +" \n"
+
+    public int subir_foto_perfil() throws SQLException {
+        String consulta = "UPDATE public." + TBL + " \n"
                 + "	SET url_foto=?\n"
                 + "	WHERE id=" + getID();
         PreparedStatement ps = con.statamet(consulta);
@@ -92,6 +92,23 @@ public class REP_AUTO_MARCA {
         return arr;
     }
 
+    public JSONArray getAll_autos_registrados() throws SQLException, JSONException {
+        String consulta = "select ram.* from rep_auto ra, rep_auto_marca ram\n"
+                + "where ra.id_marca = ram.id\n"
+                + "group by(ram.id)";
+        PreparedStatement ps = con.statamet(consulta);
+        ResultSet rs = ps.executeQuery();
+        JSONArray arr = new JSONArray();
+        JSONObject obj;
+        while (rs.next()) {
+            obj = parseJson(rs);
+            arr.put(obj);
+        }
+        ps.close();
+        rs.close();
+        return arr;
+    }
+
     private JSONObject parseObj;
 
     private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
@@ -106,7 +123,7 @@ public class REP_AUTO_MARCA {
         JSONObject obj = new JSONObject();
         obj.put("id", getID());
         obj.put("nombre", getNOMBRE());
-         obj.put("url_foto", getURL_FOTO());
+        obj.put("url_foto", getURL_FOTO());
         return obj;
     }
 
@@ -133,8 +150,7 @@ public class REP_AUTO_MARCA {
     public void setURL_FOTO(String URL_FOTO) {
         this.URL_FOTO = URL_FOTO;
     }
-    
-    
+
     public Conexion getCon() {
         return con;
     }

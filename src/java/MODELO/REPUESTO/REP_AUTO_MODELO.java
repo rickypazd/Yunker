@@ -93,9 +93,27 @@ public class REP_AUTO_MODELO {
         rs.close();
         return arr;
     }
+
     public JSONArray getBy_id_rep_auto_marca(int id) throws SQLException, JSONException {
         String consulta = "select ar.* "
-                + "from " + TBL + " ar where ar.id_rep_auto_marca = "+id;
+                + "from " + TBL + " ar where ar.id_rep_auto_marca = " + id;
+        PreparedStatement ps = con.statamet(consulta);
+        ResultSet rs = ps.executeQuery();
+        JSONArray arr = new JSONArray();
+        JSONObject obj;
+        while (rs.next()) {
+            obj = parseJson(rs);
+            arr.put(obj);
+        }
+        ps.close();
+        rs.close();
+        return arr;
+    }
+
+    public JSONArray getBy_id_rep_auto_marca_registrados(int id) throws SQLException, JSONException {
+        String consulta = "select ram.* from rep_auto ra, rep_auto_modelo ram\n"
+                + "where ra.id_modelo = ram.id and ram.id_rep_auto_marca = "+id+"\n"
+                + "group by(ram.id)";
         PreparedStatement ps = con.statamet(consulta);
         ResultSet rs = ps.executeQuery();
         JSONArray arr = new JSONArray();
