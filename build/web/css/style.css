@@ -78,6 +78,7 @@ html, body {
 .lista_art li:hover{
     background-color: #A1B3A4;
     cursor: pointer;
+    
 }
 #dynatable-search-tbl_articulos{
     width: 100%;
@@ -193,6 +194,13 @@ html, body {
     margin: 1px;
     height: 50px;
 }
+
+.lista_art {
+    overflow:auto !important;
+    height:270px !important;
+   
+}
+
 
 
 

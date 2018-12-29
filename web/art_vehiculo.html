@@ -35,31 +35,53 @@ and open the template in the editor.
                             <div class="form-group col-md-6">
                                 <label for="art_clave" class="label-titulo" >Clave</label>
                                 <input type="text" class="form-control color-input" id="art_clave">
-                            </div>
+                            </div>            
                             <div class="form-group col-md-6">
-                                <label for="art_version" class="label-titulo">version</label>
-                                <input type="text" class="form-control color-input" id="art_version" placeholder="Descripción" data-toggle="modal" data-target=".bd-version">
-                            </div>
+                                <label for="art_categoria" class="label-titulo" >Año</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control color-input" id="art_precio_compra">                                   
+                                </div>                           
+                            </div> 
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="art_marca" class="label-titulo">Marca</label>
                                 <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-marca" id="art_marca" >
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="art_departamento" class="label-titulo">Modelo</label>
                                 <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-modelo"  id="art_departamento" >
+                            </div>   
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 ">
+                                <label for="art_marca" class="label-titulo" >Agregar Versiones</label>
                             </div>    
-                            <div class="form-group col-md-4">
-                                <label for="art_categoria" class="label-titulo" >Año</label>
-                                <div class="input-group">
-                                    <input type="date" class="form-control color-input" id="art_precio_compra">
+                            <div class="form-group col-md-6">                             
+                                <div class="input-group">      
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text" id="btnGroupAddon">0.0</div>
+                                        <div class="input-group-text" id="btnGroupAddon"> 
+                                            <span>
+                                                <i class="fa fa-search" aria-hidden="true"></i>                                           
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>                           
-                            </div> 
-                        </div>                      
+                                    <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_categoria(this);">                                
+                                    <button type="button" class="btn btn-outline-success" onclick="ver_pagina('art_vehiculo_version.html');">Agregar Nuevo</button>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <ul class="list-group border list-group-flush lista_art" id="lista_version_agregadas">                                      
+                                </ul>
+                            </div>
+                            <div class="form-group col-md-6">                                                                                                                 
+                                <ul class="list-group lista_art border" id="lista_version">
+
+                                </ul>                      
+                            </div>
+                        </div> 
                     </form> 
                     <div class="modal-footer justify-content-center">
                         <div class="row" >
@@ -97,7 +119,7 @@ and open the template in the editor.
                                 <button type="button" class="btn btn-outline-success" onclick="ver_pagina('art_vehiculo_modelo.html');">Agregar Nuevo</button>
                             </div>
                             <hr>                            
-                            <ul class="list-group lista_art" id="lista_departamentos">
+                            <ul class="list-group lista_art border" id="lista_departamentos">
 
                             </ul>                      
                         </form>                       
@@ -113,7 +135,7 @@ and open the template in the editor.
             </div>
         </div>
 
-        
+
         <!--Model version-->
         <div class="modal fade bd-version" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -138,7 +160,7 @@ and open the template in the editor.
                                 <button type="button" class="btn btn-outline-success" onclick="ver_pagina('art_vehiculo_version.html');">Agregar Nuevo</button>
                             </div>
                             <hr>                            
-                            <ul class="list-group lista_art"  id="lista_categoria">
+                            <ul class="list-group lista_art border" id="lista_version">
 
                             </ul>                      
                         </form>                       
@@ -154,7 +176,7 @@ and open the template in the editor.
             </div>
         </div>
 
-        
+
 
         <!--Model Marca-->
         <div class="modal fade bd-marca" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -181,8 +203,8 @@ and open the template in the editor.
                             </div>
                             <hr>                            
                             <ul class="list-group lista_art lista_marca"  id="lista_marca">
-                          
-                              
+
+
                             </ul>                      
                         </form>                       
                     </div>
@@ -203,7 +225,7 @@ and open the template in the editor.
         <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script>                                  
         <script src="js/verifySession.js" type="text/javascript"></script>        
         <script src="js/load.js" type="text/javascript"></script>        
-   
+
         <script src="plugin/jspkg-archive/jquery.dynatable.js" type="text/javascript"></script>
         <script src="js/Vehiculo/vehiculo.js" type="text/javascript"></script>
         <script type="text/javascript">
