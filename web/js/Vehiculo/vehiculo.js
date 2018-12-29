@@ -179,7 +179,7 @@ function registrar_Vehiculo() {
                     id_marca: id_marca,
                     modelo: modelo,
                     id_modelo: id_modelo,
-                    versiones: de
+                    versiones: lista
                 }, function (respuesta) {
             cerrar_progress();
             if (respuesta != null) {
