@@ -121,6 +121,9 @@ public class repuestosController extends HttpServlet {
                 case "registrar_rep_auto_version":
                     html = registrar_rep_auto_version(request, con);
                     break;
+                case "getAll_rep_auto_version":
+                    html = getAll_rep_auto_version(request, con);
+                    break;
 
                 //</editor-fold>                    
                 //<editor-fold defaultstate="collapsed" desc="UTILES">
@@ -187,6 +190,7 @@ public class repuestosController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="DOWNLOAD">
     private void descargar(HttpServletRequest request, HttpServletResponse response, Conexion con) {
         try {
             String SRC = request.getParameter("nombre_arc");
@@ -194,7 +198,7 @@ public class repuestosController extends HttpServlet {
             FileInputStream in = new FileInputStream(fileToDownload);
             ServletOutputStream out = response.getOutputStream();
             response.setHeader("Content-Disposition", "attachment; filename=\"" + fileToDownload.getName() + "\"");
-            //String mimeType =  new FileTypeMap().getContentType(filePath); 
+            //String mimeType =  new FileTypeMap().getContentType(filePath);
             response.setContentType(Files.probeContentType(Paths.get(SRC)));
             response.setContentLength(in.available());
             int c;
@@ -213,9 +217,9 @@ public class repuestosController extends HttpServlet {
             Logger.getLogger(repuestosController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "No se encontro el archibo.", "{}");
         }
-
+        
     }
-
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="REP_AUTO_MARCA">
     private String registrar_rep_auto_marca(HttpServletRequest request, Conexion con) {
         String nameAlert = "rep_auto_marca";
@@ -286,6 +290,7 @@ public class repuestosController extends HttpServlet {
         try {
             REP_AUTO_MODELO rep_auto_modelo = new REP_AUTO_MODELO(con);
             rep_auto_modelo.setNOMBRE(pString(request, "nombre"));
+            rep_auto_modelo.setID_REP_AUTO_MARCA(pInt(request, "id_rep_auto_marca"));
             int id = rep_auto_modelo.Insertar();
             rep_auto_modelo.setID(id);
             Part file = request.getPart("foto");
@@ -322,7 +327,25 @@ public class repuestosController extends HttpServlet {
             return resp.toString();
         }
     }
-
+    
+    private String getAll_rep_auto_modelo(HttpServletRequest request, Conexion con) {
+        String nameAlert = "rep_auto_modelo";
+        try {
+            REP_AUTO_MODELO rep_auto_modelo = new REP_AUTO_MODELO(con);
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto_modelo.getAll().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="REP_AUTO_VERSION">
     private String registrar_rep_auto_version(HttpServletRequest request, Conexion con) {
@@ -346,7 +369,24 @@ public class repuestosController extends HttpServlet {
             return resp.toString();
         }
     }
-
+     private String getAll_rep_auto_version(HttpServletRequest request, Conexion con) {
+        String nameAlert = "rep_auto_version";
+        try {
+            REP_AUTO_VERSION rep_auto_version = new REP_AUTO_VERSION(con);
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto_version.getAll().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="PARSERS">
     private int parseInt(String val) {

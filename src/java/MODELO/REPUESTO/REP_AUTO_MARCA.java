@@ -98,7 +98,7 @@ public class REP_AUTO_MARCA {
         parseObj = new JSONObject();
         parseObj.put("id", rs.getInt("id"));
         parseObj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-        parseObj.put("url_foto", rs.getString("url_foto") != null ? rs.getString("url_foto") : "");
+        parseObj.put("url_foto", rs.getString("url_foto") != null ? rs.getString("url_foto") : "img/Sin_imagen.png");
         return parseObj;
     }
 
