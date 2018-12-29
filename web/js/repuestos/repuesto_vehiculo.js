@@ -69,9 +69,9 @@ function registrar_repuesto_vehiculo() {
     if (foto != null && nombre.length > 0) {
         $("#file-0d").css("background", "#ffffff");
     } else {
-        $(".file-caption").css("background", "#df5b5b");       
+        $(".file-caption").css("background", "#df5b5b");
         exito = false;
-    }     
+    }
     if (exito) {
         mostrar_progress();
         var formData = new FormData($("#submitform")[0]);
@@ -82,16 +82,24 @@ function registrar_repuesto_vehiculo() {
             contentType: false,
             cache: false,
             processData: false,
-            success: function (data)
+            success: function (resp)
             {
-                //despues de cargar
                 cerrar_progress();
-                alert(data);
-               
-             
+                if (resp != null) {
+                    var obj = $.parseJSON(resp);
+                    if (obj.estado != 1) {                        
+                        alert(obj.mensaje);
+                    } else {
+                        var obje = $.parseJSON(obj.resp);
+                        window.location.href = 'art_repuesto_vehiculo_perfil.html?id=' + obje.id;
+                    }
+                }
+
+
+
             }
         });
-    } else {       
+    } else {
         cerrar_progress();
     }
 }
