@@ -76,9 +76,13 @@ function cargar_version_auto() {
     });
 }
     function agregar_version(iten){
-       
-        $(iten).remove();
-        $("#lista_version_agregadas").add(iten);
+       $(iten).attr("onclick","quitar_version(this);");
+        $(iten).appendTo("#lista_version_agregadas");
+        
+    }
+    function quitar_version(iten){
+         $(iten).attr("onclick","agregar_version(this);");
+        $(iten).appendTo("#lista_version");
     }
 
 
