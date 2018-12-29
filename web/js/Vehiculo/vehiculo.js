@@ -165,8 +165,8 @@ function registrar_Vehiculo() {
     var array = $("#lista_version_agregadas").find("li");
     $.each(array,function (i,obj){
         lista.push($(obj).data("obj"));
-        alert(lista);
     });
+    
     if (exito) {
         $.post(url,
                 {
@@ -179,7 +179,7 @@ function registrar_Vehiculo() {
                     id_marca: id_marca,
                     modelo: modelo,
                     id_modelo: id_modelo,
-                    versiones: lista
+                    versiones: JSON.stringify(lista)
                 }, function (respuesta) {
             cerrar_progress();
             if (respuesta != null) {
