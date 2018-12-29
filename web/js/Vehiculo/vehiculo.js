@@ -16,45 +16,49 @@ function cargar_marcas() {
         evento: "getAll_rep_auto_marca",
         TokenAcceso: "servi12sis3"
     }, function (resp) {
-    cerrar_progress();
+        cerrar_progress();
         if (resp != null) {
             var obj = $.parseJSON(resp);
             if (obj.estado != 1) {
-            //error
+                //error
                 alert(obj.mensaje);
             } else {
-            //exito
+                //exito
                 //alert(resp);
                 $("#lista_marca").html("");
                 cargar_lista_marca($.parseJSON(obj.resp));
-                
+
             }
         }
     });
 }
 
-
-function cargar_lista_marca(arr){
-    $.each(arr,function(i,obj){
-        cargar_iten_marca(obj); 
+function cargar_lista_marca(arr) {
+    $.each(arr, function (i, obj) {
+        cargar_iten_marca(obj);
     });
 }
 
 function cargar_iten_marca(obj) {
-    var url_foto= "img/Sin_imagen.png";
-    if(obj.url_foto.length>0){
+    var url_foto = "img/Sin_imagen.png";
+    if (obj.url_foto.length > 0) {
         url_foto = obj.url_foto;
     }
-    var html = "<li onclick='seleccionar_marca("+JSON.stringify(obj)+")'>";
-    html += "   <img src='"+url_foto+"' height='50' width='80' alt=''/>";
-    html += "   <span>"+obj.nombre+"</span>";
+    var html = "<li onclick='seleccionar_marca(" + JSON.stringify(obj) + ")'>";
+    html += "   <img src='" + url_foto + "' height='50' width='80' alt=''/>";
+    html += "   <span>" + obj.nombre + "</span>";
     html += "</li>";
     $("#lista_marca").append(html);
 }
 
-function seleccionar_marca(obj){
-    alert(obj.id);
+function seleccionar_marca(item) {
+    var obj = item;        
+    $("#art_marca").val(obj.nombre);
+    $("#art_marca").data("id", obj.id);
+    $(".bd-marca").modal('toggle');
+    $("#art_modelo").removeAttr("disabled");
 }
+
 
 function cargar_version_auto() {
     var html = "";
@@ -68,22 +72,45 @@ function cargar_version_auto() {
             } else {
                 var arr = $.parseJSON(obj.resp);
                 $.each(arr, function (i, obj) {
-                    html += "<li class='list-group-item' data-obj='"+JSON.stringify(obj)+"' onclick='agregar_version(this);'>" + obj.nombre + "</li>";
+                    html += "<li class='list-group-item' data-obj='" + JSON.stringify(obj) + "' onclick='agregar_version(this);'>" + obj.nombre + "</li>";
                 });
                 $("#lista_version").html(html);
             }
         }
     });
 }
-    function agregar_version(iten){
-       $(iten).attr("onclick","quitar_version(this);");
-        $(iten).appendTo("#lista_version_agregadas");
-        
-    }
-    function quitar_version(iten){
-         $(iten).attr("onclick","agregar_version(this);");
-        $(iten).appendTo("#lista_version");
-    }
+
+function agregar_version(iten) {
+    $(iten).attr("onclick", "quitar_version(this);");
+    $(iten).appendTo("#lista_version_agregadas");
+
+}
+function quitar_version(iten) {
+    $(iten).attr("onclick", "agregar_version(this);");
+    $(iten).appendTo("#lista_version");
+}
+
+function obtener_modelo() {
+    var html = "";
+    //mostrar_progress();
+    $.post(url, {TokenAcceso: "servi12sis3", evento: "getAll_rep_auto_version"}, function (resp) {
+        //  cerrar_progress();
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+            if (obj.estado != "1") {
+                alert(obj.mensaje);
+            } else {
+                var arr = $.parseJSON(obj.resp);
+                $.each(arr, function (i, obj) {
+                    html += "<li class='list-group-item' data-obj='" + JSON.stringify(obj) + "' onclick='agregar_version(this);'>" + obj.nombre + "</li>";
+                });
+                $("#lista_version").html(html);
+            }
+        }
+    });
+}
+
+
 
 
 
