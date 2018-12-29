@@ -24,9 +24,11 @@ import MODELO.COMPRA.COMPRA;
 import MODELO.COMPRA.DETALLE_COMPRA;
 import MODELO.PERMISO;
 import MODELO.PERSONA.PERSONA;
+import MODELO.REPUESTO.REP_AUTO;
 import MODELO.REPUESTO.REP_AUTO_MARCA;
 import MODELO.REPUESTO.REP_AUTO_MODELO;
 import MODELO.REPUESTO.REP_AUTO_VERSION;
+import MODELO.REPUESTO.REP_AUTO_VERSION_TO_REP_AUTO;
 import MODELO.REPUESTO.REP_CATEGORIA;
 import MODELO.REPUESTO.REP_SUB_CATEGORIA;
 import MODELO.SEGURIDAD.SEG_MODIFICACIONES;
@@ -103,7 +105,13 @@ public class repuestosController extends HttpServlet {
 
         if (tokenAcceso.equals(URL.TokenAcceso)) {
             switch (evento) {
+                
+                //<editor-fold defaultstate="collapsed" desc="REP_AUTO">
+                case "registrar_rep_auto":
+                    html = registrar_rep_auto(request, con);
+                    break;
 
+                //</editor-fold>
                 //<editor-fold defaultstate="collapsed" desc="REP_AUTO_MARCA">
                 case "registrar_rep_auto_marca":
                     html = registrar_rep_auto_marca(request, con);
@@ -244,6 +252,45 @@ public class repuestosController extends HttpServlet {
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "No se encontro el archibo.", "{}");
         }
 
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="REP_AUTO">
+    private String registrar_rep_auto(HttpServletRequest request, Conexion con) {
+        String nameAlert = "rep_auto";
+        try {
+            REP_AUTO rep_auto = new REP_AUTO(con);
+            rep_auto.setID_MARCA(pInt(request, "id_marca"));
+            rep_auto.setID_MODELO(pInt(request, "id_modelo"));
+            rep_auto.setANHO(pString(request, "anho"));
+            rep_auto.setCLAVE(pString(request, "clave"));
+            rep_auto.setMARCA(pString(request, "marca"));
+            rep_auto.setMODELO(pString(request, "modelo"));
+            String versiones = pString(request, "versiones");
+            JSONArray arr_versiones = new JSONArray(versiones);
+            int id = rep_auto.Insertar();
+            rep_auto.setID(id);
+            JSONObject obj_version;
+            REP_AUTO_VERSION_TO_REP_AUTO rep_auto_version_to_rep_auto = new REP_AUTO_VERSION_TO_REP_AUTO(con);
+            rep_auto_version_to_rep_auto.setID_REP_AUTO(id);
+            for (int i = 0; i < arr_versiones.length(); i++) {
+                obj_version = arr_versiones.getJSONObject(i);
+                rep_auto_version_to_rep_auto.setID_REP_AUTO_VERSION(obj_version.getInt("id"));
+                rep_auto_version_to_rep_auto.Insertar();
+            }
+            RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", rep_auto.getJson().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al registrar " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="REP_AUTO_MARCA">
