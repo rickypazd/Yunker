@@ -286,6 +286,7 @@ public class repuestosController extends HttpServlet {
         try {
             REP_AUTO_MODELO rep_auto_modelo = new REP_AUTO_MODELO(con);
             rep_auto_modelo.setNOMBRE(pString(request, "nombre"));
+            rep_auto_modelo.setID_REP_AUTO_MARCA(pInt(request, "id_rep_auto_marca"));
             int id = rep_auto_modelo.Insertar();
             rep_auto_modelo.setID(id);
             Part file = request.getPart("foto");

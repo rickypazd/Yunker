@@ -24,6 +24,7 @@ function cargar_marcas() {
             } else {
             //exito
                 //alert(resp);
+                $("#lista_marca").html("");
                 cargar_lista_marca($.parseJSON(obj.resp));
                 
             }

@@ -20,6 +20,7 @@ public class REP_AUTO_MODELO {
     private int ID;
     private String NOMBRE;
     private String URL_FOTO;
+    private int ID_REP_AUTO_MARCA;
     private Conexion con = null;
     private String TBL = "rep_auto_modelo";
 
@@ -29,13 +30,14 @@ public class REP_AUTO_MODELO {
 
     public int Insertar() throws SQLException {
         String consulta = "INSERT INTO public." + TBL + "(\n"
-                + "	nombre)\n"
-                + "	VALUES (?);";
+                + "	nombre, id_rep_auto_marca)\n"
+                + "	VALUES (?, ?);";
         PreparedStatement ps = con.statamet(consulta);
 
         ps.setString(1, getNOMBRE());
+        ps.setInt(2, getID_REP_AUTO_MARCA());
         ps.execute();
-       consulta = "select last_value from "+TBL+"_id_seq ";
+        consulta = "select last_value from " + TBL + "_id_seq ";
         ps = con.statamet(consulta);
         ResultSet rs = ps.executeQuery();
         int id = 0;
@@ -46,9 +48,9 @@ public class REP_AUTO_MODELO {
         ps.close();
         return id;
     }
-    
-     public int subir_foto_perfil() throws SQLException {
-        String consulta = "UPDATE public."+ TBL +" \n"
+
+    public int subir_foto_perfil() throws SQLException {
+        String consulta = "UPDATE public." + TBL + " \n"
                 + "	SET url_foto=?\n"
                 + "	WHERE id=" + getID();
         PreparedStatement ps = con.statamet(consulta);
@@ -57,7 +59,7 @@ public class REP_AUTO_MODELO {
         ps.close();
         return row;
     }
-     
+
     public JSONObject getById(int id) throws SQLException, JSONException {
         String consulta = "select ar.* "
                 + "from " + TBL + " ar\n"
@@ -97,14 +99,16 @@ public class REP_AUTO_MODELO {
     private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
         parseObj = new JSONObject();
         parseObj.put("id", rs.getInt("id"));
+        parseObj.put("id_rep_auto_marca", rs.getInt("id_rep_auto_marca"));
         parseObj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
-        parseObj.put("url_foto", rs.getString("url_foto") != null ? rs.getString("url_foto") : "");
+        parseObj.put("url_foto", rs.getString("url_foto") != null ? rs.getString("url_foto") : "img/Sin_imagen.png");
         return parseObj;
     }
 
     public JSONObject getJson() throws JSONException, SQLException {
         JSONObject obj = new JSONObject();
         obj.put("id", getID());
+        obj.put("id_rep_auto_marca", getID_REP_AUTO_MARCA());
         obj.put("nombre", getNOMBRE());
         obj.put("url_foto", getURL_FOTO());
         return obj;
@@ -134,7 +138,14 @@ public class REP_AUTO_MODELO {
         this.URL_FOTO = URL_FOTO;
     }
 
-    
+    public int getID_REP_AUTO_MARCA() {
+        return ID_REP_AUTO_MARCA;
+    }
+
+    public void setID_REP_AUTO_MARCA(int ID_REP_AUTO_MARCA) {
+        this.ID_REP_AUTO_MARCA = ID_REP_AUTO_MARCA;
+    }
+
     public Conexion getCon() {
         return con;
     }
