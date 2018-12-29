@@ -20,7 +20,7 @@ public class REP_AUTO_VERSION {
     private int ID;
     private String NOMBRE;
     private Conexion con = null;
-    private String TBL = "rep_auto_marca";
+    private String TBL = "rep_auto_version";
 
     public REP_AUTO_VERSION(Conexion con) {
         this.con = con;
@@ -64,7 +64,7 @@ public class REP_AUTO_VERSION {
         return obj;
     }
 
-    public JSONArray gelAll() throws SQLException, JSONException {
+    public JSONArray getAll() throws SQLException, JSONException {
         String consulta = "select ar.* "
                 + "from " + TBL + " ar";
         PreparedStatement ps = con.statamet(consulta);
