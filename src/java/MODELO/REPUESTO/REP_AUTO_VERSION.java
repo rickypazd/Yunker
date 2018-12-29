@@ -64,6 +64,24 @@ public class REP_AUTO_VERSION {
         return obj;
     }
 
+    public JSONArray getById_auto(int id) throws SQLException, JSONException {
+        String consulta = "select ravt.id as id_version , rav.* from rep_auto_version_to_rep_auto ravt, rep_auto_version rav\n"
+                + "where ravt.id_rep_auto = ? and ravt.id_rep_auto_version = rav.id";
+        PreparedStatement ps = con.statamet(consulta);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        JSONArray arr = new JSONArray();
+        JSONObject obj;
+          while (rs.next()) {
+            obj = parseJson(rs);
+             obj.put("id_version", rs.getInt("id_version"));
+            arr.put(obj);
+        }
+        ps.close();
+        rs.close();
+        return arr;
+    }
+
     public JSONArray getAll() throws SQLException, JSONException {
         String consulta = "select ar.* "
                 + "from " + TBL + " ar";

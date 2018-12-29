@@ -31,19 +31,24 @@ and open the template in the editor.
                 </div>
                 <div class="card-body" >  
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="rep_auto_marca" class="label-titulo">Marca</label>
                             <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-marca" id="rep_auto_marca" >
                             <img id="img_marca" src="img/Sin_imagen.png" width="200" alt="img"/>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="rep_auto_modelo" class="label-titulo">Modelo</label>
                             <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-modelo" id="rep_auto_modelo" >
                             <img id="img_modelo" src="img/Sin_imagen.png" width="200" alt="img"/>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="rep_auto_anho" class="label-titulo">Año</label>
                             <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-anhos" id="rep_auto_anho" >
+                           
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rep_auto_version" class="label-titulo">Version</label>
+                            <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-version" id="rep_auto_version" >
                            
                         </div>
                     </div>
@@ -162,6 +167,45 @@ and open the template in the editor.
                             </div>
                             <hr>                            
                             <ul class="list-group lista_art lista_marca"  id="lista_anhos">
+
+
+                            </ul>                      
+                        </form>                       
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <div class="row" >
+                            <div class=" col-md-12">                               
+                                <button type="button" class="btn btn-primary ">Aceptar</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+         <div class="modal fade bd-version" id="ModalVersion"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: whitesmoke">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccionar Version</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container-fluid">
+                            <div class="input-group">      
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" id="btnGroupAddon"> 
+                                        <span>
+                                            <i class="fa fa-search" aria-hidden="true"></i>                                           
+                                        </span>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" name="x" placeholder="Buscar..." onkeyup="buscar_marca(this);">                                
+
+                            </div>
+                            <hr>                            
+                            <ul class="list-group lista_art lista_marca"  id="lista_version">
 
 
                             </ul>                      

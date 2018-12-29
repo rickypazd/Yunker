@@ -38,7 +38,12 @@ public class REPUESTO {
                 + "	VALUES (?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = con.statamet(consulta);
 
-        ps.setString(1, getNOMBRE());
+        ps.setString(1, getFABRICANTE());
+        ps.setDouble(2, getPRECIO());
+        ps.setString(3, getSERIE());
+        ps.setString(4, getDESCRIPCION());
+        ps.setString(5, getNOMBRE());
+        ps.setString(6, getOTROS_NOMBRES());
         ps.execute();
         consulta = "select last_value from " + TBL + "_id_seq ";
         ps = con.statamet(consulta);

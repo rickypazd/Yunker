@@ -110,6 +110,9 @@ public class repuestosController extends HttpServlet {
                 case "registrar_repuesto":
                     html = registrar_repuesto(request, con);
                     break;
+                case "getById_repuesto":
+                    html = getById_repuesto(request, con);
+                    break;
 //</editor-fold>
                 //<editor-fold defaultstate="collapsed" desc="REP_AUTO">
                 case "registrar_rep_auto":
@@ -150,6 +153,9 @@ public class repuestosController extends HttpServlet {
                     break;
                 case "getAll_rep_auto_version":
                     html = getAll_rep_auto_version(request, con);
+                    break;
+                case "getAll_rep_auto_version_by_id_auto":
+                    html = getAll_rep_auto_version_by_id_auto(request, con);
                     break;
 
                 //</editor-fold>                    
@@ -312,6 +318,25 @@ public class repuestosController extends HttpServlet {
             con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al subir foto.", "{}");
+            return resp.toString();
+        }
+    }
+     private String getById_repuesto(HttpServletRequest request, Conexion con) {
+        String nameAlert = "repuesto";
+        try {
+           REPUESTO repuesto = new REPUESTO(con);
+            int id = pInt(request, "id");
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", repuesto.getById(id).toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
             return resp.toString();
         }
     }
@@ -588,6 +613,25 @@ public class repuestosController extends HttpServlet {
         try {
             REP_AUTO_VERSION rep_auto_version = new REP_AUTO_VERSION(con);
             RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto_version.getAll().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+    private String getAll_rep_auto_version_by_id_auto(HttpServletRequest request, Conexion con) {
+        String nameAlert = "rep_auto_version";
+        try {
+            REP_AUTO_VERSION rep_auto_version = new REP_AUTO_VERSION(con);
+            int id = pInt(request, "id");
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto_version.getById_auto(id).toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();
