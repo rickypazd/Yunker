@@ -6,6 +6,11 @@
 
 var url = "repuestosController";
 $(document).ready(function () {
+    $("#art_año").datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years"
+    });
     cargar_marcas();
     cargar_version_auto();
 });
@@ -51,8 +56,11 @@ function cargar_iten_marca(obj) {
     $("#lista_marca").append(html);
 }
 
+var id_marca;
+
 function seleccionar_marca(item) {
-    var obj = item;        
+    var obj = item;
+    id_marca = obj.id;
     $("#art_marca").val(obj.nombre);
     $("#art_marca").data("id", obj.id);
     $(".bd-marca").modal('toggle');
@@ -83,8 +91,8 @@ function cargar_version_auto() {
 function agregar_version(iten) {
     $(iten).attr("onclick", "quitar_version(this);");
     $(iten).appendTo("#lista_version_agregadas");
-
 }
+
 function quitar_version(iten) {
     $(iten).attr("onclick", "agregar_version(this);");
     $(iten).appendTo("#lista_version");
@@ -92,9 +100,9 @@ function quitar_version(iten) {
 
 function obtener_modelo() {
     var html = "";
-    //mostrar_progress();
-    $.post(url, {TokenAcceso: "servi12sis3", evento: "getAll_rep_auto_version"}, function (resp) {
-        //  cerrar_progress();
+    mostrar_progress();
+    $.post(url, {TokenAcceso: "servi12sis3", evento: "get_rep_auto_modelo_by_id_rep_auto_marca", id_rep_auto_marca: id_marca}, function (resp) {
+        cerrar_progress();
         if (resp != null) {
             var obj = $.parseJSON(resp);
             if (obj.estado != "1") {
@@ -102,15 +110,92 @@ function obtener_modelo() {
             } else {
                 var arr = $.parseJSON(obj.resp);
                 $.each(arr, function (i, obj) {
-                    html += "<li class='list-group-item' data-obj='" + JSON.stringify(obj) + "' onclick='agregar_version(this);'>" + obj.nombre + "</li>";
+                    html += "<li class='list-group-item' data-obj='" + JSON.stringify(obj) + "' onclick='agregar_iten_modelo(this);'>" + obj.nombre + "</li>";
                 });
-                $("#lista_version").html(html);
+                $("#lista_modelo").html(html);
             }
         }
     });
 }
 
+function agregar_iten_modelo(iten) {
+    var obj = $(iten).data("obj");
+    $("#art_modelo").val(obj.nombre);
+    $("#art_modelo").data("id", obj.id);
+    $(".bd-modelo").modal('toggle');
+}
 
 
+function registrar_Vehiculo() {
+    mostrar_progress();
+    var exito = true;
+    var clave = $("#art_clave").val() || null;
+    var año = $("#art_año").val() || null;
+    var id_marca = $("#art_marca").data("id");
+    var marca = $("#art_marca").val() || null;
+    var id_modelo = $("#art_modelo").data("id");
+    var modelo = $("#art_modelo").val() || null;
+    var TokenAcceso = "servi12sis3";
+    var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
+    if (clave != null && clave.length > 0) {
+        $("#art_clave").css("background", "#ffffff");
+    } else {
+        $("#art_clave").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (año != null && año.length > 0) {
+        $("#art_año").css("background", "#ffffff");
+    } else {
+        $("#art_año").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (marca != null && marca.length > 0 && id_marca > 0) {
+        $("#art_marca").css("background", "#ffffff");
+    } else {
+        $("#art_marca").css("background", "#df5b5b");
+        exito = false;
+    }
+    if (modelo != null && modelo.length > 0 && id_modelo > 0) {
+        $("#art_modelo").css("background", "#ffffff");
+    } else {
+        $("#art_modelo").css("background", "#df5b5b");
+        exito = false;
+    }
+    var lista = [];
+    var array = $("#lista_version_agregadas").find("li");
+    $.each(array,function (i,obj){
+        lista.push($(obj).data("obj"));
+        alert(lista);
+    });
+    if (exito) {
+        $.post(url,
+                {
+                    evento: "registrar_rep_auto",
+                    TokenAcceso: TokenAcceso,
+                    id_usr: usr_log.id,
+                    clave: clave,
+                    anho: año,
+                    marca: marca,
+                    id_marca: id_marca,
+                    modelo: modelo,
+                    id_modelo: id_modelo,
+                    versiones: de
+                }, function (respuesta) {
+            cerrar_progress();
+            if (respuesta != null) {
+                var obj = $.parseJSON(respuesta);
+                if (obj.estado != 1) {
+                    alert(obj.mensaje);
+                } else {
+                    //exito                    
+                    var resp = obj.resp;
+                    alert(resp);
+                }
+            }
+        });
+    } else {
+        cerrar_progress();
+    }
+}
 
 
