@@ -81,6 +81,21 @@ public class REP_SUB_CATEGORIA {
         rs.close();
         return arr;
     }
+    public JSONArray getBy_id_rep_categoria(int id) throws SQLException, JSONException {
+        String consulta = "select ar.* "
+                + "from " + TBL + " ar where ar.id_rep_categoria = "+id;
+        PreparedStatement ps = con.statamet(consulta);
+        ResultSet rs = ps.executeQuery();
+        JSONArray arr = new JSONArray();
+        JSONObject obj;
+        while (rs.next()) {
+            obj = parseJson(rs);
+            arr.put(obj);
+        }
+        ps.close();
+        rs.close();
+        return arr;
+    }
 
     private JSONObject parseObj;
 
