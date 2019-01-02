@@ -56,5 +56,5 @@ function cerrarSesion() {
 }
 
 function ver_pagina(pag) {
-    window.location.href = 'art_repuesto_vehiculo_perfil.html';
+    window.location.href = pag;
 }
