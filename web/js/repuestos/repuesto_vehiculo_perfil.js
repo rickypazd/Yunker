@@ -24,13 +24,13 @@ function Cargar_repuesto() {
                 //error
                 alert(obj.mensaje);
             } else {
-                var obj = $.parseJSON(resp);
-                $("#text_nombre").val(resp.nombre);
-                $("#text_precio").val(resp.nombre);
-                $("#text_serie").val(resp.nombre);
-                $("#text_segundo_nombre").val(resp.nombre);
-                $("#text_descripcion").val(resp.nombre);
-                $("#text_fabricante").val(resp.nombre);
+                var obje = $.parseJSON(obj.resp);
+                $("#text_nombre").val(obje.nombre);
+                $("#text_precio").val(obje.precio);
+                $("#text_serie").val(obje.serie);
+                $("#text_segundo_nombre").val(obje.otros_nombres);
+                $("#text_descripcion").val(obje.descripcion);
+                $("#text_fabricante").val(obje.fabricante);
             }
         }
     });
