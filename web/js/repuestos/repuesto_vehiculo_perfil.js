@@ -25,12 +25,12 @@ function Cargar_repuesto() {
                 alert(obj.mensaje);
             } else {
                 var obje = $.parseJSON(obj.resp);
-                $("#text_nombre").val(obje.nombre);
-                $("#text_precio").val(obje.precio);
-                $("#text_serie").val(obje.serie);
-                $("#text_segundo_nombre").val(obje.otros_nombres);
-                $("#text_descripcion").val(obje.descripcion);
-                $("#text_fabricante").val(obje.fabricante);
+                $("#text_nombre").html(obje.nombre);
+                $("#text_precio").html(obje.precio);
+                $("#text_serie").html(obje.serie);
+                $("#text_segundo_nombre").html(obje.otros_nombres);
+                $("#text_descripcion").html(obje.descripcion);
+                $("#text_fabricante").html(obje.fabricante);
             }
         }
     });
