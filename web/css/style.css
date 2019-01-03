@@ -211,3 +211,12 @@ html, body {
 
 
 
+.sub_categoria_iten:hover{
+    cursor: pointer;
+    background-color: #666666; 
+}
+.iten_categoria:hover{
+    cursor: pointer;
+    background-color: #666666; 
+    color: #fff;
+}
