@@ -320,22 +320,22 @@ function cargar_iten_vehiculo_compatible(obj) {
     $("#lista_marca").append(html);
 }
 
-  <a href='javaScript:void(0)' onclick='ver_conductor(+obj.id + )' class='list-group-item list-group-item-action flex-column align-items-start'>
-                                                <div class="row iten_repuesto_row">
-                                                    <div class="col-3">
-                                                        <img src='img/logoservisis.png' class="" height='80px' alt='' />
-                                                    </div>
-                                                    <div class="col-2">                                                                                                                
-                                                        <label name="marca" id="text_nombre" >Toyota</label>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <label name="modelo" id="text_nombre" >Corolla</label>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <label name="anho" id="text_nombre" >2011</label>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <label name="serie" id="text_nombre" >32rwerfw541</label>
-                                                    </div>
-                                                </div>
-                                            </a>
+//  <a href='javaScript:void(0)' onclick='ver_conductor(+obj.id + )' class='list-group-item list-group-item-action flex-column align-items-start'>
+//                                                <div class="row iten_repuesto_row">
+//                                                    <div class="col-3">
+//                                                        <img src='img/logoservisis.png' class="" height='80px' alt='' />
+//                                                    </div>//
+//                                                    <div class="col-2">//                                                                                                                
+//                                                        <label name="marca" id="text_nombre" >Toyota</label>
+//                                                    </div>//
+////                                                    <div class="col-2">
+//                                                        <label name="modelo" id="text_nombre" >Corolla</label>
+//                                                    </div>//
+//                                                    <div class="col-2">////
+//                                                        <label name="anho" id="text_nombre" >2011</label>
+//                                                    </div>//
+//                                                    <div class="col-2">
+//                                                        <label name="serie" id="text_nombre" >32rwerfw541</label>
+//                                                    </div>//
+//                                                </div>//
+//                                            </a>
