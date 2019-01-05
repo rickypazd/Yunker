@@ -32,6 +32,8 @@ import MODELO.REPUESTO.REP_AUTO_VERSION;
 import MODELO.REPUESTO.REP_AUTO_VERSION_TO_REP_AUTO;
 import MODELO.REPUESTO.REP_CATEGORIA;
 import MODELO.REPUESTO.REP_SUB_CATEGORIA;
+import MODELO.REPUESTO.REP_SUB_CATEGORIA_ACTIVA;
+import MODELO.REPUESTO.REP_SUB_CATEGORIA_DISPONIBLE;
 import MODELO.SEGURIDAD.SEG_MODIFICACIONES;
 import UTILES.URL;
 import MODELO.USUARIO;
@@ -178,6 +180,18 @@ public class repuestosController extends HttpServlet {
                 case "get_rep_sub_categoria_by_id_rep_categoria":
                     html = get_rep_sub_categoria_by_id_rep_categoria(request, con);
                     break;
+
+                //</editor-fold>                    
+                //<editor-fold defaultstate="collapsed" desc="REP_SUB_CATEGORIA_ACTIVA">
+                case "registrar_rep_sub_categoria_activa":
+                    html = registrar_rep_sub_categoria_activa(request, con);
+                    break;
+//                case "getAll_rep_sub_categoria":
+//                    html = getAll_rep_sub_categoria(request, con);
+//                    break;
+//                case "get_rep_sub_categoria_by_id_rep_categoria":
+//                    html = get_rep_sub_categoria_by_id_rep_categoria(request, con);
+//                    break;
 
                 //</editor-fold>                    
                 //<editor-fold defaultstate="collapsed" desc="UTILES">
@@ -754,6 +768,48 @@ public class repuestosController extends HttpServlet {
         }
     }
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="REP_SUB_CATEGORIA_ACTIVA">
+    
+    private String registrar_rep_sub_categoria_activa(HttpServletRequest request, Conexion con) {
+         String nameAlert = "rep_sub_categoria_activa";
+        try {
+            REP_SUB_CATEGORIA_ACTIVA rep_sub_categoria_activa = new REP_SUB_CATEGORIA_ACTIVA(con);
+            int id_repuesto = pInt(request, "id_repuesto");
+            int id_sub_cat = pInt(request, "id_sub_categoria");
+            int id_version = pInt(request, "id_version");
+            JSONObject obj = rep_sub_categoria_activa.getById_rep_version(id_repuesto, id_version);
+            REP_SUB_CATEGORIA_DISPONIBLE rep_sub_categoria_disponible = new REP_SUB_CATEGORIA_DISPONIBLE(con);
+            if(obj.getBoolean("exito")){
+                rep_sub_categoria_disponible.setID_REPUESTO(id_repuesto);
+                rep_sub_categoria_disponible.setID_REP_SUB_CATEGORIA_ACTIVA(obj.getInt("id"));
+            }else{
+                rep_sub_categoria_activa.setID_REP_AUTO_TO_REP_VERSION(id_version);
+                rep_sub_categoria_activa.setID_REP_SUB_CATEGORIA(id_sub_cat);
+                int id = rep_sub_categoria_activa.Insertar(); 
+                rep_sub_categoria_activa.setID(id);
+                rep_sub_categoria_disponible.setID_REPUESTO(id_repuesto);
+                rep_sub_categoria_disponible.setID_REP_SUB_CATEGORIA_ACTIVA(id);
+            }
+              int id_sub_cat_disponible = rep_sub_categoria_disponible.Insertar(); 
+              rep_sub_categoria_disponible.setID(id_sub_cat_disponible);
+              REP_AUTO auto = new REP_AUTO(con);
+            
+            RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", auto.getByIdVersion(id_version).toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al registrar " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+//</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="PARSERS">
 
     private int parseInt(String val) {
@@ -772,5 +828,7 @@ public class repuestosController extends HttpServlet {
         return Double.parseDouble(request.getParameter(key));
     }
 //</editor-fold>
+
+   
 
 }

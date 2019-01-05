@@ -7,10 +7,11 @@
 var url = "repuestosController";
 $(document).ready(function () {
     var idRep = getQueryVariable("idRep");
+    var idSubCat = getQueryVariable("idSubCat");
     var nombre = getQueryVariable("nbr");
     var serie = getQueryVariable("sre");
     var url_foto = getQueryVariable("ft");
-    if (idRep == false || nombre == false || serie == false || url_foto == false) {
+    if (idRep == false || nombre == false || serie == false || url_foto == false || idSubCat == false) {
         alert("Ocurrio algun problema. Disculpe las molestias.");
         window.location.href = "index.html";
         return;
@@ -271,12 +272,14 @@ function Guardar_version() {
     mostrar_progress();
     var id_version = $("#rep_auto_version").data("id");
     var idRep = getQueryVariable("idRep");
-    if (id_version > 0 && idRep > 0) {
+    var idSubCat = getQueryVariable("idSubCat");
+    if (id_version > 0 && idRep > 0 && idSubCat > 0) {
         $.post(url, {
-            evento: "getBy_id_marca_and_id_modelo",
+            evento: "registrar_rep_sub_categoria_activa",
             TokenAcceso: "servi12sis3",
             id_version: id_version,
-            id_repuesto: idRep
+            id_repuesto: idRep,
+            id_sub_categoria: idSubCat
 
         }, function (resp) {
             cerrar_progress();
@@ -287,9 +290,9 @@ function Guardar_version() {
                     alert(obj.mensaje);
                 } else {
                     //exito
-                    //alert(resp);
-                    $("#lista_anhos").html("");
-                    cargar_vehiculo_compatibles($.parseJSON(obj.resp));
+                    alert(resp);
+                  // $("#lista_anhos").html("");
+                   // cargar_vehiculo_compatibles($.parseJSON(obj.resp));
                 }
             }
         });
