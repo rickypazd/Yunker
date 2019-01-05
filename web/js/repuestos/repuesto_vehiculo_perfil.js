@@ -25,12 +25,14 @@ function Cargar_repuesto() {
                 alert(obj.mensaje);
             } else {
                 var obje = $.parseJSON(obj.resp);
+                     $("#foto_perfil").attr("src",obje.url_foto);
                 $("#text_nombre").html(obje.nombre);
                 $("#text_precio").html(obje.precio);
                 $("#text_serie").html(obje.serie);
                 $("#text_segundo_nombre").html(obje.otros_nombres);
                 $("#text_descripcion").html(obje.descripcion);
                 $("#text_fabricante").html(obje.fabricante);
+           
             }
         }
     });
