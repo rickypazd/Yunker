@@ -774,8 +774,8 @@ public class repuestosController extends HttpServlet {
          String nameAlert = "rep_sub_categoria_activa";
         try {
             REP_SUB_CATEGORIA_ACTIVA rep_sub_categoria_activa = new REP_SUB_CATEGORIA_ACTIVA(con);
-            int id_repuesto = pInt(request, "id_rep");
-            int id_sub_cat = pInt(request, "id_sub_cat");
+            int id_repuesto = pInt(request, "id_repuesto");
+            int id_sub_cat = pInt(request, "id_sub_categoria");
             int id_version = pInt(request, "id_version");
             JSONObject obj = rep_sub_categoria_activa.getById_rep_version(id_repuesto, id_version);
             REP_SUB_CATEGORIA_DISPONIBLE rep_sub_categoria_disponible = new REP_SUB_CATEGORIA_DISPONIBLE(con);
@@ -792,9 +792,9 @@ public class repuestosController extends HttpServlet {
             }
               int id_sub_cat_disponible = rep_sub_categoria_disponible.Insertar(); 
               rep_sub_categoria_disponible.setID(id_sub_cat_disponible);
-              
+              REP_AUTO auto = new REP_AUTO(con);
             
-            RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", rep_sub_categoria_disponible.getJson().toString());
+            RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", auto.getByIdVersion(id_version).toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();

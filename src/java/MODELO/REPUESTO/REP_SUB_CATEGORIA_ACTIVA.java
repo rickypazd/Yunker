@@ -67,7 +67,7 @@ public class REP_SUB_CATEGORIA_ACTIVA {
     }
 
     public JSONObject getById_rep_version(int id_sub_cat, int id_verion) throws SQLException, JSONException {
-        String consulta = "﻿select subcat.* \n"
+        String consulta = "select subcat.* \n"
                 + "from rep_sub_categoria_activa subcat\n"
                 + "where subcat.id_rep_sub_categoria = "+id_sub_cat+"\n"
                 + "and subcat.id_rep_auto_to_rep_version = " + id_verion;

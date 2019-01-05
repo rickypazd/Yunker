@@ -74,6 +74,31 @@ public class REP_AUTO {
         return obj;
     }
 
+    public JSONObject getByIdVersion(int id) throws SQLException, JSONException {
+        String consulta = "﻿select auto.* , rav.nombre as version \n"
+                + "from \n"
+                + "rep_auto_version_to_rep_auto ravta,\n"
+                + "rep_auto auto,\n"
+                + "rep_auto_version rav\n"
+                + "where \n"
+                + "ravta.id = ? and\n"
+                + "ravta.id_rep_auto = auto.id and\n"
+                + "ravta.id_rep_auto_version = rav.id\n";
+        PreparedStatement ps = con.statamet(consulta);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        JSONObject obj = new JSONObject();
+        if (rs.next()) {
+            obj = parseJson(rs);
+            obj.put("version", rs.getString("version") != null ? rs.getString("version") : "");
+        } else {
+            obj.put("exito", "no");
+        }
+        ps.close();
+        rs.close();
+        return obj;
+    }
+
     public JSONArray getAll() throws SQLException, JSONException {
         String consulta = "select ar.* "
                 + "from " + TBL + " ar";
@@ -90,9 +115,39 @@ public class REP_AUTO {
         return arr;
     }
 
+    public JSONArray getAllById_repuesto(int id_repuesto) throws SQLException, JSONException {
+        String consulta = "﻿select ra.* , rav.nombre as version\n"
+                + "from \n"
+                + "	repuesto re, \n"
+                + "	rep_sub_categoria_disponible rscd, \n"
+                + "	rep_sub_categoria_activa rsca,\n"
+                + "	rep_auto_version_to_rep_auto atv,\n"
+                + "	rep_auto ra,\n"
+                + "	rep_auto_version rav\n"
+                + "where \n"
+                + "re.id = " + id_repuesto + " and \n"
+                + "rscd.id_repuesto = re.id and\n"
+                + "rscd.id_rep_sub_categoria_activa = rsca.id and\n"
+                + "rsca.id_rep_auto_to_rep_version = atv.id and\n"
+                + "atv.id_rep_auto = ra.id and\n"
+                + "atv.id_rep_auto_version = rav.id";
+        PreparedStatement ps = con.statamet(consulta);
+        ResultSet rs = ps.executeQuery();
+        JSONArray arr = new JSONArray();
+        JSONObject obj;
+        while (rs.next()) {
+            obj = parseJson(rs);
+            obj.put("version", rs.getString("version") != null ? rs.getString("version") : "");
+            arr.put(obj);
+        }
+        ps.close();
+        rs.close();
+        return arr;
+    }
+
     public JSONArray getBy_id_marca_and_id_modelo(int id_marca, int id_modelo) throws SQLException, JSONException {
         String consulta = "select * from rep_auto ra\n"
-                + "where ra.id_modelo = "+id_modelo+" and ra.id_marca = "+id_marca+ " order by (ra.anho) desc";
+                + "where ra.id_modelo = " + id_modelo + " and ra.id_marca = " + id_marca + " order by (ra.anho) desc";
         PreparedStatement ps = con.statamet(consulta);
         ResultSet rs = ps.executeQuery();
         JSONArray arr = new JSONArray();
