@@ -10,15 +10,15 @@ $(document).ready(function () {
     var nombre = getQueryVariable("nbr");
     var serie = getQueryVariable("sre");
     var url_foto = getQueryVariable("ft");
-    if(idRep == false || nombre == false || serie == false || url_foto == false){
-          alert("Ocurrio algun problema. Disculpe las molestias.");
-            window.location.href="index.html";
-            return;
+    if (idRep == false || nombre == false || serie == false || url_foto == false) {
+        alert("Ocurrio algun problema. Disculpe las molestias.");
+        window.location.href = "index.html";
+        return;
     }
-    $("#img_foto_repuesto").attr("src",url_foto);
-     $("#text_nombre").html(nombre);
-      $("#text_serie").html(serie);
-   
+    $("#img_foto_repuesto").attr("src", url_foto);
+    $("#text_nombre").html(nombre);
+    $("#text_serie").html(serie);
+
     cargar_marcas();
 });
 
@@ -267,28 +267,38 @@ function seleccionar_version(obj) {
     $(".bd-version").modal("toggle");
 }
 
-function Guardar_version(id_version) {
+function Guardar_version() {
     mostrar_progress();
-    $.post(url, {
-        evento: "getBy_id_marca_and_id_modelo",
-        TokenAcceso: "servi12sis3",
-        id_marca: id_marca,
+    var id_version = $("#rep_auto_version").data("id");
+    var idRep = getQueryVariable("idRep");
+    if (id_version > 0 && idRep > 0) {
+        $.post(url, {
+            evento: "getBy_id_marca_and_id_modelo",
+            TokenAcceso: "servi12sis3",
+            id_version: id_version,
+            id_repuesto: idRep
 
-    }, function (resp) {
-        cerrar_progress();
-        if (resp != null) {
-            var obj = $.parseJSON(resp);
-            if (obj.estado != 1) {
-                //error
-                alert(obj.mensaje);
-            } else {
-                //exito
-                //alert(resp);
-                $("#lista_anhos").html("");
-                cargar_lista_anhos($.parseJSON(obj.resp));
+        }, function (resp) {
+            cerrar_progress();
+            if (resp != null) {
+                var obj = $.parseJSON(resp);
+                if (obj.estado != 1) {
+                    //error
+                    alert(obj.mensaje);
+                } else {
+                    //exito
+                    //alert(resp);
+                    $("#lista_anhos").html("");
+                    cargar_lista_anhos($.parseJSON(obj.resp));
+                }
             }
-        }
-    });
+        });
+    } else {
+         cerrar_progress();
+        alert("Ocurrio algun problema. Disculpe las molestias.");
+       
+    }
+
 }
 
 
