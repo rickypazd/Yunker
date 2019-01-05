@@ -75,7 +75,7 @@ public class REP_AUTO {
     }
 
     public JSONObject getByIdVersion(int id) throws SQLException, JSONException {
-        String consulta = "﻿select auto.* , rav.nombre as version \n"
+        String consulta = "select auto.* , rav.nombre as version \n"
                 + "from \n"
                 + "rep_auto_version_to_rep_auto ravta,\n"
                 + "rep_auto auto,\n"
@@ -116,7 +116,7 @@ public class REP_AUTO {
     }
 
     public JSONArray getAllById_repuesto(int id_repuesto) throws SQLException, JSONException {
-        String consulta = "﻿select ra.* , rav.nombre as version\n"
+        String consulta = "select ra.* , rav.nombre as version\n"
                 + "from \n"
                 + "	repuesto re, \n"
                 + "	rep_sub_categoria_disponible rscd, \n"

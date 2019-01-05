@@ -9,6 +9,7 @@ $(document).ready(function () {
     var idRep = getQueryVariable("idRep");
     var idSubCat = getQueryVariable("idSubCat");
     var nombre = getQueryVariable("nbr");
+
     var serie = getQueryVariable("sre");
     var url_foto = getQueryVariable("ft");
     if (idRep == false || nombre == false || serie == false || url_foto == false || idSubCat == false) {
@@ -19,7 +20,7 @@ $(document).ready(function () {
     $("#img_foto_repuesto").attr("src", url_foto);
     $("#text_nombre").html(nombre);
     $("#text_serie").html(serie);
-
+    cargar_vehiculo_compatibles();
     cargar_marcas();
 });
 
@@ -55,7 +56,9 @@ function getQueryVariable(varia) {
     for (var i = 0; i < vars.length; i++) {
         var pair = vars[i].split("=");
         if (pair[0] == varia) {
-            return pair[1];
+            var rep = pair[1];
+            rep = rep.replace(/%20/g," ");
+            return rep;
         }
     }
     return (false);
@@ -290,33 +293,73 @@ function Guardar_version() {
                     alert(obj.mensaje);
                 } else {
                     //exito
-                    alert(resp);
-                  // $("#lista_anhos").html("");
-                   // cargar_vehiculo_compatibles($.parseJSON(obj.resp));
+
+
+                    // $("#lista_anhos").html("");
+                    cargar_iten_vehiculo_compatible($.parseJSON(obj.resp));
                 }
             }
         });
     } else {
-         cerrar_progress();
-        alert("Ocurrio algun problema. Disculpe las molestias.");       
+        cerrar_progress();
+        alert("Ocurrio algun problema. Disculpe las molestias.");
     }
 }
 
-function cargar_vehiculo_compatibles(arr) {
-    $.each(arr, function (i, obj) {
-        cargar_iten_vehiculo_compatible(obj);
-    });
+function cargar_vehiculo_compatibles() {
+//    get_vehiculos_disponibles_by_id_repuesto
+    var idRep = getQueryVariable("idRep");
+    if (idRep > 0) {
+        $.post(url, {
+            evento: "get_vehiculos_disponibles_by_id_repuesto",
+            TokenAcceso: "servi12sis3",
+            id_repuesto: idRep
+        }, function (resp) {
+            if (resp != null) {
+                var obj = $.parseJSON(resp);
+                if (obj.estado != 1) {
+                    //error
+                    alert(obj.mensaje);
+                } else {
+                    //exito
+                    var arr = $.parseJSON(obj.resp);
+                    $.each(arr, function (i, obj) {
+                        cargar_iten_vehiculo_compatible(obj);
+                    });
+                    // $("#lista_anhos").html("");
+                    
+                }
+            }
+
+        });
+
+    } else {
+        cerrar_progress();
+        alert("Ocurrio algun problema. Disculpe las molestias.");
+    }
 }
 
 function cargar_iten_vehiculo_compatible(obj) {
-    var url_foto = "img/Sin_imagen.png";
-    if (obj.url_foto.length > 0) {
-        url_foto = obj.url_foto;
-    }
-    var html = "<li onclick='seleccionar_marca(" + JSON.stringify(obj) + ")'>";
-    html += "   <img src='" + url_foto + "' height='50' width='80' alt=''/>";
-    html += "   <span>" + obj.nombre + "</span>";
-    html += "</li>";
-    $("#lista_marca").append(html);
+
+    var html = "<a href='javaScript:void(0)' onclick='' class='list-group-item list-group-item-action flex-column align-items-start'>";
+    html += "                                       <div class='row iten_repuesto_row'>";
+    html += "                                            <div class='col-3'>";
+    html += "                                                <img src='img/logoservisis.png' class='' height='80px' alt='' />";
+    html += "                                            </div>";
+    html += "                                            <div class='col-2'>";
+    html += "                                                <label>" + obj.marca + "</label>";
+    html += "                                            </div>";
+    html += "                                            <div class='col-2'>";
+    html += "                                                <label>" + obj.modelo + "</label>";
+    html += "                                            </div>";
+    html += "                                            <div class='col-2'>";
+    html += "                                                <label>" + obj.anho + "</label>";
+    html += "                                            </div>";
+    html += "                                            <div class='col-2'>";
+    html += "                                                <label>" + obj.version + "</label>";
+    html += "                                            </div>";
+    html += "                                        </div>";
+    html += "                                    </a>";
+    $("#lista_vehiculo_compatibles").append(html);
 }
 

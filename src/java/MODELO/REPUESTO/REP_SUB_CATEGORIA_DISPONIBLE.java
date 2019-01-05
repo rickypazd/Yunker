@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 public class REP_SUB_CATEGORIA_DISPONIBLE {
 
-    private int ID;
+    
     private int ID_REPUESTO;
     private int ID_REP_SUB_CATEGORIA_ACTIVA;
     private Conexion con = null;
@@ -36,16 +36,8 @@ public class REP_SUB_CATEGORIA_DISPONIBLE {
         ps.setInt(1, getID_REPUESTO());
         ps.setInt(2, getID_REP_SUB_CATEGORIA_ACTIVA());
         ps.execute();
-        consulta = "select last_value from " + TBL + "_id_seq ";
-        ps = con.statamet(consulta);
-        ResultSet rs = ps.executeQuery();
-        int id = 0;
-        if (rs.next()) {
-            id = rs.getInt("last_value");
-        }
-        rs.close();
         ps.close();
-        return id;
+        return 0;
     }
 
     public JSONObject getById(int id) throws SQLException, JSONException {
@@ -106,7 +98,7 @@ public class REP_SUB_CATEGORIA_DISPONIBLE {
 
     private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
         parseObj = new JSONObject();
-        parseObj.put("id", rs.getInt("id"));
+        
         parseObj.put("id_repuesto", rs.getInt("id_repuesto"));
         parseObj.put("id_rep_sub_categoria_activa", rs.getInt("id_rep_sub_categoria_activa"));
 
@@ -115,19 +107,13 @@ public class REP_SUB_CATEGORIA_DISPONIBLE {
 
     public JSONObject getJson() throws JSONException, SQLException {
         JSONObject obj = new JSONObject();
-        obj.put("id", getID());
+       
         obj.put("id_repuesto", getID_REPUESTO());
         obj.put("id_rep_sub_categoria_activa", getID_REP_SUB_CATEGORIA_ACTIVA());
         return obj;
     }
 
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+  
 
     public int getID_REPUESTO() {
         return ID_REPUESTO;

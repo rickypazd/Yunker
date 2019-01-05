@@ -115,15 +115,22 @@ public class repuestosController extends HttpServlet {
                 case "getById_repuesto":
                     html = getById_repuesto(request, con);
                     break;
+                case "getAll_repuesto":
+                    html = getAll_repuesto(request, con);
+                    break;
 //</editor-fold>
                 //<editor-fold defaultstate="collapsed" desc="REP_AUTO">
                 case "registrar_rep_auto":
                     html = registrar_rep_auto(request, con);
                     break;
+
                 case "getBy_id_marca_and_id_modelo":
                     html = getBy_id_marca_and_id_modelo(request, con);
                     break;
 
+                case "get_vehiculos_disponibles_by_id_repuesto":
+                    html = get_vehiculos_disponibles_by_id_repuesto(request, con);
+                    break;
                 //</editor-fold>
                 //<editor-fold defaultstate="collapsed" desc="REP_AUTO_MARCA">
                 case "registrar_rep_auto_marca":
@@ -289,6 +296,7 @@ public class repuestosController extends HttpServlet {
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="REPUESTO">
+
     private String registrar_repuesto(HttpServletRequest request, Conexion con) {
         String nameAlert = "repuesto";
         try {
@@ -336,12 +344,31 @@ public class repuestosController extends HttpServlet {
             return resp.toString();
         }
     }
-     private String getById_repuesto(HttpServletRequest request, Conexion con) {
+
+    private String getById_repuesto(HttpServletRequest request, Conexion con) {
         String nameAlert = "repuesto";
         try {
-           REPUESTO repuesto = new REPUESTO(con);
+            REPUESTO repuesto = new REPUESTO(con);
             int id = pInt(request, "id");
             RESPUESTA resp = new RESPUESTA(1, "", "Exito.", repuesto.getById(id).toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+    private String getAll_repuesto(HttpServletRequest request, Conexion con) {
+      String nameAlert = "repuesto";
+        try {
+            REPUESTO repuesto = new REPUESTO(con);
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", repuesto.getAll().toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();
@@ -393,6 +420,7 @@ public class repuestosController extends HttpServlet {
             return resp.toString();
         }
     }
+
     private String getBy_id_marca_and_id_modelo(HttpServletRequest request, Conexion con) {
         String nameAlert = "rep_auto";
         try {
@@ -400,6 +428,26 @@ public class repuestosController extends HttpServlet {
             int id_marca = pInt(request, "id_marca");
             int id_modelo = pInt(request, "id_modelo");
             RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto.getBy_id_marca_and_id_modelo(id_marca, id_modelo).toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+
+    private String get_vehiculos_disponibles_by_id_repuesto(HttpServletRequest request, Conexion con) {
+           String nameAlert = "rep_auto";
+        try {
+            REP_AUTO rep_auto = new REP_AUTO(con);
+            int repuesto = pInt(request, "id_repuesto");
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", rep_auto.getAllById_repuesto(repuesto).toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();
@@ -477,6 +525,7 @@ public class repuestosController extends HttpServlet {
             return resp.toString();
         }
     }
+
     private String getAll_rep_auto_marca_registrados(HttpServletRequest request, Conexion con) {
         String nameAlert = "rep_auto_marca";
         try {
@@ -579,6 +628,7 @@ public class repuestosController extends HttpServlet {
             return resp.toString();
         }
     }
+
     private String get_rep_auto_modelo_by_id_rep_auto_marca_registrados(HttpServletRequest request, Conexion con) {
         String nameAlert = "rep_auto_modelo";
         try {
@@ -641,6 +691,7 @@ public class repuestosController extends HttpServlet {
             return resp.toString();
         }
     }
+
     private String getAll_rep_auto_version_by_id_auto(HttpServletRequest request, Conexion con) {
         String nameAlert = "rep_auto_version";
         try {
@@ -769,31 +820,30 @@ public class repuestosController extends HttpServlet {
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="REP_SUB_CATEGORIA_ACTIVA">
-    
+
     private String registrar_rep_sub_categoria_activa(HttpServletRequest request, Conexion con) {
-         String nameAlert = "rep_sub_categoria_activa";
+        String nameAlert = "rep_sub_categoria_activa";
         try {
             REP_SUB_CATEGORIA_ACTIVA rep_sub_categoria_activa = new REP_SUB_CATEGORIA_ACTIVA(con);
             int id_repuesto = pInt(request, "id_repuesto");
             int id_sub_cat = pInt(request, "id_sub_categoria");
             int id_version = pInt(request, "id_version");
-            JSONObject obj = rep_sub_categoria_activa.getById_rep_version(id_repuesto, id_version);
+            JSONObject obj = rep_sub_categoria_activa.getById_rep_version(id_sub_cat, id_version);
             REP_SUB_CATEGORIA_DISPONIBLE rep_sub_categoria_disponible = new REP_SUB_CATEGORIA_DISPONIBLE(con);
-            if(obj.getBoolean("exito")){
+            if (obj.getBoolean("exito")) {
                 rep_sub_categoria_disponible.setID_REPUESTO(id_repuesto);
                 rep_sub_categoria_disponible.setID_REP_SUB_CATEGORIA_ACTIVA(obj.getInt("id"));
-            }else{
+            } else {
                 rep_sub_categoria_activa.setID_REP_AUTO_TO_REP_VERSION(id_version);
                 rep_sub_categoria_activa.setID_REP_SUB_CATEGORIA(id_sub_cat);
-                int id = rep_sub_categoria_activa.Insertar(); 
+                int id = rep_sub_categoria_activa.Insertar();
                 rep_sub_categoria_activa.setID(id);
                 rep_sub_categoria_disponible.setID_REPUESTO(id_repuesto);
                 rep_sub_categoria_disponible.setID_REP_SUB_CATEGORIA_ACTIVA(id);
             }
-              int id_sub_cat_disponible = rep_sub_categoria_disponible.Insertar(); 
-              rep_sub_categoria_disponible.setID(id_sub_cat_disponible);
-              REP_AUTO auto = new REP_AUTO(con);
-            
+            int id_sub_cat_disponible = rep_sub_categoria_disponible.Insertar();
+            REP_AUTO auto = new REP_AUTO(con);
+
             RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", auto.getByIdVersion(id_version).toString());
             return resp.toString();
         } catch (SQLException ex) {
@@ -809,9 +859,8 @@ public class repuestosController extends HttpServlet {
         }
     }
 //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="PARSERS">
 
+    //<editor-fold defaultstate="collapsed" desc="PARSERS">
     private int parseInt(String val) {
         return Integer.parseInt(val);
     }
@@ -829,6 +878,6 @@ public class repuestosController extends HttpServlet {
     }
 //</editor-fold>
 
-   
+
 
 }
