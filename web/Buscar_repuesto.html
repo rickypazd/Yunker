@@ -18,13 +18,13 @@ and open the template in the editor.
 
     </head>
     <body>
-        <h1>Buscar Conductor</h1>
+        <h1>Buscar Rpuesto</h1>
         <a href="index.html" class="btn btn-outline-danger">Volver</a>
 
 
 
         <div class="container">  
-            <h4>Ingrese el Nombre, C.I, Numero de Telefono o Placa</h4>
+            <h4>Ingrese...</h4>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Buscar:</span>
@@ -35,19 +35,24 @@ and open the template in the editor.
             </div>
             <div class="row ">
 
-                <div class="col-md-8 align-content-center">
+                <div class="col-md-12 align-content-center">
                     <div class="row">
                         <a><b>Resultados:</b><span id="resultados">(0)</span></a>
                     </div>
-                    <div id="list_conductores" class="list-group">
-<!--                        <a href='javaScript:void(0)' onclick='ver_conductor(+obj.id + )' class='list-group-item list-group-item-action flex-column align-items-start'>
-                            <div class='d-flex w-100 justify-content-between'>
-                                <h5 class='mb-1' id='co_nombre'>+obj.nombre+ +obj.apellido_pa+ +obj.apellido_ma+</h5>
-                                <small>ACTIVO</small>
+                    <div id="list_conductores" class="list-group" >
+                         <a href='javaScript:void(0)' onclick='ver_conductor(+obj.id + )' class='list-group-item list-group-item-action flex-column align-items-start'>
+                        <div class="row iten_repuesto_row">
+                            <div class="col-2">
+                                <img src='img/logoservisis.png' class="" height='80px' alt='' />
                             </div>
-                            <small><b>CI:</b> +obj.ci+&nbsp &nbsp<b>Creditos:</b> +obj.creditos+</small>
-                            </br><small><b>SEXO:</b> +obj.sexo+</small>
-                        </a>-->
+                            <div class="col-8">
+                                CONTENIDO
+                            </div>
+                            <div class="col-2">
+                                DEMAS
+                            </div>
+                        </div>
+                         </a>
                     </div>
                 </div>
             </div>
