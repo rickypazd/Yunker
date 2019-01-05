@@ -279,6 +279,7 @@ public class repuestosController extends HttpServlet {
         String nameAlert = "repuesto";
         try {
             REPUESTO repuesto = new REPUESTO(con);
+            repuesto.setID_SUB_CATEGORIA(pInt(request, "id_sub_categoria"));
             repuesto.setNOMBRE(pString(request, "nombre"));
             repuesto.setDESCRIPCION(pString(request, "descripcion"));
             repuesto.setFABRICANTE(pString(request, "fabricante"));

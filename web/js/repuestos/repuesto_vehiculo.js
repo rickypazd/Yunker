@@ -6,16 +6,15 @@
 
 var url = "repuestosController";
 $(document).ready(function () {
-//aki
-//
-//
-//
-//post({
-//cojntenido del post;
-//alert();
-//});
-//calc_dist();
-//nnuevo comentario   
+    var idSubCat = getQueryVariable("idSubCat");
+    if(idSubCat > 0 ){
+        
+        
+        
+    }else{
+        alert("Ocurrio algun problema. Disculpe las molestias.");
+        window.location.href="index.html";
+    }
 });
 
 function registrar_repuesto_vehiculo() {
@@ -28,6 +27,7 @@ function registrar_repuesto_vehiculo() {
     var segundo_nombre = $("#text_segundo_nombre").val() || null;
     var descripcion = $("#text_descripcion").val() || null;
     var foto = $("#file-0d").val() || null;
+    var id_sub_cat = getQueryVariable("idSubCat");
     var TokenAcceso = "servi12sis3";
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     if (nombre != null && nombre.length > 0) {
@@ -72,6 +72,13 @@ function registrar_repuesto_vehiculo() {
         $(".file-caption").css("background", "#df5b5b");
         exito = false;
     }
+     if(id_sub_cat > 0 ){
+        //exito
+        $("input[name=id_sub_categoria]").val(id_sub_cat);
+    }else{
+        alert("Ocurrio algun problema. Disculpe las molestias.");
+        window.location.href="index.html";
+    }
     if (exito) {
         mostrar_progress();
         var formData = new FormData($("#submitform")[0]);
@@ -102,4 +109,16 @@ function registrar_repuesto_vehiculo() {
     } else {
         cerrar_progress();
     }
+}
+
+function getQueryVariable(varia) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == varia) {
+            return pair[1];
+        }
+    }
+    return (false);
 }

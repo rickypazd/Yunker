@@ -18,6 +18,7 @@ import org.json.JSONObject;
 public class REPUESTO {
 
     private int ID;
+    private int ID_SUB_CATEGORIA;
     private String NOMBRE;
     private String OTROS_NOMBRES;
     private String DESCRIPCION;
@@ -34,8 +35,8 @@ public class REPUESTO {
 
     public int Insertar() throws SQLException {
         String consulta = "INSERT INTO public." + TBL + "(\n"
-                + "	fabricante, precio, serie, descripcion, nombre, otros_nombres)\n"
-                + "	VALUES (?, ?, ?, ?, ?, ?);";
+                + "	fabricante, precio, serie, descripcion, nombre, otros_nombres, id_sub_categoria)\n"
+                + "	VALUES (?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = con.statamet(consulta);
 
         ps.setString(1, getFABRICANTE());
@@ -44,6 +45,7 @@ public class REPUESTO {
         ps.setString(4, getDESCRIPCION());
         ps.setString(5, getNOMBRE());
         ps.setString(6, getOTROS_NOMBRES());
+        ps.setInt(7, getID_SUB_CATEGORIA());
         ps.execute();
         consulta = "select last_value from " + TBL + "_id_seq ";
         ps = con.statamet(consulta);
@@ -107,6 +109,7 @@ public class REPUESTO {
     private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
         parseObj = new JSONObject();
         parseObj.put("id", rs.getInt("id"));
+        parseObj.put("id_sub_categoria", rs.getInt("id_sub_categoria"));
         parseObj.put("nombre", rs.getString("nombre") != null ? rs.getString("nombre") : "");
         parseObj.put("otros_nombres", rs.getString("otros_nombres") != null ? rs.getString("otros_nombres") : "");
         parseObj.put("descripcion", rs.getString("descripcion") != null ? rs.getString("descripcion") : "");
@@ -120,6 +123,7 @@ public class REPUESTO {
     public JSONObject getJson() throws JSONException, SQLException {
         JSONObject obj = new JSONObject();
         obj.put("id", getID());
+        obj.put("id_sub_categoria", getID_SUB_CATEGORIA());
         obj.put("nombre", getNOMBRE());
         obj.put("otros_nombres", getOTROS_NOMBRES());
         obj.put("descripcion", getDESCRIPCION());
@@ -138,6 +142,15 @@ public class REPUESTO {
         this.ID = ID;
     }
 
+    public int getID_SUB_CATEGORIA() {
+        return ID_SUB_CATEGORIA;
+    }
+
+    public void setID_SUB_CATEGORIA(int ID_SUB_CATEGORIA) {
+        this.ID_SUB_CATEGORIA = ID_SUB_CATEGORIA;
+    }
+
+    
     public String getNOMBRE() {
         return NOMBRE;
     }
