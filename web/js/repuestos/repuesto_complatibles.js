@@ -6,8 +6,19 @@
 
 var url = "repuestosController";
 $(document).ready(function () {
-    id_usr = getQueryVariable("id");
-//    Cargar_repuesto();
+    var idRep = getQueryVariable("idRep");
+    var nombre = getQueryVariable("nbr");
+    var serie = getQueryVariable("sre");
+    var url_foto = getQueryVariable("ft");
+    if(idRep == false || nombre == false || serie == false || url_foto == false){
+          alert("Ocurrio algun problema. Disculpe las molestias.");
+            window.location.href="index.html";
+            return;
+    }
+    $("#img_foto_repuesto").attr("src",url_foto);
+     $("#text_nombre").html(nombre);
+      $("#text_serie").html(serie);
+   
     cargar_marcas();
 });
 

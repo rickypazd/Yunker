@@ -98,7 +98,7 @@ function registrar_repuesto_vehiculo() {
                         alert(obj.mensaje);
                     } else {
                         var obje = $.parseJSON(obj.resp);
-                        window.location.href = 'art_repuesto_vehiculo_perfil.html?id='+ obje.id;
+                        window.location.href = 'art_repuesto_vehiculo_compatible.html?idRep='+ obje.id+"&nbr="+obje.nombre+"&sre="+obje.serie+"&ft="+obje.url_foto;
                     }
                 }
 
