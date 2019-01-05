@@ -82,11 +82,13 @@ function cargar_marcas() {
         }
     });
 }
+
 function cargar_lista_marca(arr) {
     $.each(arr, function (i, obj) {
         cargar_iten_marca(obj);
     });
 }
+
 function cargar_iten_marca(obj) {
     var html = "<li onclick='seleccionar_marca(" + JSON.stringify(obj) + ")'>";
     html += "   <img src='" + obj.url_foto + "' height='50' width='80' alt=''/>";
@@ -139,11 +141,13 @@ function cargar_modelo(id) {
         }
     });
 }
+
 function cargar_lista_modelo(arr) {
     $.each(arr, function (i, obj) {
         cargar_iten_modelo(obj);
     });
 }
+
 function cargar_iten_modelo(obj) {
     var html = "<li onclick='seleccionar_modelo(" + JSON.stringify(obj) + ")'>";
     html += "   <img src='" + obj.url_foto + "' height='50' width='80' alt=''/>";
@@ -194,6 +198,7 @@ function cargar_anhos(id_marca, id_modelo) {
         }
     });
 }
+
 function cargar_lista_anhos(arr) {
     $.each(arr, function (i, obj) {
         cargar_iten_anhos(obj);
@@ -242,11 +247,13 @@ function cargar_version(id_auto) {
         }
     });
 }
+
 function cargar_lista_version(arr) {
     $.each(arr, function (i, obj) {
         cargar_iten_version(obj);
     });
 }
+
 function cargar_iten_version(obj) {
     var html = "<li onclick='seleccionar_version(" + JSON.stringify(obj) + ")'>";
     html += "   <span>" + obj.nombre + "</span>";
@@ -255,11 +262,35 @@ function cargar_iten_version(obj) {
 }
 
 function seleccionar_version(obj) {
-
     $("#rep_auto_version").val(obj.nombre);
     $("#rep_auto_version").data("id", obj.id_version);
     $(".bd-version").modal("toggle");
-
-
 }
+
+function Guardar_version(id_version) {
+    mostrar_progress();
+    $.post(url, {
+        evento: "getBy_id_marca_and_id_modelo",
+        TokenAcceso: "servi12sis3",
+        id_marca: id_marca,
+
+    }, function (resp) {
+        cerrar_progress();
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+            if (obj.estado != 1) {
+                //error
+                alert(obj.mensaje);
+            } else {
+                //exito
+                //alert(resp);
+                $("#lista_anhos").html("");
+                cargar_lista_anhos($.parseJSON(obj.resp));
+            }
+        }
+    });
+}
+
+
+
 
