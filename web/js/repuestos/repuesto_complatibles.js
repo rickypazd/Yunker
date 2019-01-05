@@ -289,18 +289,31 @@ function Guardar_version() {
                     //exito
                     //alert(resp);
                     $("#lista_anhos").html("");
-                    cargar_lista_anhos($.parseJSON(obj.resp));
+                    cargar_vehiculo_compatibles($.parseJSON(obj.resp));
                 }
             }
         });
     } else {
          cerrar_progress();
-        alert("Ocurrio algun problema. Disculpe las molestias.");
-       
+        alert("Ocurrio algun problema. Disculpe las molestias.");       
     }
-
 }
 
+function cargar_vehiculo_compatibles(arr) {
+    $.each(arr, function (i, obj) {
+        cargar_iten_vehiculo_compatible(obj);
+    });
+}
 
-
+function cargar_iten_vehiculo_compatible(obj) {
+    var url_foto = "img/Sin_imagen.png";
+    if (obj.url_foto.length > 0) {
+        url_foto = obj.url_foto;
+    }
+    var html = "<li onclick='seleccionar_marca(" + JSON.stringify(obj) + ")'>";
+    html += "   <img src='" + url_foto + "' height='50' width='80' alt=''/>";
+    html += "   <span>" + obj.nombre + "</span>";
+    html += "</li>";
+    $("#lista_marca").append(html);
+}
 
