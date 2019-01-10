@@ -53,7 +53,7 @@ function abrir_categoria(iten) {
     var cargado = $(iten).data("subcategorias_cargadas");
     if (!cargado) {
         $(iten).data("subcategorias_cargadas", true);
-        var iten_lista = $(iten).parent().parent().parent().find(".lista_sub_categorias");
+        var iten_lista = $(iten).parent().find(".lista_sub_categorias");
         //cargar_sub_categoria_iten({},iten_lista);
         var data_obj = $(iten).data("obj");
         mostrar_progress();
