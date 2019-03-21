@@ -1,17 +1,47 @@
 
 var url = "admin/adminController";
+var url2 = "repuestosController";
 var articulos = [];
 $(document).ready(function () {
-    //aki
-    //
-    //
-    //
-    //post({
-    //cojntenido del post;
-    //alert();
-    //});
-    //calc_dist();
+    Lista_repuesto();
 });
+
+function Lista_repuesto() {
+    var busq = $("#in_buscar").val() || "";
+    $.post(url2, {evento: "getAll_repuesto", TokenAcceso: "servi12sis3"}, function (resp) {
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+            if (obj.estado != "1") {
+                alert(obj.mensaje);
+            } else {
+                var arr = $.parseJSON(obj.resp);
+                $("#resultados").html("(" + arr.length + ")");
+                $.each(arr, function (i, obj) {
+                    var html = "<a href='javaScript:void(0)' onclick='ver_repuesto(this)' data-obj='"+JSON.stringify(obj)+"' class='list-group-item list-group-item-action flex-column align-items-start'>";
+                    html += "               <div class='row iten_repuesto_row'>";
+                    html += "                     <div class='col-3'>";
+                    html += "                         <img src='"+obj.url_foto+"' class='' height='80px' alt='' />";
+                    html += "                      </div>";
+                    html += "                     <div class='col-2'>";
+                    html += "                         <label >" + obj.nombre + "</label>";
+                    html += "                     </div>";
+                    html += "                     <div class='col-2'>";
+                    html += "                         <label >" + obj.serie + "</label>";
+                    html += "                     </div>";
+                    html += "                     <div class='col-2'>";
+                    html += "                         <label >" + obj.fabricante + "</label>";
+                    html += "                     </div>";
+                    html += "                     <div class='col-2'>";
+                    html += "                         <label>" + obj.descripcion + "</label>";
+                    html += "                     </div>";
+                    html += "                 </div>";
+                    html += "            </a>";
+                     $("#list_conductores").append(html);
+                });              
+            }
+        }
+    });
+}
 
 function registrar_compra() {
     mostrar_progress();

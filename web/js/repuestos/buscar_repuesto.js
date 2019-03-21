@@ -24,19 +24,19 @@ function Lista_repuesto() {
                     var html = "<a href='javaScript:void(0)' onclick='ver_repuesto(this)' data-obj='"+JSON.stringify(obj)+"' class='list-group-item list-group-item-action flex-column align-items-start'>";
                     html += "               <div class='row iten_repuesto_row'>";
                     html += "                     <div class='col-3'>";
-                    html += "                         <img src='"+obj.url_foto+"' class='' height='80px' alt='' />";
+                    html += "                         <img src='"+obj.url_foto+"' class='' height='60px' alt='' />";
                     html += "                      </div>";
                     html += "                     <div class='col-2'>";
-                    html += "                         <label >" + obj.nombre + "</label>";
+                    html += "                         <h6>" + obj.nombre + "</h6>";
                     html += "                     </div>";
                     html += "                     <div class='col-2'>";
-                    html += "                         <label >" + obj.serie + "</label>";
+                    html += "                         <h6>" + obj.serie + "</h6>";
                     html += "                     </div>";
                     html += "                     <div class='col-2'>";
-                    html += "                         <label >" + obj.fabricante + "</label>";
+                    html += "                         <h6>" + obj.fabricante + "</h6>";
                     html += "                     </div>";
                     html += "                     <div class='col-2'>";
-                    html += "                         <label>" + obj.descripcion + "</label>";
+                    html += "                         <h6>" + obj.descripcion + "</h6>";
                     html += "                     </div>";
                     html += "                 </div>";
                     html += "            </a>";
@@ -59,5 +59,5 @@ function ver_conductor(id) {
 
 function ver_repuesto(itn){
     var data = $(itn).data("obj");
-    window.location.href='art_repuesto_vehiculo_perfil.html?id='+data.id;
+    window.location.href='art_repuesto_vehiculo_perfil.html?id='+ data.id + "&id_sub_categoria=" + data.id_sub_categoria;    
 }

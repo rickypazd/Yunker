@@ -7,13 +7,13 @@
 var url = "repuestosController";
 $(document).ready(function () {
     var idSubCat = getQueryVariable("idSubCat");
-    if(idSubCat > 0 ){
-        
-        
-        
-    }else{
+    if (idSubCat > 0) {
+
+
+
+    } else {
         alert("Ocurrio algun problema. Disculpe las molestias.");
-        window.location.href="index.html";
+        window.location.href = "index.html";
     }
 });
 
@@ -72,12 +72,12 @@ function registrar_repuesto_vehiculo() {
         $(".file-caption").css("background", "#df5b5b");
         exito = false;
     }
-     if(id_sub_cat > 0 ){
+    if (id_sub_cat > 0) {
         //exito
         $("input[name=id_sub_categoria]").val(id_sub_cat);
-    }else{
+    } else {
         alert("Ocurrio algun problema. Disculpe las molestias.");
-        window.location.href="index.html";
+        window.location.href = "index.html";
     }
     if (exito) {
         mostrar_progress();
@@ -94,11 +94,11 @@ function registrar_repuesto_vehiculo() {
                 cerrar_progress();
                 if (resp != null) {
                     var obj = $.parseJSON(resp);
-                    if (obj.estado != 1) {                        
+                    if (obj.estado != 1) {
                         alert(obj.mensaje);
                     } else {
                         var obje = $.parseJSON(obj.resp);
-                        window.location.href = 'art_repuesto_vehiculo_compatible.html?idRep='+ obje.id+"&idSubCat="+id_sub_cat+"&nbr="+obje.nombre+"&sre="+obje.serie+"&ft="+obje.url_foto;
+                        window.location.href = 'art_repuesto_vehiculo_compatible.html?idRep=' + obje.id + "&idSubCat=" + id_sub_cat + "&nbr=" + obje.nombre + "&sre=" + obje.serie + "&ft=" + obje.url_foto;
                     }
                 }
             }

@@ -3,47 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/RegistroLogin/documentosperfil.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/art_repuesto_vehiculo_compatible.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/Buscar_repuesto.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/load.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/index.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/index.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/Vehiculo/vehiculo.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/art_vehiculo_version.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/repuestos/repuesto_complatibles.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/art_repuesto_vehiculo_perfil.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/repuestos/repuesto_vehiculo_perfil.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/art_vehiculo_modelo.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/Vehiculo/version_vehiculo.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/Compra/compra.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/repuestos/registrarRepuestoCategoria.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/src/java/UTILES/URL.java</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/repuestos/buscar_repuesto.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/Vehiculo/modelo_vehiculo.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/almacen.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/Vehiculo/buscar_rep_auto.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/src/java/Conexion/Conexion.java</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/index3.html</file>
             <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/art_agregar_articulo.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/crearPersona.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/art_vehiculo.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/canvas.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/repuestos/repuesto_vehiculo.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/articulo.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/RRHH/buscarConductor.js</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/Buscar_repuesto.html</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/compra_repuesto.html</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/index.html</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/Login.html</file>
             <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/src/java/CONTROLADOR/adminController.java</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/repuestos/rep_categoria.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/Articulo/articulo.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/art_repuesto_vehiculo.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/buscar_rep_auto.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/administrarPermisos.html</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/art_vehiculo_modelo.html</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/Compra/compra.js</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/repuestos/buscar_repuesto.js</file>
             <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/compra.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/Vehiculo/marca_vehiculo.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/art_vehiculo_marca.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/css/style.css</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/RegistroLogin/default.js</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/crearUsuarioCliente.html</file>
-            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/src/java/CONTROLADOR/rolesController.java</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/js/Compra/compra_repuesto.js</file>
+            <file>file:/C:/Users/Edson/Desktop/srl_yunker/Yunker/web/Login1.html</file>
         </group>
     </open-files>
 </project-private>
