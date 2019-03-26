@@ -5,136 +5,8 @@
  */
 var url = "repuestosController";
 $(document).ready(function () {
-    id_usr = getQueryVariable("id");
-    id_cat = getQueryVariable("id_sub_categoria");
-    Cargar_repuesto();
-    cargar_vehiculo_compatibles();
     cargar_marcas();
-    
-    var navListItems = $('div.setup-panel div a'),
-            allWells = $('.setup-content'),
-            allNextBtn = $('.nextBtn');
-
-    allWells.hide();
-
-    navListItems.click(function (e) {
-        e.preventDefault();
-        var $target = $($(this).attr('href')),
-                $item = $(this);
-
-        if (!$item.hasClass('disabled')) {
-            navListItems.removeClass('btn-primary').addClass('btn-default');
-            $item.addClass('btn-primary');
-            allWells.hide();
-            $target.show();
-            $target.find('input:eq(0)').focus();
-        }
-    });
-
-    allNextBtn.click(function(){
-        var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-            curInputs = curStep.find("input[type='text'],input[type='url']"),
-            isValid = true;
-
-        $(".form-group").removeClass("has-error");
-        for(var i=0; i<curInputs.length; i++){
-            if (!curInputs[i].validity.valid){
-                isValid = false;
-                $(curInputs[i]).closest(".form-group").addClass("has-error");
-            }
-        }
-
-        if (isValid)
-            nextStepWizard.removeAttr('disabled').trigger('click');
-    });
-
-    $('div.setup-panel div a.btn-primary').trigger('click');
-    
 });
-
-function Cargar_repuesto() {
-    mostrar_progress();
-    $.post(url, {
-        evento: "getById_repuesto",
-        TokenAcceso: "servi12sis3",
-        id: id_usr
-    }, function (resp) {
-        cerrar_progress();
-        if (resp != null) {
-            var obj = $.parseJSON(resp);
-            if (obj.estado != 1) {
-                //error
-                alert(obj.mensaje);
-            } else {
-                var obje = $.parseJSON(obj.resp);
-                     $("#foto_perfil").attr("src",obje.url_foto);
-                $("#text_nombre").html(obje.nombre);
-                $("#text_precio").html(obje.precio);
-                $("#text_serie").html(obje.serie);
-                $("#text_segundo_nombre").html(obje.otros_nombres);
-                $("#text_descripcion").html(obje.descripcion);
-                $("#text_fabricante").html(obje.fabricante);
-           
-            }
-        }
-    });
-}
-
-function cargar_vehiculo_compatibles() {
-//    get_vehiculos_disponibles_by_id_repuesto
-    var idRep = id_usr;
-    if (idRep > 0) {
-        $.post(url, {
-            evento: "get_vehiculos_disponibles_by_id_repuesto",
-            TokenAcceso: "servi12sis3",
-            id_repuesto: idRep
-        }, function (resp) {
-            if (resp != null) {
-                var obj = $.parseJSON(resp);
-                if (obj.estado != 1) {
-                    //error
-                    alert(obj.mensaje);
-                } else {
-                    //exito
-                    var arr = $.parseJSON(obj.resp);
-                    $.each(arr, function (i, obj) {
-                        cargar_iten_vehiculo_compatible(obj);
-                    });
-                    // $("#lista_anhos").html("");                    
-                }
-            }
-        });
-    } else {
-        cerrar_progress();
-        alert("Ocurrio algun problema. Disculpe las molestias.");
-    }
-}
-
-function cargar_iten_vehiculo_compatible(obj) {
-
-    var html = "<a href='javaScript:void(0)' onclick='' class='list-group-item list-group-item-action flex-column align-items-start'>";
-    html += "                                       <div class='row iten_repuesto_row'>";
-    html += "                                            <div class='col-3'>";
-    html += "                                                <img src='img/logoservisis.png' class='' height='80px' alt='' />";
-    html += "                                            </div>";
-    html += "                                            <div class='col-2'>";
-    html += "                                                <label>" + obj.marca + "</label>";
-    html += "                                            </div>";
-    html += "                                            <div class='col-2'>";
-    html += "                                                <label>" + obj.modelo + "</label>";
-    html += "                                            </div>";
-    html += "                                            <div class='col-2'>";
-    html += "                                                <label>" + obj.anho + "</label>";
-    html += "                                            </div>";
-    html += "                                            <div class='col-2'>";
-    html += "                                                <label>" + obj.version + "</label>";
-    html += "                                            </div>";
-    html += "                                        </div>";
-    html += "                                    </a>";
-    $("#lista_vehiculo_compatibles").append(html);
-}
 
 function cargar_marcas() {
     mostrar_progress();
@@ -153,7 +25,6 @@ function cargar_marcas() {
                 //alert(resp);
                 $("#lista_marca").html("");
                 cargar_lista_marca($.parseJSON(obj.resp));
-
             }
         }
     });
@@ -277,10 +148,10 @@ function cargar_anhos(id_marca, id_modelo) {
 
 function cargar_lista_anhos(arr) {
     $.each(arr, function (i, obj) {
-        cargar_iten_anhos(obj);
+        cargar_item_anhos(obj);
     });
 }
-function cargar_iten_anhos(obj) {
+function cargar_item_anhos(obj) {
     var html = "<li onclick='seleccionar_anho(" + JSON.stringify(obj) + ")'>";
     html += "   <span>" + obj.anho + "</span>";
     html += "</li>";
@@ -343,7 +214,7 @@ function seleccionar_version(obj) {
     $(".bd-version").modal("toggle");
 }
 
-function Guardar_version_perfil() {
+function Buscar_vehiculo() {
     mostrar_progress();
     var id_version = $("#rep_auto_version").data("id");
     var idRep = getQueryVariable("id");
@@ -365,8 +236,6 @@ function Guardar_version_perfil() {
                     alert(obj.mensaje);
                 } else {
                     //exito
-
-
                     // $("#lista_anhos").html("");
                     cargar_iten_vehiculo_compatible($.parseJSON(obj.resp));
                 }
@@ -376,17 +245,4 @@ function Guardar_version_perfil() {
         cerrar_progress();
         alert("Ocurrio algun problema. Disculpe las molestias.");
     }
-}
-
-
-function getQueryVariable(varia) {
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split("=");
-        if (pair[0] == varia) {
-            return pair[1];
-        }
-    }
-    return (false);
 }
