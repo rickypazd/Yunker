@@ -1,6 +1,16 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <title>Servisis</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="plugin/bootstrap-4.1.1/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>        
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">       
+        <link href="plugin/jspkg-archive/jquery.dynatable.css" rel="stylesheet" type="text/css"/>
+        <link href="plugin/DataTables/datatables.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <style>
             body {
                 margin: 0px;
@@ -8,16 +18,174 @@
             }
             #myCanvas{
                 border: black 1px solid;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                margin-top: -300px;
-                margin-left: -300px;
+                position: relative;
+                padding: 0;
             }
         </style>
     </head>
-    <body>
-        <canvas id="myCanvas" width="500" height="500"></canvas>
+    <body>                    
+
+        <aside id="left-panel" class="left-panel">
+            <nav class="navbar navbar-expand-sm navbar-default">
+                <div id="main-menu" class="main-menu collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Inicio</a>
+                        </li>
+                        <li class="menu-title">RRHH</li>
+                        <li class="menu-item-has-children dropdown ">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                <i class="menu-icon fa fa-user"></i>Usuarios.
+                            </a>
+                            <ul class="sub-menu children dropdown-menu">                      
+                                <li ><i class="fa fa-unlock-alt"></i><a href="rolesypermisos.html">Roles y permisos.</a></li>
+                                <li><i class="fa fa-user-plus"></i><a href="crearUsuarioAdmin.html">Crear usuario.</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="menu-title">Repuestos</li><!-- /.menu-title -->
+                        <li class="menu-item-has-children dropdown active">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                <i class="menu-icon fa fa-cogs"></i>Repuestos.
+                            </a>
+                            <ul class="sub-menu children dropdown-menu">                      
+                                <li><i class="fa fa-plus-circle"></i><a href="rep_categoria.html">Agregar categorias.</a></li>
+                                <li><i class="fa fa-plus-circle"></i><a href="registrarRepuestoCategoria.html">Agregar repuestos.</a></li>
+                                <li><i class="fa fa-search"></i><a href="Buscar_repuesto.html">Buscar repuesto.</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                <i class="menu-icon fa fa-car"></i>Vehiculos.
+                            </a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo.html">Agregar vehiculo.</a></li>
+                                <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo_marca.html">Agregar marca.</a></li>
+                                <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo_modelo.html">Agregar modelo.</a></li>
+                                <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo_version.html">Agregar version.</a></li>
+                                <li><i class="fa fa-search"></i><a href="tables-data.html">Buscar vehiculo.</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-title">Compras</li><!-- /.menu-title -->
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                <i class="menu-icon fa fa-table"></i>Compras.
+                            </a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-table"></i><a href="compra.html">Compras.</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-title">Ventas</li><!-- /.menu-title -->
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                <i class="menu-icon fa fa-table"></i>Ventas.
+                            </a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-table"></i><a href="ventas.html">Ventas.</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-title">Almacen</li><!-- /.menu-title -->
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                <i class="menu-icon fa fa-table"></i>Almacen.
+                            </a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-table"></i><a href="almacen.html">Agregar almacen.</a></li>
+                                <li><i class="fa fa-table"></i><a href="articulo.html">Articulos.</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </aside>
+
+        <div id="right-panel" class="right-panel">
+            <!-- Header-->
+            <header id="header" class="header">
+                <div class="top-left">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="./"><img src="img/logoservisis.png"  height="40px" alt="Logo"></a>
+                        <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                        <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                </div>
+                <div class="top-right">
+                    <div class="header-menu">
+
+                        <div class="user-area dropdown float-right">
+                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="user-avatar rounded-circle" src="img/Sin-foto1.jpg" alt="User Avatar">
+                            </a>
+
+                            <div class="user-menu dropdown-menu">
+                                <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+
+                                <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+
+                                <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+
+                                <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>           
+            <div class="container " >
+                <div class="row " >
+                    <div class="col-md-6" >
+                        <canvas id="myCanvas" width="500" height="500"></canvas>
+                    </div>
+
+                    <div class="col-md-6" >
+                        <h3>Lista de Esquemas: <a href="agregar_partes.html" class="btn btn-primary" style="float: right;"> Agregar </a> </h3> 
+                        <hr style="  border-top: 10px solid black;">
+                        <div class="row">
+                            <div class="col-md-12 align-content-center">
+
+                                <div id="lista_vehiculo_compatibles" class="list-group" >
+                                    <div class="row ">
+                                        <div class="col-2"><label >Nro.</label>
+
+                                            <div> <p>1</p> </div>
+                                        </div>
+                                        <div class="col-2"><label >Imagen</label>
+                                            <div><img id="foto_perfil"  src="data:image/png;base64,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" alt="img" style="width:100%; height: 50px;" />                           </div>
+                                        </div>
+                                        <div class="col-4"><label >Parte Descripción</label>
+                                            <div> <p>Conjunto de eje
+                                                    43410-52210
+                                                    YARIS; CORRECTO </p> </div>
+                                        </div>
+                                        <div class="col-2"><label >Precio</label>
+                                            <div>
+                                                <p>$ 490.46</p>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-2"><label >Mostrar</label>
+                                            <div><a href="agregar_partes.html" class="btn btn-outline-dark btn-sm">Detalle </a></div>
+                                        </div>
+                                    </div>
+                                </div>                                        
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>   
+        <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script>                                  
+        <script src="assets/js/matchHeigh.js" type="text/javascript"></script>
+        <script src="assets/js/main.js"></script>
+        <script src="plugin/DataTables/datatables.min.js" type="text/javascript"></script>
+        <script src="js/verifySession.js" type="text/javascript"></script>        
+        <script src="js/load.js" type="text/javascript"></script>        
+        <script src="js/repuestos/buscar_repuesto.js" type="text/javascript"></script>
         <script>
             function writeMessage(canvas, message) {
                 var context = canvas.getContext('2d');
@@ -37,9 +205,9 @@
             var context = canvas.getContext('2d');
             var img = new Image();
             img.src = "img/esquema.jpg";
-            
+
             img.onload = function () {
-                context.drawImage(img, 0, 0,500,500);
+                context.drawImage(img, 0, 0, 500, 500);
             };
 
             var flag2 = 0;
@@ -55,7 +223,7 @@
             canvas.addEventListener("mousemove", function (evt) {
                 if (flag2 == 1) {
                     clearCanvas(context, canvas);
-                      context.drawImage(img, 0, 0,500,500);
+                    context.drawImage(img, 0, 0, 500, 500);
                     var mousePos = getMousePos(canvas, evt);
                     var mousePos2 = click;
                     var width = mousePos.x - mousePos2.x;
