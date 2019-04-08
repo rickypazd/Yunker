@@ -54,18 +54,26 @@ canvas.addEventListener("mouseup", function (evt) {
         console.log("drag");
         var mousePos = getMousePos(canvas, evt);
         var mousePos2 = click;
+        var mouseFinal = {"x": 0, "y": 0};
         var width = mousePos.x - mousePos2.x;
         var heigh = mousePos.y - mousePos2.y;
         context.lineWidth = "1";
         context.strokeStyle = "black";
-        if (mousePos2.x > mousePos.x) {
-
+        if (width > 0) {
+        
+            mouseFinal.x = mousePos2.x;
         } else {
-
+            mouseFinal.x = mousePos.x;
         }
-        context.rect(mousePos2.x, mousePos2.y, width, heigh);
+
+        if (heigh > 0) {
+            mouseFinal.y = mousePos2.y;
+        } else {
+            mouseFinal.y = mousePos.y;
+        }
+        context.rect(mouseFinal.x, mouseFinal.y, Math.abs(width), Math.abs(heigh));
         context.stroke();
-        var croppedCan = crop(canvas, {x: mousePos2.x, y: mousePos2.y}, {x: width, y: heigh});
+        var croppedCan = crop(canvas, {x: mouseFinal.x, y: mouseFinal.y}, {x:  Math.abs(width), y:  Math.abs(heigh)});
         var img = document.getElementById("fotoEsquema");
 
         $('#myModal').modal('show');
