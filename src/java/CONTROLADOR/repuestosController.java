@@ -31,6 +31,7 @@ import MODELO.REPUESTO.REP_AUTO_MODELO;
 import MODELO.REPUESTO.REP_AUTO_VERSION;
 import MODELO.REPUESTO.REP_AUTO_VERSION_TO_REP_AUTO;
 import MODELO.REPUESTO.REP_CATEGORIA;
+import MODELO.REPUESTO.REP_ESQUEMA;
 import MODELO.REPUESTO.REP_SUB_CATEGORIA;
 import MODELO.REPUESTO.REP_SUB_CATEGORIA_ACTIVA;
 import MODELO.REPUESTO.REP_SUB_CATEGORIA_DISPONIBLE;
@@ -176,7 +177,16 @@ public class repuestosController extends HttpServlet {
                     html = getAll_rep_categoria(request, con);
                     break;
 
-                //</editor-fold>                    
+                //</editor-fold>         
+                //<editor-fold defaultstate="collapsed" desc="REP_ESQUEMA">
+                case "registrar_rep_esquema":
+                    html = registrar_rep_esquema(request, con);
+                    break;
+//                case "getAll_rep_categoria":
+//                    html = getAll_rep_categoria(request, con);
+//                    break;
+
+                //</editor-fold>         
                 //<editor-fold defaultstate="collapsed" desc="REP_SUB_CATEGORIA">
                 case "registrar_rep_sub_categoria":
                     html = registrar_rep_sub_categoria(request, con);
@@ -859,7 +869,50 @@ public class repuestosController extends HttpServlet {
         }
     }
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="REP_ESQUEMA">
+    private String registrar_rep_esquema(HttpServletRequest request, Conexion con) {
+        String nameAlert = "rep_esquema";
+        try {
+            REP_ESQUEMA rep_esquema = new REP_ESQUEMA(con);
+            rep_esquema.setID_REPUESTO(pInt(request, "id_repuesto"));
+            int id = rep_esquema.Insertar();
+            rep_esquema.setID(id);
+            Part file = request.getPart("foto");
+            String name = "";
+            String names = "";
+            if (file != null) {
+                names = file.getSubmittedFileName();
+                String ruta = request.getSession().getServletContext().getRealPath("/");
+                name = EVENTOS.guardar_file(file, ruta + URL.ruta_foto_rep_esquema + "/" + id + "/", names);
+            }
+            rep_esquema.setURL_FOTO(URL.ruta_foto_rep_auto_marca + "/" + id + "/" + name);
 
+            rep_esquema.subir_foto_perfil();
+            RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", rep_esquema.getJson().toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al registrar " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        } catch (IOException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al subir foto.", "{}");
+            return resp.toString();
+        } catch (ServletException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al subir foto.", "{}");
+            return resp.toString();
+        }
+    }
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="PARSERS">
     private int parseInt(String val) {
         return Integer.parseInt(val);

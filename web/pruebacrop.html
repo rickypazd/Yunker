@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="plugin/Croppie-master/croppie.css" rel="stylesheet" type="text/css"/>
+
+        <script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="plugin/Croppie-master/croppie.js" type="text/javascript"></script>
+
+    </head>
+    <body >
+        <button style="padding: 10px; margin: 10px;" onclick="ok_recortar();">RECORTAR</button>
+        <div style="height: 500px; width: 500px;">
+            <img class="my-image" src="img/esquema.jpg" alt=""/>
+        </div>
+      
+
+        <script>
+            var basic = $('.my-image').croppie({
+                viewport: {
+                    width: 400,
+                    height: 400
+                }
+            });
+            basic.croppie('bind', {
+                url: 'img/esquema.jpg',
+                points: [77, 469, 280, 739]
+            });
+//on button click
+        
+         function ok_recortar(){
+                 basic.croppie('result', 'html').then(function (html) {
+                // html is div (overflow hidden)
+                document.body.appendChild(html);
+            });
+         }
+//            basic.croppie('bind', {
+//                url: 'plugin/Croppie-master/demo/demo-1.jpg',
+//                points: [77, 469, 280, 739]
+//            });
+////on button click
+//            basic.croppie('result', 'html').then(function (html) {
+//                // html is div (overflow hidden)F
+//                // with img positioned inside.
+//            });
+        </script>
+    </body>
+</html>
