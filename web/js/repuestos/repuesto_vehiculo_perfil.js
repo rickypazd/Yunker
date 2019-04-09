@@ -10,7 +10,7 @@ $(document).ready(function () {
     Cargar_repuesto();
     cargar_vehiculo_compatibles();
     cargar_marcas();
-    
+
     var navListItems = $('div.setup-panel div a'),
             allWells = $('.setup-content'),
             allNextBtn = $('.nextBtn');
@@ -31,16 +31,16 @@ $(document).ready(function () {
         }
     });
 
-    allNextBtn.click(function(){
+    allNextBtn.click(function () {
         var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-            curInputs = curStep.find("input[type='text'],input[type='url']"),
-            isValid = true;
+                curStepBtn = curStep.attr("id"),
+                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                curInputs = curStep.find("input[type='text'],input[type='url']"),
+                isValid = true;
 
         $(".form-group").removeClass("has-error");
-        for(var i=0; i<curInputs.length; i++){
-            if (!curInputs[i].validity.valid){
+        for (var i = 0; i < curInputs.length; i++) {
+            if (!curInputs[i].validity.valid) {
                 isValid = false;
                 $(curInputs[i]).closest(".form-group").addClass("has-error");
             }
@@ -51,7 +51,7 @@ $(document).ready(function () {
     });
 
     $('div.setup-panel div a.btn-primary').trigger('click');
-    
+
 });
 
 function Cargar_repuesto() {
@@ -69,14 +69,14 @@ function Cargar_repuesto() {
                 alert(obj.mensaje);
             } else {
                 var obje = $.parseJSON(obj.resp);
-                     $("#foto_perfil").attr("src",obje.url_foto);
+                $("#foto_perfil").attr("src", obje.url_foto);
                 $("#text_nombre").html(obje.nombre);
                 $("#text_precio").html(obje.precio);
                 $("#text_serie").html(obje.serie);
                 $("#text_segundo_nombre").html(obje.otros_nombres);
                 $("#text_descripcion").html(obje.descripcion);
                 $("#text_fabricante").html(obje.fabricante);
-           
+
             }
         }
     });
@@ -379,6 +379,24 @@ function Guardar_version_perfil() {
 }
 
 
+function editar_esquema(id) {
+    var idRep = getQueryVariable("id");
+    window.alert("hola id " + idRep);
+    window.location.href = "subir_foto_esquema.html?id=" + idRep;
+}
+
+
+function pruebaAlvaro(id) {
+    var idRep = getQueryVariable("id");
+    window.alert("hola id " + idRep);
+    window.location.href = "subir_foto_esquema.html?id=" + idRep;
+}
+
+
+
+
+
+
 function getQueryVariable(varia) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");
@@ -390,3 +408,10 @@ function getQueryVariable(varia) {
     }
     return (false);
 }
+
+
+
+
+
+
+ 
