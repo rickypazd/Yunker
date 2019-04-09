@@ -15,6 +15,7 @@ public class URL {
     public static final String barra = "/";
     public static final String ruta_foto_repuesto = "repuestos/repuesto";
     public static final String ruta_foto_rep_auto_marca = "repuestos/auto/marca";
+    public static final String ruta_foto_rep_esquema= "repuestos/esquema";
     public static final String ruta_foto_rep_auto_modelo = "repuestos/auto/marca";
    
     public static final String ruta_foto_prefil = "perfiles";
