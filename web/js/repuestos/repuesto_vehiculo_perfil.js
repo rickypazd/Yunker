@@ -381,15 +381,14 @@ function Guardar_version_perfil() {
 
 function editar_esquema(id) {
     var idRep = getQueryVariable("id");
-    window.alert("hola id " + idRep);
-    window.location.href = "subir_foto_esquema.html?id=" + idRep;
+     window.location.href = "subir_foto_esquema.html?id=" + idRep;
 }
 
 
-function pruebaAlvaro(id) {
+function prueba_Alvaro(id) {
     var idRep = getQueryVariable("id");
     window.alert("hola id " + idRep);
-    window.location.href = "subir_foto_esquema.html?id=" + idRep;
+    window.location.href = "Prueba_Alvaro.html?id=" + idRep;
 }
 
 
