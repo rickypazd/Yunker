@@ -380,8 +380,43 @@ function Guardar_version_perfil() {
 
 
 function editar_esquema(id) {
-    var idRep = getQueryVariable("id");
-     window.location.href = "subir_foto_esquema.html?id=" + idRep;
+    //cpnsultar ya existe un exquema
+
+    mostrar_progress();
+    $.post(url, {
+        evento: "getById_rep_esquema",
+        TokenAcceso: "servi12sis3",
+        id_repuesto: getQueryVariable("id")
+
+    }, function (resp) {
+        cerrar_progress();
+        if (resp != null) {
+            var obj = $.parseJSON(resp);
+
+            if (obj.estado != 1) {
+                alert(obj.mensaje);
+            } else {
+                //exito
+                //alert(resp);
+                    var res = $.parseJSON(obj.resp)
+                if (res.hasOwnProperty("exito")) {
+                 var idRep = getQueryVariable("id");
+                window.location.href = "subir_foto_esquema.html?id=" + idRep;
+  
+                //  window.alert("no tiene");
+                } else {
+                    window.alert("tiene");
+                    sessionStorage.setItem("esquema",obj.resp);
+                    var idRep = getQueryVariable("id");
+                    window.location.href = "canvas.html?id=" + idRep;
+                }
+
+
+            }
+        }
+    });
+
+
 }
 
 
