@@ -147,19 +147,7 @@
             <div class="container " >
                 <div class="row " >
                     <div class="col-md-6" >
-
-
-
                         <canvas id="myCanvas" width="500" height="500" style=" border: 2px solid black;"  ></canvas>
-
-
-                        <div>
-                            <input type="file"  id="myFile" name="filename2" class="btn " onchange="mostrar();" accept="image/*" >
-
-                        </div>
-
-
-
                     </div>
 
 
@@ -206,50 +194,51 @@
 
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog" >
-                <div class="modal-content" >
-                    <div class="modal-header bg-primary text-white"><button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Esquema Nro. 1</h4> </div>
-                    <div class="card-body"  >  
-                        <div class="row" >
-                            <div class="col-md-12">
-                                <img  id="fotoEsquema"  alt="e" style=" border: 1px solid black;">
-                            </div>
-                            <div class="form-group  col-md-4">
-                                <label for="text_nombre" class="label-titulo" >Codigo</label>
-                                <input type="text"  name="nombre" class="form-control color-input" id="text_nombre">
-                            </div>
-                            <div class="form-group  col-md-4">
-                                <label for="text_nombre" class="label-titulo" >Nombre</label>
-                                <input type="text" name="nombre" class="form-control color-input" id="text_nombre">
-                            </div>
-                            <div class="form-group  col-md-4">
-                                <label for="text_precio" class="label-titulo" >Precio <span style="color: red;"> *</span></label>
-                                <input type="number" name="precio" class="form-control color-input" id="text_precio">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="text_precio" class="label-titulo " >Posiciones</label>
-                                <select class="form-control" id="sel1">
-                                    <option selected>Ninguno</option>
-                                    <option value="1">Izquierda</option>
-                                    <option value="2">Derecha</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="text_precio" class="label-titulo" >Auténtico:</label>
-                                <input type="number" name="precio" class="form-control color-input" id="text_precio">
-                            </div>
+                <form method="POST" action="repuestosController" id="submitform" enctype="multipart/form-data">                                    
+
+                    <div class="modal-content" >
+                        <div class="modal-header bg-primary text-white"><button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Esquema Nro. 1</h4> </div>
+                        <div class="card-body"  >  
+                            <div class="row" >
+                                <form class="col-md-12">
+                                    <div class="col-md-12">
+                                        <img  id="fotoEsquema"  alt="e" style=" border: 1px solid black;">
+                                    </div>
+                                    <div class="form-group  col-md-12 ">
+                                        <label for="text_precio" class="label-titulo" >Codigo <span style="color: red;"> *</span></label>
+                                        <input type="number" name="Codigo" class="form-control color-input" id="text_Codigo">
+                                    </div> 
+                                    <div class="form-group  col-md-12">
+                                        <label for="text_nombre" class="label-titulo" >Nombre <span style="color: red;"> *</span> </label>
+                                        <input type="text" name="Nombre" class="form-control color-input" id="text_Nombre">
+                                    </div>
+                                    <div class="form-group  col-md-6">
+                                        <label for="text_nombre" class="label-titulo" >Marca </label>
+                                        <input type="text" name="Marca" class="form-control color-input" id="text_Marca">
+                                    </div>
+                                    <div class="form-group  col-md-6">
+                                        <label for="text_precio" class="label-titulo" >Precio <span style="color: red;"> *</span></label>
+
+                                        <div class="input-group"> 
+                                            <span class="input-group-addon">Bs</span>
+                                            <input type="number" name="Precio" value="0.00" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control" id="text_Precio" />
+                                        </div>
+                                    </div> 
+                                    <div class="form-group col-md-12">
+                                        <label for="text_segundo_nombre" class="label-titulo" >Descripción</label>
+                                        <textarea class="form-control" name="Descripcion" rows="1" id="text_Descripcion"></textarea>
+                                    </div>  
+                                </form>
+                            </div>   
                             <div class="form-group col-md-12">
-                                <label for="text_segundo_nombre" class="label-titulo" >Descripción</label>
-                                <textarea class="form-control" rows="1" id="comment"></textarea>
-                            </div>                                       
-                        </div>   
-                        <div class="form-group col-md-12">
-                            <div style="float: right;">
-                                <button type="button" class="btn btn-primary ">Guardar</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
+                                <div style="float: right;">
+                                    <button type="button" class="btn btn-primary " onclick="registrar_esquema_partes();">Guardar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>  
                         </div>  
-                    </div>  
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -262,7 +251,7 @@
         <script src="assets/js/matchHeigh.js" type="text/javascript"></script>
         <script src="assets/js/main.js"></script>
         <script src="plugin/DataTables/datatables.min.js" type="text/javascript"></script>
-        <script src="js/verifySession.js" type="text/javascript"></script>        
+        <!--<script src="js/verifySession.js" type="text/javascript"></script>        -->
         <script src="js/load.js" type="text/javascript"></script>        
         <script src="js/repuestos/buscar_repuesto.js" type="text/javascript"></script>
 

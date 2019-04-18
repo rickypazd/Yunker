@@ -15,29 +15,42 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class REP_ESQUEMA {
+public class REP_ESQUEMA_PARTES {
 
-    private int ID;
-    private int ID_REPUESTO;
     private String URL_FOTO;
-    private Conexion con = null;
-    private String TBL = "rep_esquema";
+    private int CODIGO;
+    private String NOMBRE;
+    private String MARCA;
+    private float PRECIO;
+    private String DESCRIPCION;
 
-    public REP_ESQUEMA(Conexion con) {
+    private Conexion con = null;
+    private String TBL = "rep_esquema_partes";
+
+    public REP_ESQUEMA_PARTES(Conexion con) {
         this.con = con;
     }
 
     public int Insertar() throws SQLException {
         String consulta = "INSERT INTO public." + TBL + "(\n"
-                + "	id_repuesto)\n"
+                + "	codigo,\n"
+                + "	nombre,\n"
+                + "	marca,\n"
+                + "	precio,\n"
+                + "	descripcion)\n"
                 + "	VALUES (?);";
         PreparedStatement ps = con.statamet(consulta);
-        ps.setInt(1, getID_REPUESTO());
+        ps.setInt(1, getCODIGO());
+        ps.setString(2, getNOMBRE());
+        ps.setString(3, getMARCA());
+        ps.setFloat(4, getPRECIO());
+        ps.setString(5, getDESCRIPCION());
+
         ps.execute();
         consulta = "select last_value from " + TBL + "_id_seq ";
         ps = con.statamet(consulta);
         ResultSet rs = ps.executeQuery();
-        
+
         int id = 0;
         if (rs.next()) {
             id = rs.getInt("last_value");
@@ -50,7 +63,7 @@ public class REP_ESQUEMA {
     public int subir_foto_perfil() throws SQLException {
         String consulta = "UPDATE public." + TBL + " \n"
                 + "	SET url_foto=?\n"
-                + "	WHERE id=" + getID();
+                + "	WHERE codigo=" + getCODIGO();
         PreparedStatement ps = con.statamet(consulta);
         ps.setString(1, getURL_FOTO());
         int row = ps.executeUpdate();
@@ -61,7 +74,7 @@ public class REP_ESQUEMA {
     public JSONObject getById(int id) throws SQLException, JSONException {
         String consulta = "select ar.* "
                 + "from " + TBL + " ar\n"
-                + "where ar.id_repuesto=?";
+                + "where ar.codigo=?";
         PreparedStatement ps = con.statamet(consulta);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
@@ -96,34 +109,25 @@ public class REP_ESQUEMA {
 
     private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
         parseObj = new JSONObject();
-        parseObj.put("id", rs.getInt("id"));
-        parseObj.put("id_repuesto", rs.getInt("id_repuesto"));
+
+        parseObj.put("codigo", rs.getInt("codigo"));
+        parseObj.put("nombre", rs.getString("nombre"));
+        parseObj.put("marca", rs.getString("marca"));
+        parseObj.put("precio", rs.getFloat("precio"));
+        parseObj.put("descripcion", rs.getString("descripcion"));
         parseObj.put("url_foto", rs.getString("url_foto") != null ? rs.getString("url_foto") : "img/Sin_imagen.png");
         return parseObj;
     }
 
     public JSONObject getJson() throws JSONException, SQLException {
         JSONObject obj = new JSONObject();
-        obj.put("id", getID());
-        obj.put("id_repuesto", getID_REPUESTO());
+        obj.put("codigo", getCODIGO());
+        obj.put("nombre", getNOMBRE());
+        obj.put("marca", getMARCA());
+        obj.put("precio", getPRECIO());
+        obj.put("descripcion", getDESCRIPCION());
         obj.put("url_foto", getURL_FOTO());
         return obj;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public int getID_REPUESTO() {
-        return ID_REPUESTO;
-    }
-
-    public void setID_REPUESTO(int ID_REPUESTO) {
-        this.ID_REPUESTO = ID_REPUESTO;
     }
 
     public String getTBL() {
@@ -156,6 +160,46 @@ public class REP_ESQUEMA {
 
     public void setParseObj(JSONObject parseObj) {
         this.parseObj = parseObj;
+    }
+
+    public int getCODIGO() {
+        return CODIGO;
+    }
+
+    public void setCODIGO(int CODIGO) {
+        this.CODIGO = CODIGO;
+    }
+
+    public String getNOMBRE() {
+        return NOMBRE;
+    }
+
+    public void setNOMBRE(String NOMBRE) {
+        this.NOMBRE = NOMBRE;
+    }
+
+    public String getMARCA() {
+        return MARCA;
+    }
+
+    public void setMARCA(String MARCA) {
+        this.MARCA = MARCA;
+    }
+
+    public float getPRECIO() {
+        return PRECIO;
+    }
+
+    public void setPRECIO(float PRECIO) {
+        this.PRECIO = PRECIO;
+    }
+
+    public String getDESCRIPCION() {
+        return DESCRIPCION;
+    }
+
+    public void setDESCRIPCION(String DESCRIPCION) {
+        this.DESCRIPCION = DESCRIPCION;
     }
 
 }

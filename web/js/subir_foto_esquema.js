@@ -6,8 +6,9 @@ function registrar_esquema() {
 
     mostrar_progress();
     var exito = true;
-    var id = $("#id_repuesto").val() || null; //id
+    var id = $("#id_repuesto_esquema").val() || null; //id
     var idRep = getQueryVariable("id"); //id respuesto
+    $("#id_repuesto_esquema").val(parseInt(idRep));
     var foto = $("#file-0d").val() || null; // foto
 
     var TokenAcceso = "servi12sis3";
@@ -33,8 +34,17 @@ function registrar_esquema() {
             success: function (data)
             {
                 //despues de cargar
+
                 cerrar_progress();
+       
+
                 alert(data);
+                
+                  var obj = $.parseJSON(data);
+
+                sessionStorage.setItem("esquema", obj.resp);
+                var idRep = getQueryVariable("id");
+                window.location.href = "canvas.html?id=" + idRep;
             }
         });
     } else {
