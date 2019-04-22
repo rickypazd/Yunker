@@ -104,6 +104,24 @@ public class REPUESTO {
         return arr;
     }
 
+    public JSONArray getAll_by_id_sub_cat_activa(int id_sub_cat) throws SQLException, JSONException {
+        String consulta = "SELECT rep.* \n"
+                + "FROM rep_sub_categoria_disponible rscd, repuesto rep\n"
+                + "where rscd.id_rep_sub_categoria_activa = "+id_sub_cat+"\n"
+                + "AND rep.id = rscd.id_repuesto\n";
+        PreparedStatement ps = con.statamet(consulta);
+        ResultSet rs = ps.executeQuery();
+        JSONArray arr = new JSONArray();
+        JSONObject obj;
+        while (rs.next()) {
+            obj = parseJson(rs);
+            arr.put(obj);
+        }
+        ps.close();
+        rs.close();
+        return arr;
+    }
+
     private JSONObject parseObj;
 
     private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
@@ -150,7 +168,6 @@ public class REPUESTO {
         this.ID_SUB_CATEGORIA = ID_SUB_CATEGORIA;
     }
 
-    
     public String getNOMBRE() {
         return NOMBRE;
     }

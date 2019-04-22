@@ -6,15 +6,15 @@
 
 var url = "repuestosController";
 $(document).ready(function () {
-    //Lista_repuesto();
+    Lista_repuesto();
 });
 function Lista_repuesto() {
-    var idVehiculo = getQueryVariable("idvehiculo");
-    var idSubcategoria = getQueryVariable("idSubCat");
+    
+    var idSubcategoria = getQueryVariable("idSubCatAct");
 
     mostrar_progress();
     var busq = $("#in_buscar").val() || "";
-    $.post(url, {evento: "getAll_rep_idvehiculo_idSubCat", TokenAcceso: "servi12sis3", id_vehiculo: idVehiculo, id_subcCategoria: idSubcategoria}, function (resp) {
+    $.post(url, {evento: "getAll_repuesto_de_vehiculo", TokenAcceso: "servi12sis3", id_sub_categoria_activa: idSubcategoria}, function (resp) {
         cerrar_progress();
         if (resp != null) {
             var obj = $.parseJSON(resp);
