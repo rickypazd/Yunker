@@ -96,6 +96,23 @@ public class REP_SUB_CATEGORIA {
         rs.close();
         return arr;
     }
+    public JSONArray getBy_id_rep_categoria_de_id_vehiculo(int id, int id_vehiculo) throws SQLException, JSONException {
+        String consulta = "SELECT rsc.*, rscac.id as id_rep_sub_categoria_activa FROM public.rep_sub_categoria_activa rscac, rep_sub_categoria rsc\n" +
+"                where rscac.id_rep_auto_to_rep_version = "+id_vehiculo+" and rsc.id = rscac.id_rep_sub_categoria\n" +
+"                and rsc.id_rep_categoria ="+id;
+        PreparedStatement ps = con.statamet(consulta);
+        ResultSet rs = ps.executeQuery();
+        JSONArray arr = new JSONArray();
+        JSONObject obj;
+        while (rs.next()) {
+            obj = parseJson(rs);
+            obj.put("id_rep_sub_categoria_activa",rs.getInt("id_rep_sub_categoria_activa"));
+            arr.put(obj);
+        }
+        ps.close();
+        rs.close();
+        return arr;
+    }
 
     private JSONObject parseObj;
 

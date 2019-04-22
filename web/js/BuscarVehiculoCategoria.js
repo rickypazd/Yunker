@@ -7,13 +7,15 @@
 
 var url = "repuestosController";
 $(document).ready(function () {
-    cargar_categorias();
+    var id = getQueryVariable("id");
+    
+    cargar_categorias(id);
 });
 //----------CATEGORIA-------------
 
-function cargar_categorias() {
+function cargar_categorias(id) {
     mostrar_progress();
-    $.post(url, {evento: "getAll_rep_categoria", TokenAcceso: "servi12sis3"}, function (resp) {
+    $.post(url, {evento: "getAll_rep_categoria_de_vehiculo", TokenAcceso: "servi12sis3", "id_vehiculo":id}, function (resp) {
         cerrar_progress();
         if (resp != null) {
             var obj = $.parseJSON(resp);
@@ -33,15 +35,17 @@ function cargar_categorias() {
 function cargar_categoria_iten(obj) {
     var html = "<div class='card'>";
     html += "                    <div class='card-header iten_categoria' id='heading-" + obj.id + "' data-toggle='collapse' data-target='#collapse-" + obj.id + "' aria-expanded='false' aria-controls='collapse-" + obj.id + "'  data-subcategorias_cargadas='false' data-obj='" + JSON.stringify(obj) + "' onclick='abrir_categoria(this)'>";
-    html += "                         <h5 class='mb-0'>";
+    //html += "                         <h5 class='mb-0'>";
     html += "                             <button class='btn btn-link collapsed' style='color: #000;' >";
     html += obj.nombre;
     html += "                             </button>";
-    html += "                         </h5>";
+    
+   // html += "                         </h5>";
+    html += "                                    <span class='badge badge-primary badge-pill'>"+obj.count+"</span>";
     html += "                     </div>";
     html += "                     <div id='collapse-" + obj.id + "' class='collapse' aria-labelledby='heading-" + obj.id + "' data-parent='#accordion'>";
     html += "                         <div class='card-body'>";
-    html += "                                <p><b>Seleccione la categoria a la que asignara el repuesto.</b></p>";
+    html += "                                <p><b>Seleccione la sub-categoria del repuesto.</b></p>";
     html += "                             <ul class='list-group lista_sub_categorias' id='lista_sub_categoria_" + obj.id + "'>";
     html += "                                 ";
     html += "                             </ul>";
@@ -57,8 +61,9 @@ function abrir_categoria(iten) {
         var iten_lista = $(iten).parent().find(".lista_sub_categorias");
         //cargar_sub_categoria_iten({},iten_lista);
         var data_obj = $(iten).data("obj");
+        var id_vehiculo = getQueryVariable("id");
         mostrar_progress();
-        $.post(url, {evento: "get_rep_sub_categoria_by_id_rep_categoria", TokenAcceso: "servi12sis3", id_rep_categoria: data_obj.id}, function (resp) {
+        $.post(url, {evento: "get_rep_sub_categoria_by_id_rep_categoria_de_id_vehiculo", TokenAcceso: "servi12sis3", id_rep_categoria: data_obj.id, id_vehiculo:id_vehiculo}, function (resp) {
             cerrar_progress();
             if (resp != null) {
                 var obj = $.parseJSON(resp);
@@ -96,7 +101,7 @@ function seleccionar_sub_categoria(iten) {
     var obj = $(iten).data("obj");
     //alert(obj.id+" -- "+obj.nombre);
     
-    window.location.href = "compra_buscarVehiculoRepuestos.html?idvehiculo"+idvehiculo+"&idSubCat=" + obj.id;
+    window.location.href = "compra_buscarVehiculoRepuestos.html?idvehiculo"+idvehiculo+"&idSubCatAct=" + obj.id_rep_sub_categoria_activa;
 
 }
 

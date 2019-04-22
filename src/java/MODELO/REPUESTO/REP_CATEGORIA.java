@@ -80,6 +80,25 @@ public class REP_CATEGORIA {
         return arr;
     }
 
+    public JSONArray getAll_by_id_vehiculo(int id) throws SQLException, JSONException {
+        String consulta = "SELECT rc.*, count(rsc.id) FROM public.rep_sub_categoria_activa rscac, rep_sub_categoria rsc, rep_categoria rc\n"
+                + "where rscac.id_rep_auto_to_rep_version = "+id+" and rsc.id = rscac.id_rep_sub_categoria\n"
+                + "and rc.id = rsc.id_rep_categoria\n"
+                + "group by (rc.id)";
+        PreparedStatement ps = con.statamet(consulta);
+        ResultSet rs = ps.executeQuery();
+        JSONArray arr = new JSONArray();
+        JSONObject obj;
+        while (rs.next()) {
+            obj = parseJson(rs);
+              parseObj.put("count", rs.getInt("count"));
+            arr.put(obj);
+        }
+        ps.close();
+        rs.close();
+        return arr;
+    }
+
     private JSONObject parseObj;
 
     private JSONObject parseJson(ResultSet rs) throws JSONException, SQLException {
