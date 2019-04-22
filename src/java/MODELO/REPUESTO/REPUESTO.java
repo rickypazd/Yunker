@@ -27,7 +27,7 @@ public class REPUESTO {
     private String URL_FOTO;
     private double PRECIO;
     private Conexion con = null;
-    private String TBL = "repuesto";
+    private String TBL = "repuesto";//rep_parte
 
     public REPUESTO(Conexion con) {
         this.con = con;

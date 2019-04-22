@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Servisis</title>
+        <title>BuscarVehiculoAggRep</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="plugin/bootstrap-4.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -15,6 +15,7 @@ and open the template in the editor.
         <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
     </head>
+
     <body style="background-color: whitesmoke;">   
         <aside id="left-panel" class="left-panel">
             <nav class="navbar navbar-expand-sm navbar-default">
@@ -156,10 +157,8 @@ and open the template in the editor.
             <br>                        
             <div class="modal-footer justify-content-center">
                 <div class="row" >
-                    <div class=" col-md-12">                      
-                        Buscar_vehiculo
-                        <button type="button" class="btn btn-primary btn-lg" onclick="Buscar_vehiculo();">Buscar</button>
-                        <!--<button type="button" class="btn btn-primary btn-lg" onclick="Guardar_version_perfil();">Buscar</button>-->
+                    <div class=" col-md-12">                                
+                        <button type="button" class="btn btn-primary btn-lg" onclick="buscar_lista_categorias();">Aceptar</button>
                     </div>                            
                 </div>
             </div>
@@ -322,12 +321,16 @@ and open the template in the editor.
                 </div>
             </div>
         </div>    
+       
+        
         <script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>               
         <script src="plugin/bootstrap-4.1.1/js/bootstrap.min.js" type="text/javascript"></script> 
         <script src="assets/js/matchHeigh.js" type="text/javascript"></script>
         <script src="assets/js/main.js"></script>
         <script src="js/verifySession.js" type="text/javascript"></script>        
         <script src="js/Vehiculo/buscar_vehiculo.js" type="text/javascript"></script>
-        <script src="js/load.js" type="text/javascript"></script>        
-    </body>
+        <script src="js/load.js" type="text/javascript"></script>    
+                <script src="js/BuscarVehiculoAggRep.js" type="text/javascript"></script>
+
+
 </html>

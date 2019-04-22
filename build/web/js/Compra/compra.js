@@ -17,10 +17,10 @@ function Lista_repuesto() {
                 var arr = $.parseJSON(obj.resp);
                 $("#resultados").html("(" + arr.length + ")");
                 $.each(arr, function (i, obj) {
-                    var html = "<a href='javaScript:void(0)' onclick='ver_repuesto(this)' data-obj='"+JSON.stringify(obj)+"' class='list-group-item list-group-item-action flex-column align-items-start'>";
+                    var html = "<a href='javaScript:void(0)' onclick='ver_repuesto(this)' data-obj='" + JSON.stringify(obj) + "' class='list-group-item list-group-item-action flex-column align-items-start'>";
                     html += "               <div class='row iten_repuesto_row'>";
                     html += "                     <div class='col-3'>";
-                    html += "                         <img src='"+obj.url_foto+"' class='' height='80px' alt='' />";
+                    html += "                         <img src='" + obj.url_foto + "' class='' height='80px' alt='' />";
                     html += "                      </div>";
                     html += "                     <div class='col-2'>";
                     html += "                         <label >" + obj.nombre + "</label>";
@@ -36,8 +36,8 @@ function Lista_repuesto() {
                     html += "                     </div>";
                     html += "                 </div>";
                     html += "            </a>";
-                     $("#list_conductores").append(html);
-                });              
+                    $("#list_conductores").append(html);
+                });
             }
         }
     });
@@ -81,7 +81,7 @@ function registrar_compra() {
     }
 }
 
-function cargar_articulos() {
+function cargar_articulos() {// ya no sirve
     var html = "";
     // mostrar_progress();
     $.post(url, {TokenAcceso: "servi12sis3", evento: "get_articulos"}, function (resp) {
@@ -99,7 +99,15 @@ function cargar_articulos() {
             }
         }
     });
+}// ya no sirve
+
+function buscar_vehiculoAggRep() {
+    //alert("si");
+    //sessionStorage.setItem("compraid", obj.resp);
+    // var idRep = getQueryVariable("id");
+    window.location.href = "compra_buscarVehiculoAggRep.html?id=" + 123;
 }
+
 
 function seleccionar_articulo(id, obj) {
     $(".modal_buscar_articulo").modal('toggle');
@@ -364,12 +372,12 @@ function registrar_compra() {
     var usr_log = $.parseJSON(sessionStorage.getItem("usr_log"));
     var lista = [];
     var lis_articulo = $("#tbody_tabla_compra").find("tr");
-        $.each(lis_articulo, function (i, obj) {
-            var objeto = $(obj).data("obj");            
-            lista.push(objeto);
-        });
-        alert(lista);
-    if (exito) {        
+    $.each(lis_articulo, function (i, obj) {
+        var objeto = $(obj).data("obj");
+        lista.push(objeto);
+    });
+    alert(lista);
+    if (exito) {
         $.post(url,
                 {
                     evento: "registrar_compra",
@@ -381,7 +389,7 @@ function registrar_compra() {
                     autorizacion: text_autorizacion,
                     codigo_control: text_codigo_control,
                     forma_pago: text_forma_pago,
-                    id_persona: text_proveedor, 
+                    id_persona: text_proveedor,
                     detalle_compra: lista
                 }, function (respuesta) {
             cerrar_progress();
@@ -400,3 +408,4 @@ function registrar_compra() {
         cerrar_progress();
     }
 }
+
