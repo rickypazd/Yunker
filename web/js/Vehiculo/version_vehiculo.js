@@ -30,6 +30,7 @@ function registrar_version_vehiculo() {
         $("#text_nombre_version").css("background", "#df5b5b");
         exito = false;
     }   
+    
     if (exito) {
         mostrar_progress();
         $.post(url,

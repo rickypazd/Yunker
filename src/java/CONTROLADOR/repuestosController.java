@@ -32,7 +32,7 @@ import MODELO.REPUESTO.REP_AUTO_VERSION;
 import MODELO.REPUESTO.REP_AUTO_VERSION_TO_REP_AUTO;
 import MODELO.REPUESTO.REP_CATEGORIA;
 import MODELO.REPUESTO.REP_ESQUEMA;
-import MODELO.REPUESTO.REP_ESQUEMA_PARTES;
+import MODELO.REPUESTO.REP_PARTES;
 import MODELO.REPUESTO.REP_SUB_CATEGORIA;
 import MODELO.REPUESTO.REP_SUB_CATEGORIA_ACTIVA;
 import MODELO.REPUESTO.REP_SUB_CATEGORIA_DISPONIBLE;
@@ -181,15 +181,23 @@ public class repuestosController extends HttpServlet {
 
                 //</editor-fold>         
                 //<editor-fold defaultstate="collapsed" desc="REP_ESQUEMA">
-                case "registrar_rep_esquema":
+                case "registrar_esquema_partes":
                     html = registrar_rep_esquema(request, con);
                     break;
                 case "getById_rep_esquema":
                     html = getById_rep_esquema(request, con);
                     break;
 
-                case "registrar_esquema_partes":
-                    html = registrar_esquema_partes(request, con);
+                case "registrar_rep_partes":
+                    html = registrar_rep_partes(request, con);
+                    break;
+
+                case "getById_rep_partes":
+                    html = getById_rep_partes(request, con);
+                    break;
+
+                case "getAll_rep_partes_by_id_repuesto":
+                    html = getAll_rep_partes_by_id_repuesto(request, con);
                     break;
 
 //                case "getAll_rep_categoria":
@@ -945,30 +953,25 @@ public class repuestosController extends HttpServlet {
         }
     }
 
-    private String registrar_esquema_partes(HttpServletRequest request, Conexion con) {
-        String nameAlert = "rep_esquema_partes";
+    private String registrar_rep_partes(HttpServletRequest request, Conexion con) {
+        String nameAlert = "registrar_rep_partes";
         try {
-            REP_ESQUEMA_PARTES rep_esquema_partes = new REP_ESQUEMA_PARTES(con);
-            rep_esquema_partes.setCODIGO(pInt(request, "var_codigo"));
-            rep_esquema_partes.setNOMBRE(pString(request, "var_nombre"));
-            rep_esquema_partes.setMARCA(pString(request, "var_marca"));
-            //rep_esquema_partes.setPRECIO((request, "var_precio"));
-            rep_esquema_partes.setDESCRIPCION(pString(request, "var_descripcion"));
+            REP_PARTES rep_partes = new REP_PARTES(con);
+            rep_partes.setCODIGO(pString(request, "var_codigo"));
+            rep_partes.setNOMBRE(pString(request, "var_nombre"));
+            rep_partes.setMARCA(pString(request, "var_marca"));
+            rep_partes.setPRECIO(pDouble(request, "var_precio"));
+            rep_partes.setDESCRIPCION(pString(request, "var_descripcion"));
+            rep_partes.setID_REPUESTO(pInt(request, "var_id_repuesto"));
 
-            int id = rep_esquema_partes.Insertar();
-            rep_esquema_partes.setCODIGO(id);
-            Part file = request.getPart("foto");
-            String name = "";
-            String names = "";
-            if (file != null) {
-                names = file.getSubmittedFileName();
-                String ruta = request.getSession().getServletContext().getRealPath("/");
-                name = EVENTOS.guardar_file(file, ruta + URL.ruta_foto_rep_esquema + "/" + id + "/", names);
-            }
-            rep_esquema_partes.setURL_FOTO(URL.ruta_foto_rep_esquema + "/" + id + "/" + name);
+            int id = rep_partes.Insertar();
 
-            rep_esquema_partes.subir_foto_perfil();
-            RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", rep_esquema_partes.getJson().toString());
+            //rep_partes.setID(id);
+            //Part file = request.getPart("var_url_foto");
+            //String name = "";
+            //String names = "";
+            rep_partes.subir_foto_perfil();
+            RESPUESTA resp = new RESPUESTA(1, "", nameAlert + " registrado con exito.", rep_partes.getJson().toString());
             return resp.toString();
         } catch (SQLException ex) {
             con.rollback();
@@ -980,15 +983,45 @@ public class repuestosController extends HttpServlet {
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
             return resp.toString();
-        } catch (IOException ex) {
-            con.rollback();
-            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
-            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al subir foto.", "{}");
+        }
+    }
+
+    private String getById_rep_partes(HttpServletRequest request, Conexion con) {
+        String nameAlert = "getById_rep_partes";
+        try {
+            REP_PARTES obj_rep_partes = new REP_PARTES(con);//llamo a la clase
+            int id = pInt(request, "var_id");//obtengo el var_codigo de tipo input
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", obj_rep_partes.getById(id).toString());//me envia esta respuesta
             return resp.toString();
-        } catch (ServletException ex) {
+        } catch (SQLException ex) {
             con.rollback();
             Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
-            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al subir foto.", "{}");
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
+            return resp.toString();
+        }
+    }
+
+    private String getAll_rep_partes_by_id_repuesto(HttpServletRequest request, Conexion con) {
+        String nameAlert = "getall_rep_partes";
+        try {
+             REP_PARTES obj_rep_partes = new REP_PARTES(con);//llamo a la clase
+            int id_repuesto = pInt(request, "var_id_repuesto");//obtengo el var_codigo de tipo input
+            RESPUESTA resp = new RESPUESTA(1, "", "Exito.", obj_rep_partes.getAll_rep_partes_by_id_repuesto(id_repuesto).toString());
+            return resp.toString();
+        } catch (SQLException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al obtener " + nameAlert + ".", "{}");
+            return resp.toString();
+        } catch (JSONException ex) {
+            con.rollback();
+            Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            RESPUESTA resp = new RESPUESTA(0, ex.getMessage(), "Error al convertir " + nameAlert + " a JSON.", "{}");
             return resp.toString();
         }
     }

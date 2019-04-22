@@ -43,8 +43,10 @@ function registrar_esquema() {
                   var obj = $.parseJSON(data);
 
                 sessionStorage.setItem("esquema", obj.resp);
+ 
                 var idRep = getQueryVariable("id");
                 window.location.href = "canvas.html?id=" + idRep;
+                
             }
         });
     } else {
