@@ -208,16 +208,15 @@ function cargar_iten_version(obj) {
     $("#lista_version").append(html);
 }
 
+var id_vehiculo;
+
 function seleccionar_version(obj) {
-     
-    
-    
     $("#rep_auto_version").val(obj.nombre);
     $("#rep_auto_version").data("id", obj.id_version);
     $(".bd-version").modal("toggle");
-    
-      var id_vehiculo= $("#rep_auto_version").data("id");
-     alert("id vehiculo "+id_vehiculo);
+
+    id_vehiculo = $("#rep_auto_version").data("id");
+
 }
 
 function Buscar_vehiculo() {
@@ -243,16 +242,25 @@ function Buscar_vehiculo() {
                 } else {
                     //exito
                     // $("#lista_anhos").html("");
-                    
                     cargar_iten_vehiculo_compatible($.parseJSON(obj.resp));
-                    alert(cargar_iten_vehiculo_compatible($.parseJSON(obj.resp)));
-            }
+                    alert("d");
+                }
             }
         });
     } else {
         cerrar_progress();
         alert("Ocurrio algun problema. Disculpe las molestias.");
     }
-    
-    
 }
+
+function buscar_lista_categorias()
+{
+    //alert("si");
+    //sessionStorage.setItem("compraid", obj.resp);
+    // var idRep = getQueryVariable("id");
+    alert("id vehiculo " + id_vehiculo);
+
+    window.location.href = "compra_buscarVehiculoCategoria.html?id=" + id_vehiculo;
+}
+
+            
