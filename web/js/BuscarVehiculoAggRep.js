@@ -261,6 +261,12 @@ function buscar_lista_categorias()
     alert("id vehiculo " + id_vehiculo);
 
     window.location.href = "compra_buscarVehiculoCategoria.html?id=" + id_vehiculo;
+
+    sessionStorage.setItem("dato1", $("#rep_auto_marca").val());
+    sessionStorage.setItem("dato2", $("#rep_auto_modelo").val());
+    sessionStorage.setItem("dato3", $("#rep_auto_anho").val());
+    sessionStorage.setItem("dato4", $("#rep_auto_version").val());
+
 }
 
             

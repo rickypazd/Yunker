@@ -6,9 +6,14 @@
 
 
 var url = "repuestosController";
+ 
+
 $(document).ready(function () {
     var id = getQueryVariable("id");
-    
+    $('#text_marca').val(sessionStorage.getItem("dato1"));
+    $('#text_modelo').val(sessionStorage.getItem("dato2"));
+    $('#text_año').val(sessionStorage.getItem("dato3"));
+    $('#text_version').val(sessionStorage.getItem("dato4"));
     cargar_categorias(id);
 });
 //----------CATEGORIA-------------
