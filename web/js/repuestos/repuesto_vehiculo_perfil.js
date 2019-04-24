@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 var url = "repuestosController";
+var id_usr;
+var id_cat;
 $(document).ready(function () {
     id_usr = getQueryVariable("id");
     id_cat = getQueryVariable("id_sub_categoria");
@@ -347,7 +349,7 @@ function Guardar_version_perfil() {
     mostrar_progress();
     var id_version = $("#rep_auto_version").data("id");
     var idRep = getQueryVariable("id");
-    var idSubCat = getQueryVariable("id_sub_categoria");
+    var idSubCat = getQueryVariable("idSubCat");
     if (id_version > 0 && idRep > 0 && idSubCat > 0) {
         $.post(url, {
             evento: "registrar_rep_sub_categoria_activa",
