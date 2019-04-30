@@ -187,7 +187,7 @@ public class repuestosController extends HttpServlet {
 
                 //</editor-fold>         
                 //<editor-fold defaultstate="collapsed" desc="REP_ESQUEMA">
-                case "registrar_esquema_partes":
+                case "registrar_rep_esquema":
                     html = registrar_rep_esquema(request, con);
                     break;
                 case "getById_rep_esquema":

@@ -21,7 +21,7 @@ function Lista_repuesto() {
                 alert(obj.mensaje);
             } else {
                 var arr = $.parseJSON(obj.resp);
-                alert(obj.resp);
+                //alert(obj.resp);
                 $("#resultados_partes").html("(" + arr.length + ")");
                 $("#list_partes").html(" ");
                 $.each(arr, function (i, obj) {

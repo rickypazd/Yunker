@@ -217,7 +217,7 @@ function registrar_rep_partes() {
             if (respuesta != null) {
                 var obj = $.parseJSON(respuesta);
                 if (obj.estado != 1) {
-                    alert(obj.mensaje);
+                    //alert(obj.mensaje);
                      $('#myModal').modal('show-hidden');
                     $('#myModal').addClass('hidden');
                     Lista_repuesto();
