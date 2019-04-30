@@ -3,7 +3,14 @@ var url = "admin/adminController";
 var url2 = "repuestosController";
 var articulos = [];
 $(document).ready(function () {
+
+
+
     Lista_repuesto();
+
+     $('#text_serie').val(sessionStorage.getItem("var_123"));
+
+    cargar_iten();
 });
 
 function Lista_repuesto() {

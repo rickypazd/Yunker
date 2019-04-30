@@ -20,22 +20,23 @@ and open the template in the editor.
             <nav class="navbar navbar-expand-sm navbar-default">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li>
+                        <li class="active">
                             <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Inicio</a>
                         </li>
                         <li class="menu-title">RRHH</li>
-                        <li class="menu-item-has-children dropdown ">
+                        <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                                 <i class="menu-icon fa fa-user"></i>Usuarios.
                             </a>
                             <ul class="sub-menu children dropdown-menu">                      
-                                <li ><i class="fa fa-unlock-alt"></i><a href="rolesypermisos.html">Roles y permisos.</a></li>
+                                <li><i class="fa fa-unlock-alt"></i><a href="rolesypermisos.html">Roles y permisos.</a></li>
                                 <li><i class="fa fa-user-plus"></i><a href="crearUsuarioAdmin.html">Crear usuario.</a></li>
+
 
                             </ul>
                         </li>
                         <li class="menu-title">Repuestos</li><!-- /.menu-title -->
-                        <li class="menu-item-has-children dropdown active">
+                        <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                                 <i class="menu-icon fa fa-cogs"></i>Repuestos.
                             </a>
@@ -55,7 +56,7 @@ and open the template in the editor.
                                 <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo_marca.html">Agregar marca.</a></li>
                                 <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo_modelo.html">Agregar modelo.</a></li>
                                 <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo_version.html">Agregar version.</a></li>
-                                <li><i class="fa fa-search"></i><a href="tables-data.html">Buscar vehiculo.</a></li>
+                                <li><i class="fa fa-search"></i><a href="veh_buscar_vehiculo.html">Buscar vehiculo.</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">Compras</li><!-- /.menu-title -->
@@ -122,107 +123,112 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-            </header>           
-            <div class="card-header text-center" style="background-color: whitesmoke" >
-                <h4 class="modal-title" id="exampleModalLabel">Perfil repuesto</h4>                       
-            </div>     
-            <div class="content" style="background-color: white">                  
-                <form method="POST" id="submitform" enctype="multipart/form-data">
-                    <div class="col-12" style="text-align: center;">  
-                        <img id="foto_perfil" src="img/Sin_imagen.png" alt="img" width="150px" height="150px"/>                           
-                    </div>
-                    <br>                        
-                    <div class="row">                                
-                        <div class=" col-md-12 col-lg-12"> 
-                            <table class="table table-striped table-user-information">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <h4>Marca:</h4>
-                                        </td>
-                                        <td><h4 id="text_marca" ></h4></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h4>Modelo:</h4></td>
-                                        <td><h4  id="text_modelo" ></h4></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h4>Año:</h4></td>
-                                        <td><h4 id="text_año" ></h4></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h4>version</h4></td>
-                                        <td><h4  id="text_version" ></h4></td>
-                                    </tr>                                    
-                                </tbody>
-                            </table>                                                      
+            </header>
+            <div class="content">
+                <!--  ==========================================================================================================0 -->  
+                <!--  ==========================================================================================================0 -->  
+                <!--  ==========================================================================================================0 -->   
+
+                <div class="card-header text-center" style="background-color: whitesmoke" >
+                    <h4 class="modal-title" id="exampleModalLabel">Perfil repuesto</h4>                       
+                </div>     
+                <div class="content" style="background-color: white">                  
+                    <form method="POST" id="submitform" enctype="multipart/form-data">
+                        <div class="col-12" style="text-align: center;">  
+                            <img id="foto_perfil" src="img/Sin_imagen.png" alt="img" width="150px" height="150px"/>                           
                         </div>
-                    </div>
-                </form>
-                <h3 class="separador">VEHICULOS COMPATIBLES:</h3>                
-                <div class=" col-md-12 text-center">                                
-                    <button type="button" class="btn btn-primary " data-toggle="modal" data-target=".modal-auto">Agregar vehiculo</button>
-                </div>                                            
-                <div class="row">
-                    <div class="col-md-12 align-content-center">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <a><b>Resultados:</b><span id="resultados">(0)</span></a>
+                        <br>                        
+                        <div class="row">                                
+                            <div class=" col-md-12 col-lg-12"> 
+                                <table class="table table-striped table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h4>Marca:</h4>
+                                            </td>
+                                            <td><h4 id="text_marca" ></h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h4>Modelo:</h4></td>
+                                            <td><h4  id="text_modelo" ></h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h4>Año:</h4></td>
+                                            <td><h4 id="text_año" ></h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h4>version</h4></td>
+                                            <td><h4  id="text_version" ></h4></td>
+                                        </tr>                                    
+                                    </tbody>
+                                </table>                                                      
                             </div>
                         </div>
-                        <div id="lista_vehiculo_compatibles" class="list-group" >
-                            <a href='javaScript:void(0)'  class='list-group-item list-group-item-action flex-column align-items-start'>
-                                <div class="row ">
-                                    <div class="col-3">
-                                        <label >Foto</label>
-                                    </div>
-                                    <div class="col-2">                                                                                                                
-
-                                        <label >Marca</label>
-
-                                    </div>
-                                    <div class="col-2">
-                                        <label >Modelo</label>
-                                    </div>
-                                    <div class="col-2">
-                                        <label >Año</label>
-                                    </div>
-                                    <div class="col-2">
-                                        <label>Version</label>
-                                    </div>
+                    </form>
+                    <h3 class="separador">VEHICULOS COMPATIBLES:</h3>                
+                    <div class=" col-md-12 text-center">                                
+                        <button type="button" class="btn btn-primary " data-toggle="modal" data-target=".modal-auto">Agregar vehiculo</button>
+                    </div>                                            
+                    <div class="row">
+                        <div class="col-md-12 align-content-center">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a><b>Resultados:</b><span id="resultados">(0)</span></a>
                                 </div>
-                            </a>
-                            <!--  <a href='javaScript:void(0)' onclick='' class='list-group-item list-group-item-action flex-column align-items-start'>
-                                <div class="row iten_repuesto_row">
-                                    <div class="col-3">
-                                        <img src='img/logoservisis.png' class="" height='80px' alt='' />
-                                    </div>
-                                    <div class="col-2">                                                                                                                
-                                        <label>marca</label>
-                                    </div>
-                                    <div class="col-2">
-                                        <label>modelo</label>
-                                    </div>
-                                    <div class="col-2">
-                                        <label>anho</label>
-                                    </div>
-                                    <div class="col-2">
-                                        <label>serie</label>
-                                    </div>
-                                </div>
-                                            </a>-->
+                            </div>
+                            <div id="lista_vehiculo_compatibles" class="list-group" >
+                                <a href='javaScript:void(0)'  class='list-group-item list-group-item-action flex-column align-items-start'>
+                                    <div class="row ">
+                                        <div class="col-3">
+                                            <label >Foto</label>
+                                        </div>
+                                        <div class="col-2">                                                                                                                
 
-                        </div>                                        
-                    </div>
-                </div>                
-            </div>                                                                    
-            <div class="clearfix">
+                                            <label >Marca</label>
+
+                                        </div>
+                                        <div class="col-2">
+                                            <label >Modelo</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label >Año</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label>Version</label>
+                                        </div>
+                                    </div>
+                                </a>
+                                <!--  <a href='javaScript:void(0)' onclick='' class='list-group-item list-group-item-action flex-column align-items-start'>
+                                    <div class="row iten_repuesto_row">
+                                        <div class="col-3">
+                                            <img src='img/logoservisis.png' class="" height='80px' alt='' />
+                                        </div>
+                                        <div class="col-2">                                                                                                                
+                                            <label>marca</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label>modelo</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label>anho</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label>serie</label>
+                                        </div>
+                                    </div>
+                                                </a>-->
+
+                            </div>                                        
+                        </div>
+                    </div>                
+                </div>                                                                    
             </div>
             <!-- Footer -->
 
             <!-- /.site-footer -->
-        </div>       
+            <div class="clearfix"></div>
 
+        </div>   
         <div class="modal fade modal-auto"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="overflow-y: scroll;"> 
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content" style="background-color: white" >

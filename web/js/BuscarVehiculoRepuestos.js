@@ -9,7 +9,7 @@ $(document).ready(function () {
     Lista_repuesto();
 });
 function Lista_repuesto() {
-    
+
     var idSubcategoria = getQueryVariable("idSubCatAct");
 
     mostrar_progress();
@@ -26,7 +26,7 @@ function Lista_repuesto() {
                 $.each(arr, function (i, obj) {
                     var html = "<a href='javaScript:void(0)' onclick='ver_repuesto(this)' data-obj='" + JSON.stringify(obj) + "' class='list-group-item list-group-item-action flex-column align-items-start'>";
                     html += "               <div class='row iten_repuesto_row'>";
-                    html += "                     <div class='col-3'>";
+                    html += "                     <div class='col-2'>";
                     html += "                         <img src='" + obj.url_foto + "' class='' height='60px' alt='' />";
                     html += "                      </div>";
                     html += "                     <div class='col-2'>";
@@ -41,6 +41,13 @@ function Lista_repuesto() {
                     html += "                     <div class='col-2'>";
                     html += "                         <h6>" + obj.descripcion + "</h6>";
                     html += "                     </div>";
+
+
+                    html += "                     <div class='col-2'>";
+                    html += "                     <input type='submit' value='add' onclick='enviar_acompra(" + obj.id + ");' /> ";
+                    html += "                     </div>";
+
+
                     html += "                 </div>";
                     html += "            </a>";
                     $("#list_conductores").append(html);
@@ -62,10 +69,18 @@ function ver_conductor(id) {
 
 function ver_repuesto(itn) {
     var data = $(itn).data("obj");
-    window.location.href = 'art_repuesto_vehiculo_perfil.html?id=' + data.id + "&id_sub_categoria=" + data.id_sub_categoria;
+    alert(data.serie);
+
+    //window.location.href = 'art_repuesto_vehiculo_perfil.html?id=' + data.id + "&id_sub_categoria=" + data.id_sub_categoria;
 }
 
 
+function enviar_acompra(id) {
+
+
+    sessionStorage.setItem("var_123", id);
+    window.location.href = "compra.html?";
+}
 
 function getQueryVariable(varia) {
     var query = window.location.search.substring(1);
@@ -78,3 +93,4 @@ function getQueryVariable(varia) {
     }
     return (false);
 }
+

@@ -20,22 +20,23 @@ and open the template in the editor.
             <nav class="navbar navbar-expand-sm navbar-default">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li>
+                        <li class="active">
                             <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Inicio</a>
                         </li>
                         <li class="menu-title">RRHH</li>
-                        <li class="menu-item-has-children dropdown ">
+                        <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                                 <i class="menu-icon fa fa-user"></i>Usuarios.
                             </a>
                             <ul class="sub-menu children dropdown-menu">                      
-                                <li ><i class="fa fa-unlock-alt"></i><a href="rolesypermisos.html">Roles y permisos.</a></li>
+                                <li><i class="fa fa-unlock-alt"></i><a href="rolesypermisos.html">Roles y permisos.</a></li>
                                 <li><i class="fa fa-user-plus"></i><a href="crearUsuarioAdmin.html">Crear usuario.</a></li>
+
 
                             </ul>
                         </li>
                         <li class="menu-title">Repuestos</li><!-- /.menu-title -->
-                        <li class="menu-item-has-children dropdown active">
+                        <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                                 <i class="menu-icon fa fa-cogs"></i>Repuestos.
                             </a>
@@ -55,7 +56,7 @@ and open the template in the editor.
                                 <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo_marca.html">Agregar marca.</a></li>
                                 <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo_modelo.html">Agregar modelo.</a></li>
                                 <li><i class="fa fa-plus-circle"></i><a href="art_vehiculo_version.html">Agregar version.</a></li>
-                                <li><i class="fa fa-search"></i><a href="tables-data.html">Buscar vehiculo.</a></li>
+                                <li><i class="fa fa-search"></i><a href="veh_buscar_vehiculo.html">Buscar vehiculo.</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">Compras</li><!-- /.menu-title -->
@@ -104,10 +105,12 @@ and open the template in the editor.
                 </div>
                 <div class="top-right">
                     <div class="header-menu">
+
                         <div class="user-area dropdown float-right">
                             <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="user-avatar rounded-circle" src="img/Sin-foto1.jpg" alt="User Avatar">
                             </a>
+
                             <div class="user-menu dropdown-menu">
                                 <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
 
@@ -120,51 +123,56 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-            </header>           
-            <div class="card-header text-center" style="background-color: whitesmoke" >
-                <h4 class="modal-title" id="exampleModalLabel">Buscar vehículo</h4>                       
-            </div>  
-            <div class="clearfix">                
-            </div>           
-            <div class="content" style="background-color: white" >                                
-                <div class="form-row">                    
-                    <div class="form-group col-md-6">
-                        <label for="rep_auto_marca" class="label-titulo">Marca</label>
-                        <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-marca" id="rep_auto_marca" >                                    
-                        <br>
-                        <img id="img_marca" src="img/sin_foto.png" width="150" alt="img"/>                                    
+            </header>
+            <div class="content">
+                <!--  ==========================================================================================================0 -->  
+                <!--  ==========================================================================================================0 -->  
+                <!--  ==========================================================================================================0 -->   
+
+                <div class="card-header text-center" style="background-color: whitesmoke" >
+                    <h4 class="modal-title" id="exampleModalLabel">Buscar vehículo</h4>                       
+                </div>  
+                <div class="clearfix">                
+                </div>           
+                <div class="content" style="background-color: white" >                                
+                    <div class="form-row">                    
+                        <div class="form-group col-md-6">
+                            <label for="rep_auto_marca" class="label-titulo">Marca</label>
+                            <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-marca" id="rep_auto_marca" >                                    
+                            <br>
+                            <img id="img_marca" src="img/sin_foto.png" width="150" alt="img"/>                                    
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rep_auto_modelo" class="label-titulo">Modelo</label>
+                            <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-modelo" id="rep_auto_modelo" >
+                            <br>
+                            <img id="img_marca" src="img/sin_foto.png" width="150" alt="img"/>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="rep_auto_modelo" class="label-titulo">Modelo</label>
-                        <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-modelo" id="rep_auto_modelo" >
-                        <br>
-                        <img id="img_marca" src="img/sin_foto.png" width="150" alt="img"/>
+                    <br>
+                    <div class="form-row"> 
+                        <div class="form-group col-md-6">
+                            <label for="rep_auto_anho" class="label-titulo">Año</label>
+                            <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-anhos" id="rep_auto_anho" >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rep_auto_version" class="label-titulo">Version</label>
+                            <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-version" id="rep_auto_version" >
+                        </div>
                     </div>
                 </div>
-                <br>
-                <div class="form-row"> 
-                    <div class="form-group col-md-6">
-                        <label for="rep_auto_anho" class="label-titulo">Año</label>
-                        <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-anhos" id="rep_auto_anho" >
+                <br>                        
+                <div class="modal-footer justify-content-center">
+                    <div class="row" >
+                        <div class=" col-md-12">                      
+                            Buscar_vehiculo
+                            <button type="button" class="btn btn-primary btn-lg" onclick="Buscar_vehiculo();">Buscar</button>
+                            <!--<button type="button" class="btn btn-primary btn-lg" onclick="Guardar_version_perfil();">Buscar</button>-->
+                        </div>                            
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="rep_auto_version" class="label-titulo">Version</label>
-                        <input class="form-control input_hover color-input" readonly="readonly" data-toggle="modal" data-target=".bd-version" id="rep_auto_version" >
-                    </div>
-                </div>
-            </div>
-            <br>                        
-            <div class="modal-footer justify-content-center">
-                <div class="row" >
-                    <div class=" col-md-12">                      
-                        Buscar_vehiculo
-                        <button type="button" class="btn btn-primary btn-lg" onclick="Buscar_vehiculo();">Buscar</button>
-                        <!--<button type="button" class="btn btn-primary btn-lg" onclick="Guardar_version_perfil();">Buscar</button>-->
-                    </div>                            
                 </div>
             </div>
         </div>
-
         <div class="modal fade bd-marca" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
